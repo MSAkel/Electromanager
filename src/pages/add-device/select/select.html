@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ device.deviceName }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h2>{{ device.name }}</h2>
+        <div class="subtitle">Energy: {{ device.energy }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <p>Hours/day: {{ device.hours }}</p>
+        <p>Total Hours: {{ device.totalHours }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button outline block (click)="onEditDevice()">Edit</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button outline block (click)="onDeleteDevice()" color="danger">Delete</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

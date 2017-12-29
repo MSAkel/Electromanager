@@ -5,12 +5,23 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { AddDevicePage } from "../pages/add-device/add-device";
+import { CreatePage } from "../pages/add-device/create/create";
+import { SelectPage } from "../pages/add-device/select/select";
+import { DevicesListPage } from "../pages/devices-list/devices-list";
+import { SummaryPage } from "../pages/summary/summary";
+import { TabsPage } from "../pages/tabs/tabs";
+import { DeviceListService } from "../services/devices-list";
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    AddDevicePage,
+    CreatePage,
+    SelectPage,
+    DevicesListPage,
+    SummaryPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -19,11 +30,17 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    AddDevicePage,
+    CreatePage,
+    SelectPage,
+    DevicesListPage,
+    SummaryPage,
+    TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    DeviceListService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Devices List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let device of listDevices; let i = index" (click)="onLoadDevice(device, i)">
+      <h3>Name:{{ device.name }}  Energy:{{ device.energy }}</h3>
+      <h2>hours/day: {{ device.hours }}  Total hours:{{ device.totalHours }}</h2>
+    </ion-item>
+  </ion-list>
+</ion-content>
