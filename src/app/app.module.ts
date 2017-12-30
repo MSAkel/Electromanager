@@ -12,6 +12,7 @@ import { DevicesListPage } from "../pages/devices-list/devices-list";
 import { SummaryPage } from "../pages/summary/summary";
 import { TabsPage } from "../pages/tabs/tabs";
 import { DeviceListService } from "../services/devices-list";
+import {NgMathPipesModule} from 'ngx-pipes';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DeviceListService } from "../services/devices-list";
   ],
   imports: [
     BrowserModule,
+    NgMathPipesModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

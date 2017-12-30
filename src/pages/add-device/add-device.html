@@ -11,6 +11,14 @@
 
 
 <ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let CatGroup of deviceCat"
+      [navPush]="bdevicesPage" [navParams]="CatGroup" color="deviceBackground">
+      <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
+      <h2>{{ CatGroup.category | uppercase }}</h2>
+      <p>{{ CatGroup.lists.length }} Devices</p>
+    </button>
+  </ion-list>
   <ion-fab  bottom right>
     <button ion-fab mini color="secondary" (click)="onNewDevice()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>

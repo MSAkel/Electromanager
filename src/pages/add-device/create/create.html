@@ -4,30 +4,6 @@
   </ion-navbar>
 </ion-header>
 
-<!-- <ion-content padding>
-  <form #f="ngForm" (ngSubmit)="onAddDevice(f)">
-    <ion-list>
-      <ion-item>
-        <ion-label fixed>Name</ion-label>
-        <ion-input type="text" name="deviceName" placeholder="Name" ngModel required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Energy</ion-label>
-        <ion-input type="number" name="energy" placeholder="0" ngModel required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Hours/day</ion-label>
-        <ion-input type="number" name="hours" placeholder="0" ngModel required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Total Hours</ion-label>
-        <ion-input type="number" name="totalHours" placeholder="0" ngModel required></ion-input>
-      </ion-item>
-    </ion-list>
-    <button ion-button type="submit" block [disabled]=!f.valid>Add Device</button>
-  </form>
-</ion-content> -->
-
 <ion-content>
   <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
     <ion-list>

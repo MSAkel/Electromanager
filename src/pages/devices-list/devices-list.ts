@@ -12,7 +12,6 @@ import { SelectPage } from "../add-device/select/select";
 })
 export class DevicesListPage {
   listDevices: Device[];
-  totalDayHours = 0;
 
   constructor(private dlService: DeviceListService, private navCtrl: NavController) {
   }

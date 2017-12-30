@@ -23,4 +23,5 @@ export class DeviceListService {
   removeDevice(index: number) {
     this.devices.splice(index, 1);
   }
+
 }
