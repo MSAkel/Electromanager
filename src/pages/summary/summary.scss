@@ -1,3 +1,30 @@
 page-summary {
+  #top {
+    border-bottom: 1px solid black;
+  }
+  #summary-first {
+    background-color: #dee8f7;
+    border-bottom: 1px solid black;
+  }
 
+  #summary-second {
+    background-color: #ebffd8;
+    border-bottom: 1px solid black;
+  }
+
+  .dollar {
+    color: green;
+  }
+
+  .flash {
+    color: #ffff63;
+  }
+
+  .text-center{
+    text-align: center;
+  }
+
+  .split-col {
+    border-right: 1px solid grey;
+  }
 }

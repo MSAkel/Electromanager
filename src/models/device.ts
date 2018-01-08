@@ -4,7 +4,7 @@ export class Device {
     public quantity: number,
     public power: number,
     public hours: number,
-    public totalHours: number,
+    //public totalHours: number,
     public daysUsed: number
     ) {
   }
