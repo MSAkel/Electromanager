@@ -4,29 +4,29 @@ import {NavController, NavParams } from 'ionic-angular';
 import { CreatePage } from "./create/create";
 
 import { CatDevice } from "../../data/device-cat.interface";
-import lists from '../../data/device-cat';
+import devices from '../../data/device-cat';
+import { DisplayCatPage } from "./display-cat/display-cat";
 
 @Component({
   selector: 'page-add-device',
   templateUrl: 'add-device.html',
 })
 export class AddDevicePage implements OnInit{
+  deviceCat: {category: string, devices: CatDevice[], icon: string}[];
+  displayCatPage = DisplayCatPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  deviceCat: {category: string, lists: CatDevice[], icon: string}[];
-
   ngOnInit() {
-    this.deviceCat = lists;
+    this.deviceCat = devices;
   }
   //Create device button
   onNewDevice() {
-    this.navCtrl.push(CreatePage, {mode: 'New'});
+    this.navCtrl.push(CreatePage, {mode: 'Add'});
   }
 
   // onLoadCreate() {
   //   this.navCtrl.push(CreatePage);
   // }
-
 }

@@ -1,26 +1,28 @@
 <ion-header>
-
   <ion-navbar>
     <!-- <ion-buttons end>
       <button ion-button icon-only (click)="onNewDevice()"><ion-icon name="add"></ion-icon></button>
     </ion-buttons> -->
     <ion-title>Add Device</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
+  <ion-card>
+  <ion-card-header>
+    Predefined Appliances
+  </ion-card-header>
   <ion-list>
     <button ion-item *ngFor="let CatGroup of deviceCat"
-      [navPush]="bdevicesPage" [navParams]="CatGroup" color="deviceBackground">
+      [navPush]="displayCatPage" [navParams]="CatGroup" color="primary">
       <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
       <h2>{{ CatGroup.category | uppercase }}</h2>
-      <p>{{ CatGroup.lists.length }} Devices</p>
+      <p>{{ CatGroup.devices.length }} Devices</p>
     </button>
   </ion-list>
-  <ion-fab  bottom right>
+</ion-card>
+  <!-- <ion-fab  bottom right>
     <button ion-fab mini color="secondary" (click)="onNewDevice()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
-  <!-- <button ion-button (click)="onLoadCreate()">Create</button> -->
+  <button ion-button (click)="onLoadCreate()">Create</button> -->
 </ion-content>
