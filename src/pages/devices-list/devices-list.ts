@@ -25,7 +25,7 @@ export class DevicesListPage implements OnInit{
   }
 
   ngOnInit() {
-    ///this.dlService.fetchDevices();
+    //this.dlService.fetchDevices();
   }
 
   ionViewWillEnter() {

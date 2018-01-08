@@ -30,7 +30,7 @@ export class SummaryPage implements OnInit{
      ) {}
 
      ngOnInit() {
-       // this.dlService.fetchDevices()
+       this.dlService.fetchDevices();
        //   .then(
        //     (devices: Device[]) => this.listDevices = devices
        //   );
