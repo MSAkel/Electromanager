@@ -47,7 +47,7 @@ export class SummaryPage implements OnInit{
      calculate(){
          this.totalPower = 0;
          for(var index = 0; index < this.listDevices.length; index++){
-           this.totalHours = this.listDevices[index].hours;
+           this.totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
            this.power = this.listDevices[index].power;
            this.multi = this.totalHours * this.power;
            this.totalPower = this.totalPower + this.multi;
