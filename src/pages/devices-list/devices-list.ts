@@ -25,28 +25,11 @@ export class DevicesListPage implements OnInit{
   }
 
   ngOnInit() {
-    this.dlService.fetchDevices();
+    ///this.dlService.fetchDevices();
   }
 
   ionViewWillEnter() {
     this.listDevices = this.dlService.getDevices();
-    if( this.listDevices.length > 0) {
-      this.calculate();
-    }
-  }
-
-  calculate(){
-      this.totalPower = 0;
-      for(var index = 0; index < this.listDevices.length; index++){
-        this.totalHours = this.listDevices[index].totalHours;
-        this.power = this.listDevices[index].power;
-        this.multi = this.totalHours * this.power;
-        this.totalPower = this.totalPower + this.multi;
-        console.log(this.listDevices.length);
-        console.log('count ' + index);
-
-    }
-    return this.totalPower;
   }
 
   onLoadDevice(device: Device, index: number) {
