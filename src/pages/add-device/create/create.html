@@ -12,16 +12,24 @@
         <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Power</ion-label>
+        <ion-label floating>Quantity</ion-label>
+        <ion-input type="number" formControlName="quantity"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Power</ion-label>
         <ion-input type="number" formControlName="power"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Hours/day</ion-label>
+        <ion-label floating>Hours/day</ion-label>
         <ion-input type="number" formControlName="hours"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Total Hours</ion-label>
+        <ion-label floating>Total Hours</ion-label>
         <ion-input type="number" formControlName="totalHours"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Days Used</ion-label>
+        <ion-input type="number" formControlName="daysUsed"></ion-input>
       </ion-item>
     </ion-list>
     <button ion-button type="submit" block [disabled]="!deviceForm.valid">{{ mode }} Device</button>

@@ -15,14 +15,17 @@
           <ion-col>
             <h2>Name</h2>
           </ion-col>
-          <!-- <ion-col>
+          <ion-col>
             <h2>Quantity</h2>
-          </ion-col> -->
+          </ion-col>
           <ion-col>
             <h2>Consumption</h2>
           </ion-col>
           <ion-col>
             <h2>Time</h2>
+          </ion-col>
+          <ion-col>
+            <h2>Days Used</h2>
           </ion-col>
         </ion-row>
 
@@ -31,13 +34,16 @@
             <p>{{ device.name }}</p>
           </ion-col>
           <ion-col>
-            <!-- <p>{{ device.quantity }}</p> -->
+            <p>{{ device.quantity }}</p>
           </ion-col>
           <ion-col>
             <p><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }}</p>
           </ion-col>
           <ion-col>
             <p><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{ device.daysUsed }}</p>
           </ion-col>
         </ion-row>
       </ion-grid>
