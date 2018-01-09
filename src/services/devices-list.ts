@@ -44,6 +44,13 @@ export class DeviceListService {
 
   updateDevice(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number) {
     this.devices[index] = new Device(name, quantity, power, hours,  daysUsed);
+    this.storage.set('devices', this.devices)
+      .then()
+      .catch(
+        err => {
+          err => console.log(err)
+        }
+      );
   }
 
   removeDevice(index: number) {

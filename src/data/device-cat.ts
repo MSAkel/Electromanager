@@ -7,7 +7,6 @@ export default [
         quantity: 1,
         power: 40,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -15,7 +14,6 @@ export default [
         quantity: 1,
         power: 60,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -23,7 +21,6 @@ export default [
         quantity: 1,
         power: 75,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -31,7 +28,6 @@ export default [
         quantity: 1,
         power: 100,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -39,7 +35,6 @@ export default [
         quantity: 1,
         power: 40,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -47,7 +42,6 @@ export default [
         quantity: 1,
         power: 60,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -55,7 +49,6 @@ export default [
         quantity: 1,
         power: 75,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -63,7 +56,6 @@ export default [
         quantity: 1,
         power: 100,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       }
     ],
@@ -78,7 +70,6 @@ export default [
         quantity: 1,
         power: 500,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -86,7 +77,6 @@ export default [
         quantity: 1,
         power: 1000,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -94,7 +84,6 @@ export default [
         quantity: 1,
         power: 1300,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -102,7 +91,6 @@ export default [
         quantity: 1,
         power: 1200,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       }
     ],
@@ -148,7 +136,6 @@ export default [
         quantity: 1,
         power: 55,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -156,7 +143,6 @@ export default [
         quantity: 1,
         power: 80,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -164,7 +150,6 @@ export default [
         quantity: 1,
         power: 100,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -172,7 +157,6 @@ export default [
         quantity: 1,
         power: 70,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -180,7 +164,6 @@ export default [
         quantity: 1,
         power: 120,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -188,7 +171,6 @@ export default [
         quantity: 1,
         power: 150,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -196,7 +178,6 @@ export default [
         quantity: 1,
         power: 160,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -204,7 +185,6 @@ export default [
         quantity: 1,
         power: 220,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -212,7 +192,6 @@ export default [
         quantity: 1,
         power: 300,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       }
     ],

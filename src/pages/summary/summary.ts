@@ -18,10 +18,10 @@ export class SummaryPage implements OnInit{
   multi: number;
 
   //Total Per day
-  totalPowerDay: number = 0;
-  totalHoursDay: number;
-  powerDay: number;
-  multiDay: number;
+  // totalPowerDay: number = 0;
+  // totalHoursDay: number;
+  // powerDay: number;
+  // multiDay: number;
 
 
   constructor(public navCtrl: NavController,
@@ -58,18 +58,24 @@ export class SummaryPage implements OnInit{
        return this.totalPower;
      }
 
-     calculateDay() {
-       this.totalPowerDay = 0;
-       for(var index = 0; index < this.listDevices.length; index++){
-         this.totalHoursDay = this.listDevices[index].hours;
-         this.powerDay = this.listDevices[index].power;
-         this.multiDay = this.totalHours * this.power;
-         this.totalPowerDay = this.totalPowerDay + this.multiDay;
-         console.log(this.listDevices.length);
-         console.log('count ' + index);
-
+     highestPower() {
+       for(var index = 0; index < this.listDevices.length; index++) {
+         
        }
-       return this.totalPowerDay;
      }
+
+     // calculateDay() {
+     //   this.totalPowerDay = 0;
+     //   for(var index = 0; index < this.listDevices.length; index++){
+     //     this.totalHoursDay = this.listDevices[index].hours;
+     //     this.powerDay = this.listDevices[index].power;
+     //     this.multiDay = this.totalHours * this.power;
+     //     this.totalPowerDay = this.totalPowerDay + this.multiDay;
+     //     console.log(this.listDevices.length);
+     //     console.log('count ' + index);
+     //
+     //   }
+     //   return this.totalPowerDay;
+     // }
 
 }
