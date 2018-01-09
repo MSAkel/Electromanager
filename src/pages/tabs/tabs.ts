@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { SummaryPage } from "../summary//summary";
 import { DevicesListPage } from "../devices-list//devices-list";
-import { AddDevicePage } from "../add-device/add-device";
+//import { AddDevicePage } from "../add-device/add-device";
 
 @Component({
   selector: 'page-tabs',
@@ -11,5 +11,5 @@ import { AddDevicePage } from "../add-device/add-device";
 export class TabsPage {
   summaryPage = SummaryPage;
   dlPage = DevicesListPage;
-  adPage = AddDevicePage;
+  //adPage = AddDevicePage;
 }

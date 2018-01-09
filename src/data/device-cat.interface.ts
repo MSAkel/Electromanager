@@ -1,6 +1,8 @@
 export interface CatDevice {
-  id: String;
-  device: String;
-  hours: String;
-  consumption: String;
+
+  name: string;
+  quantity: number;
+  power: number;
+  hours: number;
+  daysUsed: number;
 }

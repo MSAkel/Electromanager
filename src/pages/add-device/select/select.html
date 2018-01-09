@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ device.deviceName }}</ion-title>
+    <ion-title>{{ device.name }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -11,14 +11,14 @@
   <ion-grid>
     <ion-row>
       <ion-col text-center>
-        <h2>{{ device.name }}</h2>
-        <div class="subtitle">Energy: {{ device.energy }}</div>
+        <h2>{{ device.name }} ({{ device.quantity }})</h2>
+        <div class="subtitle">Power: {{ device.power }}</div>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col text-center>
         <p>Hours/day: {{ device.hours }}</p>
-        <p>Total Hours: {{ device.totalHours }}</p>
+        <p>Total Hours: {{ device.daysUsed }}</p>
       </ion-col>
     </ion-row>
     <ion-row>

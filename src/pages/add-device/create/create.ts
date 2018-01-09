@@ -1,22 +1,3 @@
-// import { Component } from '@angular/core';
-// import { NgForm } from "@angular/forms";
-//
-// import { DeviceListService } from "../../../services/devices-list";
-//
-// @Component({
-//   selector: 'page-create',
-//   templateUrl: 'create.html',
-// })
-// export class CreatePage {
-//
-//   constructor (private dlService: DeviceListService) {}
-//
-//   onAddDevice(form: NgForm) {
-//     this.dlService.addDevice(form.value.deviceName, form.value.energy, form.value.hours, form.value.totalHours);
-//     form.reset();
-//   }
-// }
-
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { NavParams, NavController } from "ionic-angular";
@@ -48,32 +29,35 @@ export class CreatePage implements OnInit {
   onSubmit() {
     const value = this.deviceForm.value;
     if (this.mode == 'Edit') {
-      this.dlService.updateDevice(this.index, value.deviceName, value.energy, value.hours, value.totalHours);
+      this.dlService.updateDevice(this.index, value.name, value.quantity, value.power, value.hours, value.daysUsed);
     } else {
-      this.dlService.addDevice(value.deviceName, value.energy, value.hours, value.totalHours);
+      this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed);
     }
     this.deviceForm.reset();
     this.navCtrl.popToRoot();
   }
 
   private initializeForm() {
-    let deviceName = null;
-    let energy = null;
+    let name = null;
+    let quantity = 1;
+    let power = null;
     let hours = null;
-    let totalHours = null;
+    let daysUsed = 30;
 
     if(this.mode == 'Edit'){
-      deviceName = this.device.name;
-      energy = this.device.energy;
+      name = this.device.name;
+      quantity = this.device.quantity;
+      power = this.device.power;
       hours = this.device.hours;
-      totalHours = this.device.totalHours;
+      daysUsed = this.device.daysUsed;
     }
 
     this.deviceForm = new FormGroup({
-      'deviceName': new FormControl(deviceName, Validators.required),
-      'energy': new FormControl(energy, Validators.required),
+      'name': new FormControl(name, Validators.required),
+      'quantity': new FormControl(quantity, Validators.required),
+      'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
-      'totalHours': new FormControl(totalHours, Validators.required)
+      'daysUsed': new FormControl(daysUsed, Validators.required)
     });
   }
 }

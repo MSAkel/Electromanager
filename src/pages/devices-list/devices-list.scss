@@ -1,3 +1,31 @@
 page-devices-list {
 
+  .dollar {
+    color: green;
+  }
+
+  .flash {
+    color: #ffff63;
+  }
+
+  .time {
+    color: #3d3d3d;
+  }
+
+  .split-col {
+    border-right: 1px solid grey;
+  }
+
+  .col-top {
+    border-top: 1px solid grey;
+  }
+
+  #list {
+    background-color: #f1efff;
+    margin-bottom: 1%;
+  }
+
+  p {
+    padding-top: 5%;
+  }
 }

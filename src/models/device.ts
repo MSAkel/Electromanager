@@ -1,5 +1,10 @@
 export class Device {
-  constructor(public name: string, public energy: number, public hours: number, public totalHours: number) {
-
+  constructor(
+    public name: string,
+    public quantity: number,
+    public power: number,
+    public hours: number,
+    public daysUsed: number
+    ) {
   }
 }
