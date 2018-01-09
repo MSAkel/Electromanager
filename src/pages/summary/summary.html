@@ -69,4 +69,21 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+
+  <ion-list>
+    <h3>Total power consumed per device</h3>
+    <ion-item *ngFor="let device of listDevices; let i = index">
+      <ion-grid>
+        <ion-row class="col-top">
+          <ion-col>
+            <p>{{ device.name }} ({{ device.quantity }})</p>
+          </ion-col>
+          <ion-col>
+            <p>{{ device.quantity * device.power * device.hours * device.daysUsed }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
 </ion-content>

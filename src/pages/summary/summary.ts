@@ -49,19 +49,13 @@ export class SummaryPage implements OnInit{
          for(var index = 0; index < this.listDevices.length; index++){
            this.totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
            this.power = this.listDevices[index].power;
-           this.multi = this.totalHours * this.power;
+           this.multi = this.totalHours * this.power * this.listDevices[index].daysUsed;
            this.totalPower = this.totalPower + this.multi;
            console.log(this.listDevices.length);
            console.log('count ' + index);
 
        }
        return this.totalPower;
-     }
-
-     highestPower() {
-       for(var index = 0; index < this.listDevices.length; index++) {
-         
-       }
      }
 
      // calculateDay() {

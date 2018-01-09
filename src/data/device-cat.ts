@@ -105,7 +105,6 @@ export default [
         quantity: 1,
         power: 3000,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -113,7 +112,6 @@ export default [
         quantity: 1,
         power: 5,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       },
       {
@@ -121,7 +119,6 @@ export default [
         quantity: 1,
         power: 800,
         hours: 0,
-        totalHours: 0,
         daysUsed: 30
       }
     ],
