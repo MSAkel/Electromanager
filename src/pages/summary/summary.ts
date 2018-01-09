@@ -30,18 +30,18 @@ export class SummaryPage implements OnInit{
      ) {}
 
      ngOnInit() {
-       this.dlService.fetchDevices();
-       //   .then(
-       //     (devices: Device[]) => this.listDevices = devices
-       //   );
+       this.dlService.fetchDevices()
+          .then(
+            (devices: Device[]) => this.listDevices = devices
+          );
      }
 
   ionViewWillEnter() {
     this.listDevices = this.dlService.getDevices();
-    if( this.listDevices.length > 0) {
+    //if( this.listDevices.length > 0) {
       this.calculate();
-      this.calculateDay();
-    }
+      //this.calculateDay();
+    //}
   }
 
      calculate(){

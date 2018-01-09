@@ -30,10 +30,11 @@ export class DeviceListService {
   }
 
   fetchDevices() {
-    this.storage.get('devices')
+    return this.storage.get('devices')
       .then(
         (devices: Device[]) => {
           this.devices = devices != null ? devices : [];
+          return this.devices;
         }
       )
       .catch(

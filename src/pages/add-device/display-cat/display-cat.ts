@@ -1,25 +1,63 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
-/**
- * Generated class for the DisplayCatPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+import { CatDevice } from "../../../data/device-cat.interface";
+import { CreatePage } from "../create/create";
+
+import {DeviceListService} from '../../../services/devices-list';
 
 @IonicPage()
 @Component({
   selector: 'page-display-cat',
   templateUrl: 'display-cat.html',
 })
-export class DisplayCatPage {
+export class DisplayCatPage implements OnInit{
+  deviceGroup: {category: string, devices: CatDevice[], icon: string};
+  //index: number;
+  name: string;
+  quantity: number;
+  power: number;
+  hours: number;
+  totalHours: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+     private alertCtrl: AlertController,
+     private dlService: DeviceListService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DisplayCatPage');
+  ngOnInit() {
+    this.deviceGroup = this.navParams.data;
+  }
+
+  onAddDevice(selectedDevice: CatDevice) {
+
+    console.log('test');
+
+    const alert = this.alertCtrl.create({
+      title: 'Add Device',
+      //subTitle: 'Are you sure?',
+      message: 'Add item to your list?',
+      buttons: [
+        {
+          text: "Confirm",
+          handler: () => {
+            //this.navCtrl.push(CreatePage, {mode: 'Edit', device: this.deviceCat, index: this.index});
+            this.dlService.addDevice(selectedDevice.name, selectedDevice.quantity, selectedDevice.power, selectedDevice.hours, selectedDevice.daysUsed);
+          }
+        },
+        {
+          text: "Cancel",
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelled');
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
 }
