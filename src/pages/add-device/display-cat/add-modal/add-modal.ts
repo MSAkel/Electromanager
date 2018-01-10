@@ -29,6 +29,7 @@ export class AddModalPage implements OnInit{
     const value = this.deviceForm.value;
     this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed);
     this.deviceForm.reset();
+    this.viewCtrl.dismiss();
   }
 
   // ionViewDidLoad() {
