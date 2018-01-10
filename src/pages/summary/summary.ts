@@ -11,11 +11,14 @@ import { Device } from "../../models/device";
 })
 export class SummaryPage implements OnInit{
   listDevices: Device[];
-  //total Overall
   totalPower: number = 0;
   totalHours: number;
   power: number;
   multi: number;
+  capacity = 10;
+  vat: number;
+  consumptionTotal: number;
+  totalBill: number;
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
@@ -33,6 +36,9 @@ export class SummaryPage implements OnInit{
     this.listDevices = this.dlService.getDevices();
     //if( this.listDevices.length > 0) {
       this.calculate();
+      this.consumptionTotalFunction();
+      this.vatFunction();
+      this.totalBillFunction();
     //}
   }
 
@@ -48,5 +54,23 @@ export class SummaryPage implements OnInit{
 
        }
        return this.totalPower;
+     }
+
+     consumptionTotalFunction() {
+       if(this.totalPower > 0 && this.totalPower <= 6000000){
+         this.consumptionTotal = this.totalPower/1000 * 0.18;
+       } else if (this.totalPower > 60000000) {
+         this.consumptionTotal = this.totalPower/1000 * 0.30;
+       }
+       return this.consumptionTotal;
+     }
+
+     vatFunction() {
+       this.vat = (5/100) * (this.capacity + (this.totalPower/1000 * 0.18));
+       return this.vat;
+     }
+
+     totalBillFunction(){
+       return this.totalBill = this.consumptionTotal + this.capacity + this.vat;
      }
 }

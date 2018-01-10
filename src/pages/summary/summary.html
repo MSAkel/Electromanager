@@ -23,30 +23,69 @@
     <ion-row text-center>
       <ion-col class="split-col">
         <ion-icon name="flash" class="flash"></ion-icon>
-        <p *ngIf="totalPower > 0">Total Consumed: {{ totalPower * 30 | number : '1.2-2'}}</p>
+        <p *ngIf="totalPower > 0">Total Consumed: {{ totalPower | number : '1.2-2'}}</p>
       </ion-col>
       <ion-col>
         <ion-icon name="logo-usd" class="dollar"></ion-icon>
-        <p *ngIf="totalPower > 0 && totalPower <= 6000000">Estimated Total: {{ totalPower/1000 * 18 | number : '1.2-2' }}</p>
-        <p *ngIf="totalPower> 60000000">Estimated Total: {{ totalPower/1000 * 30 | number : '1.2-2' }}</p>
+        <p *ngIf="totalPower > 0 && totalPower <= 6000000">Estimated Total: {{ totalPower/1000 * 0.18 | number : '1.2-2' }}</p>
+        <p *ngIf="totalPower > 60000000">Estimated Total: {{ totalPower/1000 * 0.30 | number : '1.2-2' }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
 
+  <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
+    <ion-row text-center>
+      <ion-col>
+        <p *ngIf="totalPower > 0;"><b>Total bill calculation</b></p>
+      </ion-col>
+    </ion-row>
+      <ion-row class="col-top">
+        <ion-col>
+          <p>Consumption Total</p>
+        </ion-col>
+        <ion-col text-right>
+          <p>{{ consumptionTotal | number : '1.2-2' }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="col-top">
+        <ion-col>
+          <p>Capacity of breaker</p>
+        </ion-col>
+        <ion-col text-right>
+          <p>{{ capacity }}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="col-top">
+        <ion-col>
+          <p>VAT (5%)</p>
+        </ion-col>
+        <ion-col text-right>
+          <p>{{ vat | number : '1.2-2'}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="col-top">
+        <ion-col>
+          <p>Total</p>
+        </ion-col>
+        <ion-col text-right>
+          <p>{{ totalBill | number : '1.2-2' }}</p>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
 
+<ion-grid id="summary-first">
   <ion-list>
-    <h3>Total power consumed per device</h3>
-    <ion-item *ngFor="let device of listDevices; let i = index">
-      <ion-grid>
+    <p text-center><b>Total power consumed per appliance</b></p>
+    <ion-item id="top" *ngFor="let device of listDevices; let i = index">
         <ion-row class="col-top">
           <ion-col>
             <p>{{ device.name }} ({{ device.quantity }})</p>
           </ion-col>
-          <ion-col>
+          <ion-col text-right>
             <p>{{ device.quantity * device.power * device.hours * device.daysUsed }}</p>
           </ion-col>
         </ion-row>
-      </ion-grid>
     </ion-item>
   </ion-list>
+  </ion-grid>
 </ion-content>
