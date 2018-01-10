@@ -7,7 +7,7 @@
   <ion-content>
     <ion-list>
       <button ion-item (click)="onLoad(tabsPage)">
-        <ion-icon name="summary" item-left></ion-icon>
+        <ion-icon name="information-circle" item-left></ion-icon>
         Summary
       </button>
       <button ion-item (click)="onLoad(settingsPage)">
@@ -18,4 +18,4 @@
   </ion-content>
 </ion-menu>
 
-<ion-nav [root]="tabsPage"></ion-nav>
+<ion-nav [root]="tabsPage" #nav></ion-nav>
