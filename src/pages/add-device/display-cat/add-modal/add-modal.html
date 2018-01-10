@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Device</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Quantity</ion-label>
+        <ion-input type="number" formControlName="quantity"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Power (Watts)</ion-label>
+        <ion-input type="number" formControlName="power"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Hours/day</ion-label>
+        <ion-input type="number" formControlName="hours"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Days Used</ion-label>
+        <ion-input type="number" formControlName="daysUsed"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button type="submit" block [disabled]="!deviceForm.valid">Add Device</button>
+  </form>
+    <button ion-button block (click)="onClose()" color="danger">Close</button>
+</ion-content>

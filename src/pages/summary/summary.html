@@ -14,44 +14,7 @@
     <p *ngIf="totalPower <= 0;">You must have at least one(1) item with over zero(0) power consumption to display results</p>
   </div>
 
-<!-- <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
-   <ion-row text-center>
-      <ion-col>
-        <p><b>Based on Total power consumed per item</b></p>
-      </ion-col>
-    </ion-row>
-    <ion-row text-center>
-      <ion-col class="split-col">
-        <ion-icon name="flash" class="flash"></ion-icon>
-        <p>Total Consumed: {{ totalPower | number : '1.2-2' }} </p>
-      </ion-col>
-      <ion-col>
-        <ion-icon name="logo-usd" class="dollar"></ion-icon>
-        <p *ngIf="totalPower > 0 && totalPower <= 6000">Estimated Total: {{ totalPower/100 * 18 | number : '1.2-2' }}</p>
-        <p *ngIf="totalPower > 6000">Estimated Total: {{ totalPower/100 * 30 | number : '1.2-2'}} </p>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
-
-
   <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
-    <!-- <ion-row text-center>
-      <ion-col>
-        <p><b>Based on average power consumed per day</b></p>
-      </ion-col>
-    </ion-row>
-    <ion-row text-center>
-      <ion-col class="split-col">
-        <ion-icon name="flash" class="flash"></ion-icon>
-        <p>Total Consumed: {{ totalPowerDay | number : '1.2-2' }}</p>
-      </ion-col>
-      <ion-col>
-        <ion-icon name="logo-usd" class="dollar"></ion-icon>
-        <p *ngIf="totalPowerDay > 0 && totalPowerDay <= 6000">Estimated Total: {{ totalPowerDay/100 * 18 | number : '1.2-2' }}</p>
-        <p *ngIf="totalPowerDay > 6000">Estimated Total: {{ totalPowerDay/100 * 30 | number : '1.2-2' }}</p>
-      </ion-col>
-    </ion-row> -->
-
     <ion-row text-center>
       <ion-col>
         <p *ngIf="totalPower > 0;"><b>Total power consumed in 30 days</b></p>
