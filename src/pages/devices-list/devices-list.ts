@@ -15,10 +15,6 @@ export class DevicesListPage implements OnInit{
   listDevices: Device[];
   device: Device;
   index: number;
-  // totalPower: number = 0;
-  // totalHours: number;
-  // power: number;
-  // multi: number;
 
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
@@ -28,7 +24,6 @@ export class DevicesListPage implements OnInit{
 
   ngOnInit() {
     //this.dlService.fetchDevices();
-
   }
 
   ionViewWillEnter() {
@@ -37,7 +32,6 @@ export class DevicesListPage implements OnInit{
 
   onLoadDevice(device: Device, index: number) {
     this.navCtrl.push(SelectPage, {device: device, index: index});
-
   }
 
   onDelete() {
