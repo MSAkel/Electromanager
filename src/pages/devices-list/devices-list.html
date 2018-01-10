@@ -9,45 +9,51 @@
 
 <ion-content id="content">
   <ion-list>
-    <ion-item *ngFor="let device of listDevices; let i = index" (click)="onLoadDevice(device, i)" id="list">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <h2>Name</h2>
-          </ion-col>
-          <!-- <ion-col>
-            <h2>Quantity</h2>
-          </ion-col> -->
-          <ion-col>
-            <h2>Consumption</h2>
-          </ion-col>
-          <ion-col>
-            <h2>Hours</h2>
-          </ion-col>
-          <ion-col>
-            <h2>Days Used</h2>
-          </ion-col>
-        </ion-row>
+    <ion-item-sliding *ngFor="let device of listDevices; let i = index">
+      <ion-item (click)="onLoadDevice(device, i)" id="list">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>Name</h2>
+            </ion-col>
+            <!-- <ion-col>
+              <h2>Quantity</h2>
+            </ion-col> -->
+            <ion-col>
+              <h2>Consumption</h2>
+            </ion-col>
+            <ion-col>
+              <h2>Hours</h2>
+            </ion-col>
+            <ion-col>
+              <h2>Days Used</h2>
+            </ion-col>
+          </ion-row>
 
-        <ion-row class="col-top">
-          <ion-col>
-            <p>{{ device.name }} ({{ device.quantity }})</p>
-          </ion-col>
-          <!-- <ion-col>
-            <p>{{ device.quantity }}</p>
-          </ion-col> -->
-          <ion-col>
-            <p><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
-          </ion-col>
-          <ion-col>
-            <p><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
-          </ion-col>
-          <ion-col>
-            <p>{{ device.daysUsed }}</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+          <ion-row class="col-top">
+            <ion-col>
+              <p>{{ device.name }} ({{ device.quantity }})</p>
+            </ion-col>
+            <!-- <ion-col>
+              <p>{{ device.quantity }}</p>
+            </ion-col> -->
+            <ion-col>
+              <p><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+            </ion-col>
+            <ion-col>
+              <p><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
+            </ion-col>
+            <ion-col>
+              <p>{{ device.daysUsed }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options>
+        <!-- <button ion-button color="secondary" (click)="onEdit()"><ion-icon name="create"></ion-icon>Edit</button> -->
+        <button ion-button color="danger" (click)="onDelete()"><ion-icon name="trash"></ion-icon>Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
   <button ion-button full icon-left (click)="onAddDevice()" color="secondary"><ion-icon name="add"> ADD </ion-icon></button>
 </ion-content>
