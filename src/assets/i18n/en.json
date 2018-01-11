@@ -1,0 +1,14 @@
+{
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "LANGUAGE": "Select Language"
+  },
+  "SUMMARY": {
+    "TITLE": "Summary",
+    "DETAILS": "Your Estimated bill details",
+    "TOTAL": "Total power consumed in 30 days",
+    "TOTALCONSUMED": "Total Consumed:",
+    "ESTIMATEDTOTAL": "Estimated Total:"
+
+  }
+}

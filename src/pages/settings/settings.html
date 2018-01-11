@@ -3,11 +3,19 @@
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>settings</ion-title>
+    <ion-title>{{ 'SETTINGS.TITLE' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-
+  <p>{{ 'SETTINGS.LANGUAGE' | translate }}</p>
+  <ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="en">
+            English
+        </ion-segment-button>
+        <ion-segment-button value="ar">
+            العربية
+        </ion-segment-button>
+    </ion-segment>
 </ion-content>

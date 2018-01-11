@@ -4,6 +4,11 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+
 
 import { MyApp } from './app.component';
 import { AddDevicePage } from "../pages/add-device/add-device";
@@ -16,6 +21,10 @@ import { AddModalPage } from "../pages/add-device/display-cat/add-modal/add-moda
 import { TabsPage } from "../pages/tabs/tabs";
 import { DeviceListService } from "../services/devices-list";
 import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
+
+export function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -33,7 +42,15 @@ import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientModule,
+       TranslateModule.forRoot({
+           loader: {
+               provide: TranslateLoader,
+               useFactory: (createTranslateLoader),
+               deps: [HttpClient]
+           }
+       })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

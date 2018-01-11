@@ -3,32 +3,32 @@
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>Summary</ion-title>
+    <ion-title>{{ 'SUMMARY.TITLE' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content id="content">
   <div text-center id="top" padding>
-    <h2>Your Estimated Bill Details</h2>
-    <p *ngIf="totalPower <= 0;">You do not have any input data</p>
-    <p *ngIf="totalPower <= 0;">You must have at least one(1) item with over zero(0) power consumption to display results</p>
+    <h2>{{ 'SUMMARY.DETAILS' | translate }}</h2>
+    <!-- <p *ngIf="totalPower <= 0;">You do not have any input data</p>
+    <p *ngIf="totalPower <= 0;">You must have at least one(1) item with over zero(0) power consumption to display results</p> -->
   </div>
 
   <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
     <ion-row text-center>
       <ion-col>
-        <p *ngIf="totalPower > 0;"><b>Total power consumed in 30 days</b></p>
+        <p *ngIf="totalPower > 0;"><b>{{ 'SUMMARY.TOTAL' | translate }}</b></p>
       </ion-col>
     </ion-row>
     <ion-row text-center>
       <ion-col class="split-col">
         <ion-icon name="flash" class="flash"></ion-icon>
-        <p *ngIf="totalPower > 0">Total Consumed: {{ totalPower | number : '1.2-2'}}</p>
+        <p *ngIf="totalPower > 0">{{ 'SUMMARY.TOTALCONSUMED' | translate }} {{ totalPower | number : '1.2-2'}}</p>
       </ion-col>
       <ion-col>
         <ion-icon name="logo-usd" class="dollar"></ion-icon>
-        <p *ngIf="totalPower > 0 && totalPower <= 6000000">Estimated Total: {{ totalPower/1000 * 0.18 | number : '1.2-2' }}</p>
-        <p *ngIf="totalPower > 60000000">Estimated Total: {{ totalPower/1000 * 0.30 | number : '1.2-2' }}</p>
+        <p *ngIf="totalPower > 0 && totalPower <= 6000000">{{ 'SUMMARY.ESTIMATEDTOTAL' | translate }} {{ consumptionTotal | number : '1.2-2' }}</p>
+        <p *ngIf="totalPower > 60000000">Estimated Total: {{ consumptionTotal | number : '1.2-2' }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -36,12 +36,12 @@
   <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
     <ion-row text-center>
       <ion-col>
-        <p *ngIf="totalPower > 0;"><b>Total bill calculation</b></p>
+        <p *ngIf="totalPower > 0;"><b>{{ 'SUMMARY.CALCULATION' | translate }}</b></p>
       </ion-col>
     </ion-row>
       <ion-row class="col-top">
         <ion-col>
-          <p>Consumption Total</p>
+          <p>{{ 'SUMMARY.CALC_1' | translate }}</p>
         </ion-col>
         <ion-col text-right>
           <p>{{ consumptionTotal | number : '1.2-2' }}</p>
