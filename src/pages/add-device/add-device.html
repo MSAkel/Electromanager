@@ -9,12 +9,12 @@
 
 <ion-content>
   <ion-card>
-  <ion-card-header>
+  <ion-card-header color="primary">
     Predefined Appliances
   </ion-card-header>
   <ion-list>
     <button ion-item *ngFor="let CatGroup of deviceCat"
-      [navPush]="displayCatPage" [navParams]="CatGroup" color="primary">
+      [navPush]="displayCatPage" [navParams]="CatGroup">
       <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
       <h2>{{ CatGroup.category | uppercase }}</h2>
       <p>{{ CatGroup.devices.length }} Devices</p>
