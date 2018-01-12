@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController, NavParams } from 'ionic-angular';
 
-import { CreatePage } from "./create/create";
+import { AddCategoryPage } from "./add-category/add-category";
 
 import { CatDevice } from "../../data/device-cat.interface";
 import devices from '../../data/device-cat';
@@ -22,8 +22,8 @@ export class AddDevicePage implements OnInit{
     this.deviceCat = devices;
   }
   //Create device button
-  onNewDevice() {
-    this.navCtrl.push(CreatePage, {mode: 'Add'});
+  onAddCategory() {
+    this.navCtrl.push(AddCategoryPage);
   }
 
   // onLoadCreate() {

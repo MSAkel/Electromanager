@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add Category</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Category Name</ion-label>
+              <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    <button ion-button type="submit" block [disabled]="!categoryForm.valid">Add Category</button>
+  </form>
+    <button ion-button block (click)="onClose()" color="danger">Close</button>
+</ion-content>
