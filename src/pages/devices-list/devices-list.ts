@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, AlertController } from 'ionic-angular';
+import {NavController, AlertController, NavParams } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { Device } from "../../models/device";
@@ -13,15 +13,13 @@ import { SelectPage } from "../add-device/select/select";
 })
 export class DevicesListPage implements OnInit{
   listDevices: Device[];
-  totalPower: number = 0;
-  totalHours: number;
-  power: number;
-  multi: number;
-
+  device: Device;
+  index: number;
 
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
-     private alertCtrl: AlertController) {
+     private alertCtrl: AlertController,
+     public navParams: NavParams) {
   }
 
   ngOnInit() {
@@ -34,8 +32,18 @@ export class DevicesListPage implements OnInit{
 
   onLoadDevice(device: Device, index: number) {
     this.navCtrl.push(SelectPage, {device: device, index: index});
-
   }
+
+  onDelete() {
+    this.dlService.removeDevice(this.index);
+    this.listDevices = this.dlService.getDevices();
+  }
+
+  // onEdit() {
+  //   this.device = this.navParams.get('device');
+  //   this.index = this.navParams.get('index');
+  //   this.navCtrl.push(CreatePage, {mode: 'Edit', device: this.device, index: this.index});
+  // }
 
   onAddDevice() {
     const alert = this.alertCtrl.create({
