@@ -9,8 +9,8 @@
 
 
 <ion-content padding>
-  <p>{{ 'SETTINGS.LANGUAGE' | translate }}</p>
-  <ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="segmentChanged($event)">
+  <ion-label>{{ 'SETTINGS.LANGUAGE' | translate }}</ion-label>
+  <ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="selected($event)">
         <ion-segment-button value="en">
             English
         </ion-segment-button>
@@ -18,4 +18,6 @@
             العربية
         </ion-segment-button>
     </ion-segment>
+
+    <!-- <ion-toggle (ionChange)="onToggle($event)" [checked]="checkArabic()"></ion-toggle> -->
 </ion-content>

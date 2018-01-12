@@ -20,6 +20,7 @@ import { SettingsPage } from "../pages/settings/settings";
 import { AddModalPage } from "../pages/add-device/display-cat/add-modal/add-modal";
 import { TabsPage } from "../pages/tabs/tabs";
 import { DeviceListService } from "../services/devices-list";
+import { SettingsService } from "../services/settings";
 import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
 
 export function createTranslateLoader(http: HttpClient) {
@@ -69,6 +70,7 @@ export function createTranslateLoader(http: HttpClient) {
     StatusBar,
     SplashScreen,
     DeviceListService,
+    SettingsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

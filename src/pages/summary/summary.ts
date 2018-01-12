@@ -4,9 +4,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DeviceListService } from "../../services/devices-list";
 import { Device } from "../../models/device";
 
-
-import { TranslateService } from '@ngx-translate/core';
-
 @IonicPage()
 @Component({
   selector: 'page-summary',
@@ -26,7 +23,6 @@ export class SummaryPage implements OnInit{
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private dlService: DeviceListService,
-     private translateService: TranslateService
      ) {}
 
      ngOnInit() {
@@ -45,10 +41,6 @@ export class SummaryPage implements OnInit{
       this.totalBillFunction();
     //}
   }
-
-  segmentChanged(event) {
-        this.translateService.use(event._value);
-    }
 
      calculate(){
          this.totalPower = 0;
