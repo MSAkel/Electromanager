@@ -3,6 +3,8 @@ import {NavController, NavParams } from 'ionic-angular';
 
 import { AddCategoryPage } from "./add-category/add-category";
 
+import { DeviceListService } from "../../services/devices-list";
+import { Category } from "../../models/category";
 import { CatDevice } from "../../data/device-cat.interface";
 import devices from '../../data/device-cat';
 import { DisplayCatPage } from "./display-cat/display-cat";
@@ -15,13 +17,21 @@ export class AddDevicePage implements OnInit{
   deviceCat: {category: string, devices: CatDevice[], icon: string}[];
   displayCatPage = DisplayCatPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  listCategories: Category[];
+  category: Category;
+  index: number;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dlService: DeviceListService) {
   }
 
   ngOnInit() {
     this.deviceCat = devices;
   }
-  //Create device button
+
+  ionViewWillEnter() {
+    this.listCategories = this.dlService.getCategories();
+  }
+
   onAddCategory() {
     this.navCtrl.push(AddCategoryPage);
   }

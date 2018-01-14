@@ -19,6 +19,15 @@
       <h2>{{ CatGroup.category | uppercase }}</h2>
       <p>{{ CatGroup.devices.length }} Devices</p>
     </button>
+    <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)" text-wrap>
+      <ion-grid>
+        <ion-row class="col-top">
+          <ion-col>
+            <p class="text-colour">{{ category.name }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
   </ion-list>
 </ion-card>
   <!-- <ion-fab  bottom right>
