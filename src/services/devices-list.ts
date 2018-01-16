@@ -61,8 +61,8 @@ export class DeviceListService {
   }
 
   //DEVICE SERVICE
-  addDevice(name: string, quantity: number, power: number, hours: number, daysUsed: number) {
-    const device = new Device(name, quantity, power, hours, daysUsed);
+  addDevice(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
+    const device = new Device(name, quantity, power, hours, daysUsed, category);
     this.devices.push(device);
     this.storage.set('devices', this.devices)
       .then()
@@ -94,8 +94,8 @@ export class DeviceListService {
       );
   }
 
-  updateDevice(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number) {
-    this.devices[index] = new Device(name, quantity, power, hours,  daysUsed);
+  updateDevice(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
+    this.devices[index] = new Device(name, quantity, power, hours,  daysUsed, category);
     this.storage.set('devices', this.devices)
       .then()
       .catch(

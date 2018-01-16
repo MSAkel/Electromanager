@@ -27,7 +27,7 @@ export class AddModalPage implements OnInit{
 
   onSubmit() {
     const value = this.deviceForm.value;
-    this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed);
+    //this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed);
     this.deviceForm.reset();
     this.viewCtrl.dismiss();
   }

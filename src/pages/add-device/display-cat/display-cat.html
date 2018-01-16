@@ -6,7 +6,7 @@
 
 
 <ion-content padding>
-  <ion-list>
+  <!-- <ion-list>
     <button ion-item *ngFor="let device of deviceGroup.devices" (click)="onAddDevice(device)">
       <ion-card-header>
         {{ device.name }}
@@ -15,5 +15,20 @@
         <p class="power">Power (Watts): {{ device.power }}</p>
       </ion-card-content>
     </button>
+  </ion-list> -->
+
+
+  <div  *ngFor="let device of listDevices; let i = index">
+      <ion-list id="item" *ngIf="device.category == deviceGroup.category">
+      <ion-item  (click)="onAddDevice(device)">
+        <p>
+          {{ device.name }}
+        </p>
+
+          <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+
+
+    </ion-item>
   </ion-list>
+</div>
 </ion-content>

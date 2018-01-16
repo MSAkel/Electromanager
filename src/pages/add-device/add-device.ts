@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NavController, NavParams } from 'ionic-angular';
 
 import { AddCategoryPage } from "./add-category/add-category";
-
+import { CreatePage } from "../add-device/create/create";
 import { DeviceListService } from "../../services/devices-list";
 import { Category } from "../../models/category";
 import { CatDevice } from "../../data/device-cat.interface";
@@ -34,6 +34,10 @@ export class AddDevicePage implements OnInit{
 
   onAddCategory() {
     this.navCtrl.push(AddCategoryPage);
+  }
+
+  onAddItem() {
+    this.navCtrl.push(CreatePage);
   }
 
   // onLoadCreate() {
