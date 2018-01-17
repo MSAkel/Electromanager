@@ -12,9 +12,8 @@ import * as HighCharts from 'highcharts';
   templateUrl: 'summary.html',
 })
 export class SummaryPage implements OnInit{
-   @ViewChild('doughnutCanvas') doughnutCanvas;
 
-   doughnutChart: any;
+  @ViewChild('doughnutCanvas') doughnutCanvas;
 
   listDevices: Device[];
   totalPower: number = 0;
@@ -25,71 +24,36 @@ export class SummaryPage implements OnInit{
   vat: number;
   consumptionTotal: number;
   totalBill: number;
+  check = 0;
 
-  public chartLabels               : any    = [];
-public chartValues               : any    = [];
- public chartColours              : any    = [];
+  doughnutChart: any;
+  public chartLabels: any = [];
+  public chartValues: any = [];
+  public chartColours: any = [];
 
-name: string;
-number: number;
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private dlService: DeviceListService,
      ) {}
 
-     ngOnInit() {
-       this.dlService.fetchDevices()
-          .then(
-            (devices: Device[]) => this.listDevices = devices
-          );
-     }
 
-    ionViewDidLoad() {
-
-     }
+  ngOnInit() {
+    this.dlService.fetchDevices()
+      .then(
+        (devices: Device[]) => this.listDevices = devices
+      );
+    }
 
   ionViewWillEnter() {
     this.listDevices = this.dlService.getDevices();
-    //if( this.listDevices.length > 0) {
-      this.calculate();
-      this.consumptionTotalFunction();
-      this.vatFunction();
-      this.totalBillFunction();
+    this.calculate();
+    this.consumptionTotalFunction();
+    this.vatFunction();
+    this.totalBillFunction();
 
-      this.defineChartData();
-          this.createPieChart();
-      // this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-      //
-      //     type: 'doughnut',
-      //     data: {
-      //         labels: [this.listDevices[0].name],
-      //         datasets: [{
-      //             label: '# of Votes',
-      //             data: [12, 19, 3, 5, 2, 3],
-      //             backgroundColor: [
-      //                 'rgba(255, 99, 132, 0.2)',
-      //                 'rgba(54, 162, 235, 0.2)',
-      //                 'rgba(255, 206, 86, 0.2)',
-      //                 'rgba(75, 192, 192, 0.2)',
-      //                 'rgba(153, 102, 255, 0.2)',
-      //                 'rgba(255, 159, 64, 0.2)'
-      //             ],
-      //             hoverBackgroundColor: [
-      //                 "#FF6384",
-      //                 "#36A2EB",
-      //                 "#FFCE56",
-      //                 "#FF6384",
-      //                 "#36A2EB",
-      //                 "#FFCE56"
-      //             ]
-      //         }]
-      //     }
-      //
-      // });
-    //}
-
-
+    this.defineChartData();
+    this.createPieChart();
   }
 
   getRandomColor() {
@@ -99,7 +63,7 @@ number: number;
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-}
+  }
 
 
   defineChartData()
@@ -111,42 +75,49 @@ number: number;
           for (var i = 0; i < 6; i++ ) {
               color += letters[Math.floor(Math.random() * 16)];
           }
+          var getPower = this.listDevices[index].quantity * this.listDevices[index].power *
+                         this.listDevices[index].hours * this.listDevices[index].daysUsed;
+          var name = this.listDevices[index].name;
+          //var y = this.listDevices[index].power;
 
-           var name  =      this.listDevices[index].name;
-           var y  =      this.listDevices[index].power;
-
-           this.chartLabels.push(name);
-           this.chartValues.push(y);
-           this.chartColours.push(color);
-           // this.chartColours.push(tech.color);
-           // this.chartHoverColours.push(tech.hover);
-        }
+          this.chartLabels.push(name);
+          this.chartValues.push(getPower);
+          this.chartColours.push(color);
+      }
      }
 
-     createPieChart(){
+  createPieChart(){
+    if(this.doughnutChart != null) {
+      this.doughnutChart.destroy();
+    }
+    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
 
-       this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-
-           type: 'doughnut',
-           data: {
-               labels: this.chartLabels,
-               datasets: [{
-                   label: '# of Votes',
-                   data: this.chartValues,
-                   backgroundColor:  this.chartColours,
-                   hoverBackgroundColor: this.chartColours
-               }]
-           },
-           options: {
-    responsive: true,
-    legend: {
+    type: 'doughnut',
+    data: {
+      labels: this.chartLabels,
+      datasets: [{
+      label: 'Power consumed',
+      data: this.chartValues,
+      backgroundColor:  this.chartColours,
+      hoverBackgroundColor: this.chartColours
+      }]
+    },
+    options: {
+        legend: {
         display: false
       },
-      pieceLabel: {
-        render: 'label'
-      }}       });
+      title: {
+            display: true,
+            text: 'Power Consumption In Watts',
+            fontSize: 14
+        }
      }
+    });
 
+    this.chartLabels = [];
+    this.chartValues = [];
+
+  }
 
      calculate(){
          this.totalPower = 0;

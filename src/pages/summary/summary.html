@@ -15,16 +15,6 @@
   </div>
 
   <!-- <div id="container" style="display: block;"	></div> -->
-
-   <ion-card>
-      <ion-card-header>
-        Doughnut Chart
-      </ion-card-header>
-      <ion-card-content>
-        <canvas #doughnutCanvas></canvas>
-      </ion-card-content>
-    </ion-card>
-
   <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
     <ion-row text-center>
       <ion-col>
@@ -84,10 +74,14 @@
       </ion-row>
   </ion-grid>
 
+
 <ion-grid id="summary-first">
   <ion-list>
     <p text-center><b>Total power consumed per appliance</b></p>
-    <ion-item id="top" *ngFor="let device of listDevices; let i = index">
+    <ion-item>
+       <canvas #doughnutCanvas></canvas>
+     </ion-item>
+    <!-- <ion-item id="top" *ngFor="let device of listDevices; let i = index">
         <ion-row class="col-top">
           <ion-col>
             <p>{{ device.name }} ({{ device.quantity }})</p>
@@ -96,7 +90,7 @@
             <p>{{ device.quantity * device.power * device.hours * device.daysUsed }}</p>
           </ion-col>
         </ion-row>
-    </ion-item>
+    </ion-item> -->
   </ion-list>
   </ion-grid>
 </ion-content>
