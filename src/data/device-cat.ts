@@ -136,6 +136,6 @@ export default [
         daysUsed: 30
       }
     ],
-    icon: 'game-controller-b'
+    icon: 'laptop'
   }
 ];

@@ -5,33 +5,54 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-  <ion-card-header color="primary">
-    Categories
-  </ion-card-header>
   <ion-list>
-    <button ion-item *ngFor="let CatGroup of deviceCat"
-      [navPush]="displayCatPage" [navParams]="CatGroup">
-      <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
-      <h2>{{ CatGroup.category | uppercase }}</h2>
-      <p>{{ CatGroup.devices.length }} Devices</p>
-    </button>
-    <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)" text-wrap>
-      <ion-grid>
-        <ion-row class="col-top">
+    <ion-list-header>
+      Categories<button ion-button icon-only clear item-end (click)="onAddCategory()"><ion-icon name="add"></ion-icon></button>
+    </ion-list-header>
+      <ion-item *ngFor="let CatGroup of deviceCat"
+        [navPush]="displayCatPage" [navParams]="CatGroup">
+        <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
+        <h2>{{ CatGroup.category | uppercase }}</h2>
+        <p>{{ CatGroup.devices.length }} Devices</p>
+      </ion-item>
+      <!-- CUSTOM CATEGORIES -->
+      <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)" text-wrap>
+          <p class="text-colour">{{ category.name }}</p>
+      </ion-item>
+    </ion-list>
+    <!-- BUTTONS -->
+    <ion-grid>
+        <ion-row>
           <ion-col>
-            <p class="text-colour">{{ category.name }}</p>
+            <button ion-button full (click)="onAddItem()" color="secondary">Add To Device List</button>
+          </ion-col>
+          <ion-col>
+            <button ion-button full (click)="onAddToCategory()" color="secondary">Add To Category</button>
           </ion-col>
         </ion-row>
-      </ion-grid>
-    </ion-item>
-  </ion-list>
-</ion-card>
-  <!-- <ion-fab  bottom right>
-    <button ion-fab mini color="secondary" (click)="onNewDevice()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
-  <button ion-button (click)="onLoadCreate()">Create</button> -->
-    <button ion-button full icon-left (click)="onAddCategory()" color="secondary">Create New Category</button>
-    <button ion-button full icon-left (click)="onAddItem()" color="secondary">Add New Appliance</button>
-    <button ion-button full icon-left (click)="onAddToCategory()" color="secondary">Add To Category</button>
-</ion-content>
+    </ion-grid>
+  </ion-content>
+
+    <!-- <ion-card>
+    <ion-card-header color="primary">
+      Categories
+      <button ion-button icon-only clear (click)="onAddCategory()"><ion-icon name="add"></ion-icon></button>
+    </ion-card-header>
+    <ion-list>
+      <button ion-item *ngFor="let CatGroup of deviceCat"
+        [navPush]="displayCatPage" [navParams]="CatGroup">
+        <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
+        <h2>{{ CatGroup.category | uppercase }}</h2>
+        <p>{{ CatGroup.devices.length }} Devices</p>
+      </button>
+      <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)" text-wrap>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p class="text-colour">{{ category.name }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card> -->
