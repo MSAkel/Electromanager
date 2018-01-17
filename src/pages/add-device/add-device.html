@@ -1,8 +1,5 @@
 <ion-header>
   <ion-navbar>
-    <!-- <ion-buttons end>
-      <button ion-button icon-only (click)="onNewDevice()"><ion-icon name="add"></ion-icon></button>
-    </ion-buttons> -->
     <ion-title>Add Device</ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,7 +7,7 @@
 <ion-content>
   <ion-card>
   <ion-card-header color="primary">
-    Predefined Appliances
+    Categories
   </ion-card-header>
   <ion-list>
     <button ion-item *ngFor="let CatGroup of deviceCat"
@@ -36,4 +33,5 @@
   <button ion-button (click)="onLoadCreate()">Create</button> -->
     <button ion-button full icon-left (click)="onAddCategory()" color="secondary">Create New Category</button>
     <button ion-button full icon-left (click)="onAddItem()" color="secondary">Add New Appliance</button>
+    <button ion-button full icon-left (click)="onAddToCategory()" color="secondary">Add To Category</button>
 </ion-content>

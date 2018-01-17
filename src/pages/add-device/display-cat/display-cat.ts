@@ -5,6 +5,7 @@ import { DeviceListService } from "../../../services/devices-list";
 import { Device } from "../../../models/device";
 import { AddModalPage } from "./add-modal/add-modal";
 import { CatDevice } from "../../../data/device-cat.interface";
+import { DeviceCategory } from "../../../models/device-category";
 //import { CreatePage } from "../create/create";
 //import {DeviceListService} from '../../../services/devices-list';
 
@@ -15,7 +16,7 @@ import { CatDevice } from "../../../data/device-cat.interface";
 })
 export class DisplayCatPage implements OnInit{
   deviceGroup: {category: string, devices: CatDevice[], icon: string};
-  listDevices: Device[];
+  listDevicesCategory: DeviceCategory[];
   device: Device;
   index: number;
 
@@ -31,10 +32,14 @@ export class DisplayCatPage implements OnInit{
 
   ngOnInit() {
     this.deviceGroup = this.navParams.data;
+    this.dlService.fetchDevicesCategory()
+    .then(
+      (devices: DeviceCategory[]) => this.listDevicesCategory = devices
+    );
   }
 
   ionViewWillEnter() {
-    this.listDevices = this.dlService.getDevices();
+    this.listDevicesCategory = this.dlService.getDevicesCategory();
   }
 
   onAddDevice(device: Device) {

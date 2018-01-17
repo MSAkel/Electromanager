@@ -18,7 +18,7 @@
   </ion-list> -->
 
 
-  <div  *ngFor="let device of listDevices; let i = index">
+  <div  *ngFor="let device of listDevicesCategory; let i = index">
       <ion-list id="item" *ngIf="device.category == deviceGroup.category">
       <ion-item  (click)="onAddDevice(device)">
         <p>

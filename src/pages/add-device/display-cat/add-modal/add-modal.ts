@@ -27,7 +27,7 @@ export class AddModalPage implements OnInit{
 
   onSubmit() {
     const value = this.deviceForm.value;
-    //this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed);
+    this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
     this.deviceForm.reset();
     this.viewCtrl.dismiss();
   }
@@ -47,6 +47,7 @@ export class AddModalPage implements OnInit{
     let power = this.navParams.get('power');
     let hours = this.navParams.get('hours');
     let daysUsed = this.navParams.get('daysUsed');
+    let category = this.navParams.get('category');
 
 
     this.deviceForm = new FormGroup({
@@ -54,7 +55,8 @@ export class AddModalPage implements OnInit{
       'quantity': new FormControl(quantity, Validators.required),
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
-      'daysUsed': new FormControl(daysUsed, Validators.required)
+      'daysUsed': new FormControl(daysUsed, Validators.required),
+      'category': new FormControl(category, Validators.required)
     });
   }
 

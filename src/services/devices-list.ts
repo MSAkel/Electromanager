@@ -3,14 +3,68 @@ import { Storage } from '@ionic/storage';
 
 import { Device } from "../models/device";
 import { Category } from "../models/category";
+import { DeviceCategory } from "../models/device-category";
+
 
 @Injectable()
 export class DeviceListService {
   private devices: Device[] = [];
   private categories: Category[] = [];
+  private devicescategory: DeviceCategory[] = [];
 
   constructor(private storage: Storage) {}
 
+//DEVICE CATEGORY SERVICE
+addDeviceCategory(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
+  const devicecategory = new DeviceCategory(name, quantity, power, hours, daysUsed, category);
+  this.devicescategory.push(devicecategory);
+  this.storage.set('devicescategory', this.devicescategory)
+    .then()
+    .catch(
+      err => {
+        this.devicescategory.splice(this.devicescategory.indexOf(devicecategory),1);
+      }
+    );
+}
+
+getDevicesCategory() {
+  return this.devicescategory.slice();
+}
+
+fetchDevicesCategory() {
+  return this.storage.get('devicescategory')
+    .then(
+      (devicescategory: DeviceCategory[]) => {
+        this.devicescategory= devicescategory != null ? devicescategory : [];
+        return this.devicescategory;
+      }
+    )
+    .catch(
+      err => console.log(err)
+    );
+}
+
+updateDeviceCategory(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
+  this.devicescategory[index] = new DeviceCategory(name, quantity, power, hours,  daysUsed, category);
+  this.storage.set('devicescategory', this.devicescategory)
+    .then()
+    .catch(
+      err => {
+        err => console.log(err)
+      }
+    );
+}
+
+removeDeviceCategory(index: number) {
+  this.devicescategory.splice(index, 1);
+  this.storage.set('devicescategory', this.devicescategory)
+    .then()
+    .catch(
+      err => console.log(err)
+    );
+}
+
+//CATEGORY SERVICE
   addCategory(name: string) {
     const category = new Category(name);
     this.categories.push(category);

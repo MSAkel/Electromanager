@@ -30,8 +30,10 @@ export class CreatePage implements OnInit {
     const value = this.deviceForm.value;
     if (this.mode == 'Edit') {
       this.dlService.updateDevice(this.index, value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
-    } else {
+    } else if (this.mode == 'New') {
       this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+    } else if (this.mode == 'Add') {
+        this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
     }
     this.deviceForm.reset();
     this.navCtrl.popToRoot();
@@ -51,7 +53,7 @@ export class CreatePage implements OnInit {
       power = this.device.power;
       hours = this.device.hours;
       daysUsed = this.device.daysUsed;
-      category = this.device.category
+      category = this.device.category;
     }
 
     this.deviceForm = new FormGroup({

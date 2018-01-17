@@ -8,6 +8,7 @@ import { Category } from "../../models/category";
 import { CatDevice } from "../../data/device-cat.interface";
 import devices from '../../data/device-cat';
 import { DisplayCatPage } from "./display-cat/display-cat";
+import { AddModalPage } from "./display-cat/add-modal/add-modal";
 
 @Component({
   selector: 'page-add-device',
@@ -37,10 +38,10 @@ export class AddDevicePage implements OnInit{
   }
 
   onAddItem() {
-    this.navCtrl.push(CreatePage);
+    this.navCtrl.push(CreatePage, {mode: 'New'});
   }
 
-  // onLoadCreate() {
-  //   this.navCtrl.push(CreatePage);
-  // }
+  onAddToCategory(){
+    this.navCtrl.push(CreatePage, {mode: 'Add'});
+  }
 }
