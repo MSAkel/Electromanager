@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DeviceListService } from "../../services/devices-list";
 import { Device } from "../../models/device";
 import { Chart } from 'chart.js';
+import * as HighCharts from 'highcharts';
 
 @IonicPage()
 @Component({
@@ -25,6 +26,13 @@ export class SummaryPage implements OnInit{
   consumptionTotal: number;
   totalBill: number;
 
+  public chartLabels               : any    = [];
+public chartValues               : any    = [];
+ public chartColours              : any    = [];
+
+name: string;
+number: number;
+
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private dlService: DeviceListService,
@@ -37,35 +45,8 @@ export class SummaryPage implements OnInit{
           );
      }
 
-     ionViewDidLoad() {
-       this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+    ionViewDidLoad() {
 
-            type: 'doughnut',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56",
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ]
-                }]
-            }
-
-        });
      }
 
   ionViewWillEnter() {
@@ -75,8 +56,97 @@ export class SummaryPage implements OnInit{
       this.consumptionTotalFunction();
       this.vatFunction();
       this.totalBillFunction();
+
+      this.defineChartData();
+          this.createPieChart();
+      // this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+      //
+      //     type: 'doughnut',
+      //     data: {
+      //         labels: [this.listDevices[0].name],
+      //         datasets: [{
+      //             label: '# of Votes',
+      //             data: [12, 19, 3, 5, 2, 3],
+      //             backgroundColor: [
+      //                 'rgba(255, 99, 132, 0.2)',
+      //                 'rgba(54, 162, 235, 0.2)',
+      //                 'rgba(255, 206, 86, 0.2)',
+      //                 'rgba(75, 192, 192, 0.2)',
+      //                 'rgba(153, 102, 255, 0.2)',
+      //                 'rgba(255, 159, 64, 0.2)'
+      //             ],
+      //             hoverBackgroundColor: [
+      //                 "#FF6384",
+      //                 "#36A2EB",
+      //                 "#FFCE56",
+      //                 "#FF6384",
+      //                 "#36A2EB",
+      //                 "#FFCE56"
+      //             ]
+      //         }]
+      //     }
+      //
+      // });
     //}
+
+
   }
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
+  defineChartData()
+     {
+        for(var index = 0; index < this.listDevices.length; index++)
+        {
+          var letters = '0123456789ABCDEF'.split('');
+          var color = '#';
+          for (var i = 0; i < 6; i++ ) {
+              color += letters[Math.floor(Math.random() * 16)];
+          }
+
+           var name  =      this.listDevices[index].name;
+           var y  =      this.listDevices[index].power;
+
+           this.chartLabels.push(name);
+           this.chartValues.push(y);
+           this.chartColours.push(color);
+           // this.chartColours.push(tech.color);
+           // this.chartHoverColours.push(tech.hover);
+        }
+     }
+
+     createPieChart(){
+
+       this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+
+           type: 'doughnut',
+           data: {
+               labels: this.chartLabels,
+               datasets: [{
+                   label: '# of Votes',
+                   data: this.chartValues,
+                   backgroundColor:  this.chartColours,
+                   hoverBackgroundColor: this.chartColours
+               }]
+           },
+           options: {
+    responsive: true,
+    legend: {
+        display: false
+      },
+      pieceLabel: {
+        render: 'label'
+      }}       });
+     }
+
 
      calculate(){
          this.totalPower = 0;
