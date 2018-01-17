@@ -8,55 +8,6 @@ export default [
         power: 40,
         hours: 0,
         daysUsed: 30
-      },
-      {
-        name: 'CFL Bulb 60W',
-        quantity: 1,
-        power: 60,
-        hours: 0,
-        daysUsed: 30
-      },
-      {
-        name: 'CFL Bulb 75W',
-        quantity: 1,
-        power: 75,
-        hours: 0,
-        daysUsed: 30
-      },
-      {
-        name: 'CFL Bulb 100W',
-        quantity: 1,
-        power: 100,
-        hours: 0,
-        daysUsed: 30
-      },
-      {
-        name: 'LED Bulb 40W',
-        quantity: 1,
-        power: 40,
-        hours: 0,
-        daysUsed: 30
-      },
-      {
-        name: 'LED Bulb 60W',
-        quantity: 1,
-        power: 60,
-        hours: 0,
-        daysUsed: 30
-      },
-      {
-        name: 'LED Bulb 75W',
-        quantity: 1,
-        power: 75,
-        hours: 0,
-        daysUsed: 30
-      },
-      {
-        name: 'LED Bulb 100W',
-        quantity: 1,
-        power: 100,
-        hours: 0,
-        daysUsed: 30
       }
     ],
     icon: 'bulb'
@@ -98,24 +49,17 @@ export default [
   },
 
   {
-    category: 'laundry',
+    category: 'Laundry',
     devices: [
       {
-        name: 'Clothes Dryer (Electric)',
+        name: 'Drying Machine',
         quantity: 1,
         power: 3000,
         hours: 0,
         daysUsed: 30
       },
       {
-        name: 'Clothes Dryer (Gas)',
-        quantity: 1,
-        power: 5,
-        hours: 0,
-        daysUsed: 30
-      },
-      {
-        name: 'Clothes Washer',
+        name: 'Washing Machine',
         quantity: 1,
         power: 800,
         hours: 0,
@@ -192,6 +136,6 @@ export default [
         daysUsed: 30
       }
     ],
-    icon: 'game-controller-b'
+    icon: 'laptop'
   }
 ];

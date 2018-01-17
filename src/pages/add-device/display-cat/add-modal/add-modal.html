@@ -8,26 +8,59 @@
 <ion-content>
   <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
     <ion-list>
-      <ion-item>
-        <ion-label floating>Name</ion-label>
-        <ion-input type="text" formControlName="name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Quantity</ion-label>
-        <ion-input type="number" formControlName="quantity"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Power (Watts)</ion-label>
-        <ion-input type="number" formControlName="power"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Hours/day</ion-label>
-        <ion-input type="number" formControlName="hours"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Days Used</ion-label>
-        <ion-input type="number" formControlName="daysUsed"></ion-input>
-      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Name</ion-label>
+              <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Quantity</ion-label>
+              <ion-input type="number" formControlName="quantity"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Power (Watts)</ion-label>
+              <ion-input type="number" formControlName="power"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Hours/day</ion-label>
+              <ion-input type="number" formControlName="hours"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Days Used</ion-label>
+              <ion-input type="number" formControlName="daysUsed"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>category</ion-label>
+              <ion-select formControlName="category">
+                <ion-option value="Lights">Lights</ion-option>
+                <ion-option value="Living Room">Living Room</ion-option>
+                <ion-option value="Kitchen">Kitchen</ion-option>
+                <ion-option value="Laundry">Laundry</ion-option>
+                <ion-option value="Others">Others</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-list>
     <button ion-button type="submit" block [disabled]="!deviceForm.valid">Add Device</button>
   </form>

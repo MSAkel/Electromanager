@@ -7,44 +7,39 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content id="content">
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <p>Name</p>
+      </ion-col>
+      <ion-col>
+        <p>Consumption</p>
+      </ion-col>
+      <ion-col>
+        <p>Hours</p>
+      </ion-col>
+      <ion-col>
+        <p>Days Used</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <ion-item-sliding *ngFor="let device of listDevices; let i = index">
-      <ion-item (click)="onLoadDevice(device, i)" id="list">
+      <ion-item (click)="onLoadDevice(device, i)" text-wrap>
         <ion-grid>
-          <ion-row>
-            <ion-col>
-              <h2>Name</h2>
-            </ion-col>
-            <!-- <ion-col>
-              <h2>Quantity</h2>
-            </ion-col> -->
-            <ion-col>
-              <h2>Consumption</h2>
-            </ion-col>
-            <ion-col>
-              <h2>Hours</h2>
-            </ion-col>
-            <ion-col>
-              <h2>Days Used</h2>
-            </ion-col>
-          </ion-row>
-
           <ion-row class="col-top">
             <ion-col>
-              <p>{{ device.name }} ({{ device.quantity }})</p>
-            </ion-col>
-            <!-- <ion-col>
-              <p>{{ device.quantity }}</p>
-            </ion-col> -->
-            <ion-col>
-              <p><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+              <p class="text-colour">{{ device.name }} ({{ device.quantity }})</p>
             </ion-col>
             <ion-col>
-              <p><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
+              <p class="text-colour"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
             </ion-col>
             <ion-col>
-              <p>{{ device.daysUsed }}</p>
+              <p class="text-colour"><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
+            </ion-col>
+            <ion-col>
+              <p class="text-colour">{{ device.daysUsed }}</p>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -55,5 +50,8 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <button ion-button full icon-left (click)="onAddDevice()" color="secondary">ADD NEW ITEM</button>
+  <ion-fab  bottom right>
+    <button ion-fab mini color="secondary" (click)="onAddDevice()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+  <!-- <button ion-button full icon-left (click)="onAddDevice()" color="secondary">ADD NEW ITEM</button> -->
 </ion-content>

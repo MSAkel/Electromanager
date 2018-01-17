@@ -1,4 +1,4 @@
-export class Device {
+export class DeviceCategory {
   constructor(
     public name: string,
     public quantity: number,

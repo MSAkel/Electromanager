@@ -29,9 +29,11 @@ export class CreatePage implements OnInit {
   onSubmit() {
     const value = this.deviceForm.value;
     if (this.mode == 'Edit') {
-      this.dlService.updateDevice(this.index, value.name, value.quantity, value.power, value.hours, value.daysUsed);
-    } else {
-      this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed);
+      this.dlService.updateDevice(this.index, value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+    } else if (this.mode == 'New') {
+      this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+    } else if (this.mode == 'Add') {
+        this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
     }
     this.deviceForm.reset();
     this.navCtrl.popToRoot();
@@ -43,6 +45,7 @@ export class CreatePage implements OnInit {
     let power = null;
     let hours = null;
     let daysUsed = 30;
+    let category = null;
 
     if(this.mode == 'Edit'){
       name = this.device.name;
@@ -50,6 +53,7 @@ export class CreatePage implements OnInit {
       power = this.device.power;
       hours = this.device.hours;
       daysUsed = this.device.daysUsed;
+      category = this.device.category;
     }
 
     this.deviceForm = new FormGroup({
@@ -57,7 +61,8 @@ export class CreatePage implements OnInit {
       'quantity': new FormControl(quantity, Validators.required),
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
-      'daysUsed': new FormControl(daysUsed, Validators.required)
+      'daysUsed': new FormControl(daysUsed, Validators.required),
+      'category': new FormControl(category, Validators.required)
     });
   }
 }

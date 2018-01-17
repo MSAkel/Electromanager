@@ -23,7 +23,10 @@ export class DevicesListPage implements OnInit{
   }
 
   ngOnInit() {
-    //this.dlService.fetchDevices();
+    this.dlService.fetchDevices()
+    .then(
+      (devices: Device[]) => this.listDevices = devices
+    );
   }
 
   ionViewWillEnter() {
@@ -46,24 +49,25 @@ export class DevicesListPage implements OnInit{
   // }
 
   onAddDevice() {
-    const alert = this.alertCtrl.create({
-      title: 'Add New Appliance',
-      message: 'Select an appliance or create a new one',
-      buttons: [
-        {
-          text: "Create New",
-          handler: () => {
-            this.navCtrl.push(CreatePage, {mode: 'Add'});
-          }
-        },
-        {
-          text: "Select Appliance",
-          handler: () => {
-            this.navCtrl.push(AddDevicePage);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+    this.navCtrl.push(AddDevicePage);
+  //   const alert = this.alertCtrl.create({
+  //     title: 'Add New Appliance',
+  //     message: 'Select an appliance or create a new one',
+  //     buttons: [
+  //       {
+  //         text: "Create New",
+  //         handler: () => {
+  //           this.navCtrl.push(CreatePage, {mode: 'Add'});
+  //         }
+  //       },
+  //       {
+  //         text: "Select Appliance",
+  //         handler: () => {
+  //           this.navCtrl.push(AddDevicePage);
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   alert.present();
+   }
 }

@@ -5,11 +5,11 @@ page-devices-list {
   }
 
   .flash {
-    color: #ffff63;
+    //color: #ffff63;
   }
 
   .time {
-    color: #3d3d3d;
+    color: #BBBBBB;
   }
 
   .split-col {
@@ -17,15 +17,16 @@ page-devices-list {
   }
 
   .col-top {
-    border-top: 1px solid grey;
+    //border-top: 1px solid grey;
+
   }
 
   #list {
-    background-color: #f1efff;
+    //background-color: #f1efff;
     margin-bottom: 1%;
   }
 
-  p {
-    padding-top: 5%;
+  .text-colour {
+    color: #488aff;
   }
 }

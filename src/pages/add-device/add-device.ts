@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController, NavParams } from 'ionic-angular';
 
-import { CreatePage } from "./create/create";
-
+import { AddCategoryPage } from "./add-category/add-category";
+import { CreatePage } from "../add-device/create/create";
+import { DeviceListService } from "../../services/devices-list";
+import { Category } from "../../models/category";
 import { CatDevice } from "../../data/device-cat.interface";
 import devices from '../../data/device-cat';
 import { DisplayCatPage } from "./display-cat/display-cat";
+import { AddModalPage } from "./display-cat/add-modal/add-modal";
 
 @Component({
   selector: 'page-add-device',
@@ -15,18 +18,30 @@ export class AddDevicePage implements OnInit{
   deviceCat: {category: string, devices: CatDevice[], icon: string}[];
   displayCatPage = DisplayCatPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  listCategories: Category[];
+  category: Category;
+  index: number;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dlService: DeviceListService) {
   }
 
   ngOnInit() {
     this.deviceCat = devices;
   }
-  //Create device button
-  onNewDevice() {
-    this.navCtrl.push(CreatePage, {mode: 'Add'});
+
+  ionViewWillEnter() {
+    this.listCategories = this.dlService.getCategories();
   }
 
-  // onLoadCreate() {
-  //   this.navCtrl.push(CreatePage);
-  // }
+  onAddCategory() {
+    this.navCtrl.push(AddCategoryPage);
+  }
+
+  onAddItem() {
+    this.navCtrl.push(CreatePage, {mode: 'New'});
+  }
+
+  onAddToCategory(){
+    this.navCtrl.push(CreatePage, {mode: 'Add'});
+  }
 }
