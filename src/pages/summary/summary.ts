@@ -13,7 +13,7 @@ import * as HighCharts from 'highcharts';
 })
 export class SummaryPage implements OnInit{
 
-  @ViewChild('doughnutCanvas') doughnutCanvas;
+  @ViewChild('pieCanvas') pieCanvas;
 
   listDevices: Device[];
   totalPower: number = 0;
@@ -26,10 +26,12 @@ export class SummaryPage implements OnInit{
   totalBill: number;
   check = 0;
 
-  doughnutChart: any;
+  pieChart: any;
   public chartLabels: any = [];
   public chartValues: any = [];
   public chartColours: any = [];
+
+  category: string;
 
 
   constructor(public navCtrl: NavController,
@@ -46,6 +48,7 @@ export class SummaryPage implements OnInit{
     }
 
   ionViewWillEnter() {
+    this.category = "close";
     this.listDevices = this.dlService.getDevices();
     this.calculate();
     this.consumptionTotalFunction();
@@ -87,19 +90,19 @@ export class SummaryPage implements OnInit{
      }
 
   createPieChart(){
-    if(this.doughnutChart != null) {
-      this.doughnutChart.destroy();
+    if(this.pieChart != null) {
+      this.pieChart.destroy();
     }
-    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+    this.pieChart = new Chart(this.pieCanvas.nativeElement, {
 
-    type: 'doughnut',
+    type: 'pie',
     data: {
       labels: this.chartLabels,
       datasets: [{
-      label: 'Power consumed',
-      data: this.chartValues,
-      backgroundColor:  this.chartColours,
-      hoverBackgroundColor: this.chartColours
+        label: "Power consumed",
+        data: this.chartValues,
+        backgroundColor:  this.chartColours,
+        hoverBackgroundColor: this.chartColours
       }]
     },
     options: {
@@ -119,19 +122,18 @@ export class SummaryPage implements OnInit{
 
   }
 
-     calculate(){
-         this.totalPower = 0;
-         for(var index = 0; index < this.listDevices.length; index++){
-           this.totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
-           this.power = this.listDevices[index].power;
-           this.multi = this.totalHours * this.power * this.listDevices[index].daysUsed;
-           this.totalPower = this.totalPower + this.multi;
-           console.log(this.listDevices.length);
-           console.log('count ' + index);
-
-       }
-       return this.totalPower;
-     }
+  calculate(){
+    this.totalPower = 0;
+    for(var index = 0; index < this.listDevices.length; index++){
+      this.totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
+      this.power = this.listDevices[index].power;
+      this.multi = this.totalHours * this.power * this.listDevices[index].daysUsed;
+      this.totalPower = this.totalPower + this.multi;
+      console.log(this.listDevices.length);
+      console.log('count ' + index);
+    }
+    return this.totalPower;
+  }
 
      consumptionTotalFunction() {
        if(this.totalPower > 0 && this.totalPower <= 6000000){

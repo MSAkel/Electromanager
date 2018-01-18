@@ -1,18 +1,8 @@
 page-summary {
-  #top {
-    //border-bottom: 1px solid black;
-    //background-color: #f1efff;
-  }
-  #summary-first {
-    //background-color: #f1efff;
-    border-top: 1px solid black;
-  }
 
-  #summary-second {
-    background-color: #ebffd8;
-    border-bottom: 1px solid black;
+  .col-top {
+    border-bottom: 1px solid #d1d1d1;
   }
-
   .dollar {
     color: green;
   }
@@ -27,5 +17,9 @@ page-summary {
 
   .split-col {
     border-right: 1px solid grey;
+  }
+
+  .text-colour {
+    color: #488aff;
   }
 }
