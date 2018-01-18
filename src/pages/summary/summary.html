@@ -8,13 +8,14 @@
 </ion-header>
 
 <ion-content id="content">
-  <div text-center id="top" padding>
+  <div text-center padding>
     <h2>{{ 'SUMMARY.DETAILS' | translate }}</h2>
     <!-- <p *ngIf="totalPower <= 0;">You do not have any input data</p>
     <p *ngIf="totalPower <= 0;">You must have at least one(1) item with over zero(0) power consumption to display results</p> -->
   </div>
 
-  <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
+  <!-- <div id="container" style="display: block;"	></div> -->
+  <!-- <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
     <ion-row text-center>
       <ion-col>
         <p *ngIf="totalPower > 0;"><b>{{ 'SUMMARY.TOTAL' | translate }}</b></p>
@@ -31,61 +32,123 @@
         <p *ngIf="totalPower > 60000000">Estimated Total: {{ consumptionTotal | number : '1.2-2' }}</p>
       </ion-col>
     </ion-row>
-  </ion-grid>
-
-  <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
+  </ion-grid> -->
+<ion-card>
+  <ion-grid padding *ngIf="totalPower > 0;">
     <ion-row text-center>
       <ion-col>
         <p *ngIf="totalPower > 0;"><b>{{ 'SUMMARY.CALCULATION' | translate }}</b></p>
       </ion-col>
     </ion-row>
+    <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p>{{ 'SUMMARY.CALC_1' | translate }}</p>
+          <p class="text-colour">{{ 'SUMMARY.CALC_1' | translate }}</p>
         </ion-col>
         <ion-col text-right>
-          <p>{{ consumptionTotal | number : '1.2-2' }}</p>
+            <p class="text-colour">{{ consumptionTotal | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
-      <ion-row class="col-top">
-        <ion-col>
-          <p>Capacity of breaker</p>
-        </ion-col>
-        <ion-col text-right>
-          <p>{{ capacity }}</p>
-        </ion-col>
-      </ion-row>
-      <ion-row class="col-top">
-        <ion-col>
-          <p>VAT (5%)</p>
-        </ion-col>
-        <ion-col text-right>
-          <p>{{ vat | number : '1.2-2'}}</p>
-        </ion-col>
-      </ion-row>
-      <ion-row class="col-top">
-        <ion-col>
-          <p>Total</p>
-        </ion-col>
-        <ion-col text-right>
-          <p>{{ totalBill | number : '1.2-2' }}</p>
-        </ion-col>
-      </ion-row>
-  </ion-grid>
-
-<ion-grid id="summary-first">
-  <ion-list>
-    <p text-center><b>Total power consumed per appliance</b></p>
-    <ion-item id="top" *ngFor="let device of listDevices; let i = index">
-        <ion-row class="col-top">
-          <ion-col>
-            <p>{{ device.name }} ({{ device.quantity }})</p>
-          </ion-col>
-          <ion-col text-right>
-            <p>{{ device.quantity * device.power * device.hours * device.daysUsed }}</p>
-          </ion-col>
-        </ion-row>
     </ion-item>
-  </ion-list>
+    <ion-item >
+      <ion-row class="col-top" >
+        <ion-col>
+          <p class="text-colour">Capacity of breaker</p>
+        </ion-col>
+        <ion-col text-right>
+          <p class="text-colour">{{ capacity }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row class="col-top">
+        <ion-col>
+          <p class="text-colour">VAT (5%)</p>
+        </ion-col>
+        <ion-col text-right>
+          <p class="text-colour">{{ vat | number : '1.2-2'}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row class="col-top">
+        <ion-col>
+          <p class="text-colour">Total</p>
+        </ion-col>
+        <ion-col text-right>
+          <p class="text-colour">{{ totalBill | number : '1.2-2' }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
   </ion-grid>
+</ion-card>
+
+<ion-card>
+  <ion-grid>
+    <ion-list>
+      <p text-center><b>Total power consumed per appliance</b></p>
+      <ion-item>
+         <canvas #pieCanvas></canvas>
+       </ion-item>
+
+       <div padding>
+         <ion-segment [(ngModel)]="category" color="dark">
+           <ion-segment-button value="close">
+              <ion-icon name ="remove"></ion-icon>
+           </ion-segment-button>
+           <ion-segment-button value="consumption">
+              <ion-icon name ="flash"></ion-icon>
+           </ion-segment-button>
+           <ion-segment-button value="hours">
+             <ion-icon name ="time"></ion-icon>
+           </ion-segment-button>
+         <ion-segment-button value="cost">
+           <ion-icon name ="logo-usd"></ion-icon>
+         </ion-segment-button>
+       </ion-segment>
+     </div>
+     <div [ngSwitch]="category">
+       <ion-list *ngSwitchCase="'consumption'">
+          <ion-item id="top" *ngFor="let device of listDevices; let i = index">
+              <ion-row class="col-top">
+                <ion-col>
+                  <p>{{ device.name }} ({{ device.quantity }})</p>
+                </ion-col>
+                <ion-col text-right>
+                  <p>{{ device.quantity * device.power * device.hours * device.daysUsed }}</p>
+                </ion-col>
+              </ion-row>
+          </ion-item>
+
+       </ion-list>
+
+       <ion-list *ngSwitchCase="'hours'">
+           <ion-item id="top" *ngFor="let device of listDevices; let i = index">
+              <ion-row class="col-top">
+                <ion-col>
+                  <p>{{ device.name }} ({{ device.quantity }})</p>
+                </ion-col>
+                <ion-col text-right>
+                  <p>{{ device.quantity * device.hours * device.daysUsed }}</p>
+                </ion-col>
+              </ion-row>
+          </ion-item>
+       </ion-list>
+
+       <ion-list *ngSwitchCase="'cost'">
+         <ion-item id="top" *ngFor="let device of listDevices; let i = index">
+            <ion-row class="col-top">
+              <ion-col>
+                <p>{{ device.name }} ({{ device.quantity }})</p>
+              </ion-col>
+              <ion-col text-right>
+                <p>{{ ((device.quantity * device.power * device.hours * device.daysUsed)/1000) * 0.18 | number : '1.2-2' }}</p>
+              </ion-col>
+            </ion-row>
+        </ion-item>
+       </ion-list>
+     </div>
+    </ion-list>
+    </ion-grid>
+  </ion-card>
 </ion-content>
