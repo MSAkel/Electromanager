@@ -22,4 +22,9 @@ page-summary {
   .text-colour {
     color: #488aff;
   }
+
+  @include rtl() {
+        // Custom rtl style goes here
+        float: right;
+    }
 }

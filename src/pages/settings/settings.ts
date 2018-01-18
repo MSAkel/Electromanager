@@ -24,19 +24,24 @@ export class SettingsPage implements OnInit{
   }
 
   ngOnInit() {
-      this.getLanguage();
+      this.settingsService.getLanguage();
   }
 
   selected(event) {
-    this.translateService.use(event._value);
-    this.storage.set('language', event._value)
+    this.settingsService.setLanguage(event._value);
+    //.translateService.use(event._value);
+    //.storage.set('language', event._value);
   }
 
-  getLanguage() {
-    this.storage.get('language').then((lang) => {
-      this.translateService.use(lang);
-    });
-  }
+  // getLanguage() {
+  //   this.storage.get('language').then((lang) => {
+  //     this.translateService.use(lang);
+  //   });
+  // }
+
+  // checkLanguage() {
+  //   return this.settingsService.getLanguage();
+  // }
 
   // segmentChanged(event) {
   //       this.translateService.use(event._value);
