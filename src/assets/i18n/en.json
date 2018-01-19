@@ -15,5 +15,15 @@
     "CALC_3": "VAT",
     "CALC_4": "Total",
     "CHARTTITLE": "Total Power Consumed Per Appliance (Watts)"
+  },
+  "DEVICELIST": {
+    "TITLE": "Appliances",
+    "NAME": "Name",
+    "CONSUMPTION": "Consumption",
+    "HOURS": "Hours",
+    "DAYSUSED": "Days Used",
+    "WATTS": "Watts",
+    "DELETE": "Delete",
+    "EDIT": "Edit"
   }
 }

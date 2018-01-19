@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {NavController, AlertController, NavParams } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
+import { SettingsService } from "../../services/settings";
+import { TranslateService } from '@ngx-translate/core';
+
 import { Device } from "../../models/device";
 import { CreatePage } from "../add-device/create/create";
 import { AddDevicePage } from "../add-device/add-device";
@@ -16,13 +19,21 @@ export class DevicesListPage implements OnInit{
   device: Device;
   index: number;
 
+  language: string;
+  rtl: string;
+  arabic = false;
+  slide: string;
+
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
      private alertCtrl: AlertController,
-     public navParams: NavParams) {
+     public navParams: NavParams,
+     private settingsService: SettingsService,
+     private translateService: TranslateService) {
   }
 
   ngOnInit() {
+    this.settingsService.getLanguage();
     this.dlService.fetchDevices()
     .then(
       (devices: Device[]) => this.listDevices = devices
@@ -30,7 +41,19 @@ export class DevicesListPage implements OnInit{
   }
 
   ionViewWillEnter() {
+    this.setLanguage();
     this.listDevices = this.dlService.getDevices();
+  }
+
+  setLanguage() {
+    this.language = this.translateService.currentLang;
+    if(this.language == 'ar')
+    {
+      this.rtl = 'rtl';
+      this.slide = 'left';
+      this.arabic = true;
+    }
+    return this.rtl;
   }
 
   onLoadDevice(device: Device, index: number) {
