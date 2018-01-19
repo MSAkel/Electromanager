@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -9,6 +10,7 @@ import { Device } from "../../models/device";
 //import { CreatePage } from "../add-device/create/create";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
+import { TutorialPage } from "../tutorial/tutorial";
 
 @Component({
   selector: 'page-devices-list',
@@ -28,6 +30,7 @@ export class DevicesListPage implements OnInit{
      private navCtrl: NavController,
     // private alertCtrl: AlertController,
      public navParams: NavParams,
+     public storage: Storage,
      private settingsService: SettingsService,
      private translateService: TranslateService) {
   }
@@ -39,6 +42,15 @@ export class DevicesListPage implements OnInit{
       (devices: Device[]) => this.listDevices = devices
     );
   }
+
+  ionViewDidLoad() {
+  this.storage.get('intro-done').then(done => {
+    if (!done) {
+      this.storage.set('intro-done', true);
+      this.navCtrl.setRoot(TutorialPage);
+    }
+  });
+}
 
   ionViewWillEnter() {
     this.setLanguage();

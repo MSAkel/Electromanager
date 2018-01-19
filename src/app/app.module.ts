@@ -23,6 +23,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { DeviceListService } from "../services/devices-list";
 import { SettingsService } from "../services/settings";
 import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
+import { TutorialPage } from "../pages/tutorial/tutorial";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -40,6 +41,7 @@ export function createTranslateLoader(http: HttpClient) {
     SettingsPage,
     AddModalPage,
     AddCategoryPage,
+    TutorialPage,
     TabsPage
   ],
   imports: [
@@ -67,6 +69,7 @@ export function createTranslateLoader(http: HttpClient) {
     SettingsPage,
     AddModalPage,
     AddCategoryPage,
+    TutorialPage,
     TabsPage
   ],
   providers: [
