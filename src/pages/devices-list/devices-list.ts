@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, AlertController, NavParams } from 'ionic-angular';
+import {NavController, NavParams } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
 import { Device } from "../../models/device";
-import { CreatePage } from "../add-device/create/create";
+//import { CreatePage } from "../add-device/create/create";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
 
@@ -26,7 +26,7 @@ export class DevicesListPage implements OnInit{
 
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
-     private alertCtrl: AlertController,
+    // private alertCtrl: AlertController,
      public navParams: NavParams,
      private settingsService: SettingsService,
      private translateService: TranslateService) {
@@ -52,6 +52,7 @@ export class DevicesListPage implements OnInit{
       this.rtl = 'rtl';
       this.slide = 'left';
       this.arabic = true;
+
     }
     return this.rtl;
   }

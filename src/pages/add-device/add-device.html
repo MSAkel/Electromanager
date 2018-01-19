@@ -1,13 +1,13 @@
-<ion-header>
+<ion-header dir="{{rtl}}">
   <ion-navbar>
-    <ion-title>Add Device</ion-title>
+    <ion-title>{{ 'ADD.TITLE' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content dir="{{rtl}}">
   <ion-list>
     <ion-list-header>
-      Categories<button ion-button icon-only clear item-end (click)="onAddCategory()"><ion-icon name="add"></ion-icon></button>
+      {{ 'ADD.CATEGORIES' | translate }}<button ion-button icon-only clear item-end (click)="onAddCategory()"><ion-icon name="add"></ion-icon></button>
     </ion-list-header>
       <ion-item *ngFor="let CatGroup of deviceCat"
         [navPush]="displayCatPage" [navParams]="CatGroup">
@@ -24,10 +24,10 @@
     <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button full (click)="onAddItem()" color="secondary">Add To Device List</button>
+            <button ion-button full (click)="onAddItem()" color="secondary">{{ 'ADD.ADDTOLIST' | translate }}</button>
           </ion-col>
           <ion-col>
-            <button ion-button full (click)="onAddToCategory()" color="secondary">Add To Category</button>
+            <button ion-button full (click)="onAddToCategory()" color="secondary">{{ 'ADD.ADDTOCAT' | translate }}</button>
           </ion-col>
         </ion-row>
     </ion-grid>

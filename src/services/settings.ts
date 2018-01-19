@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class SettingsService {
   private language = 'en';
-  
+
   constructor(private storage: Storage, private translateService: TranslateService,) {}
 
   setLanguage(event: string) {
@@ -21,15 +21,4 @@ export class SettingsService {
       this.translateService.use(lang);
     });
   }
-
-
-  // private language = false;
-  //
-  // setLanguage(selected: boolean) {
-  //   this.language = selected;
-  // }
-  //
-  // isArabic() {
-  //   return this.language;
-  // }
 }

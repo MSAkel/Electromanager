@@ -1,9 +1,14 @@
 {
+  "TABS": {
+    "LIST": "Appliance List",
+    "SUMMARY": "Summary"
+  },
   "SETTINGS": {
     "TITLE": "Settings",
     "LANGUAGE": "Select Language"
   },
   "SUMMARY": {
+    "MENU": "Menu",
     "TITLE": "Summary",
     "DETAILS": "Your Estimated bill details",
     "TOTAL": "Total power consumed in 30 days",
@@ -25,5 +30,11 @@
     "WATTS": "Watts",
     "DELETE": "Delete",
     "EDIT": "Edit"
+  },
+  "ADD": {
+    "TITLE": "Add Appliance",
+    "CATEGORIES": "Categories",
+    "ADDTOLIST": "Add To List",
+    "ADDTOCAT": "Add To Category"
   }
 }

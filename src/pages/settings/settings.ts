@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Toggle } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
@@ -15,6 +15,10 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class SettingsPage implements OnInit{
 
+  language: string;
+  rtl: string;
+  arabic = false;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,40 +31,25 @@ export class SettingsPage implements OnInit{
       this.settingsService.getLanguage();
   }
 
-  selected(event) {
-    this.settingsService.setLanguage(event._value);
-    //.translateService.use(event._value);
-    //.storage.set('language', event._value);
+  ionViewWillEnter() {
+    this.setLanguage();
   }
 
-  // getLanguage() {
-  //   this.storage.get('language').then((lang) => {
-  //     this.translateService.use(lang);
-  //   });
-  // }
+  setLanguage() {
+    this.language = this.translateService.currentLang;
+    if(this.language == 'ar')
+    {
+      this.rtl = 'rtl';
+      this.arabic = true;
+    }
+  }
 
-  // checkLanguage() {
-  //   return this.settingsService.getLanguage();
-  // }
+  selected(event) {
+    this.settingsService.setLanguage(event._value);
+    this.refreshPage();
+  }
 
-  // segmentChanged(event) {
-  //       this.translateService.use(event._value);
-  //
-  //       //console.log(this.ar);
-  //       this.storage.set('language', event._value)
-  //         .then( as => console.log(event._value))
-  //         .catch(
-  //             err => console.log(err)
-  //         );
-  //
-  //   }
-
-    // onToggle (toggle: Toggle) {
-    //   this.settingsService.setLanguage(toggle.checked);
-    // }
-    //
-    // checkArabic() {
-    //   return this.settingsService.isArabic();
-    // }
-
+  refreshPage() {
+   this.navCtrl.setRoot(this.navCtrl.getActive().component);
+}
 }
