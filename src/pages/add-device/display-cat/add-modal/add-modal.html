@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons end>
+			<button ion-button navPop color="primary">
+				Close
+			</button>
+		</ion-buttons>
     <ion-title>Add Device</ion-title>
   </ion-navbar>
 </ion-header>
@@ -64,5 +69,5 @@
     </ion-list>
     <button ion-button type="submit" block [disabled]="!deviceForm.valid">Add Device</button>
   </form>
-    <button ion-button block (click)="onClose()" color="danger">Close</button>
+    <!-- <button ion-button block (click)="onClose()" color="danger">Close</button> -->
 </ion-content>

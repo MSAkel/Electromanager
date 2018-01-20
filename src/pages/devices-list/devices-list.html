@@ -9,12 +9,12 @@
 
 <ion-content dir="{{rtl}}">
   <ion-grid>
-    <ion-row>
+    <ion-row class="list-top">
       <ion-col>
         <p>{{ 'DEVICELIST.NAME' | translate}}</p>
       </ion-col>
       <ion-col>
-        <p>{{ 'DEVICELIST.CONSUMPTION' | translate }}</p>
+        <p>{{ 'DEVICELIST.WATTS' | translate }}</p>
       </ion-col>
       <ion-col>
         <p>{{ 'DEVICELIST.HOURS' | translate }}</p>
@@ -26,14 +26,14 @@
   </ion-grid>
   <ion-list>
     <ion-item-sliding *ngFor="let device of listDevices; let i = index">
-      <ion-item (click)="onLoadDevice(device, i)" text-wrap>
+      <ion-item (click)="onLoadDevice(device, i)" text-wrap class="item no-padding">
         <ion-grid>
           <ion-row class="col-top">
             <ion-col>
               <p class="text-colour">{{ device.name }} ({{ device.quantity }})</p>
             </ion-col>
             <ion-col>
-              <p class="text-colour"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} {{ 'DEVICELIST.WATTS' | translate }}</p>
+              <p class="text-colour"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }}</p>
             </ion-col>
             <ion-col>
               <p class="text-colour"><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>

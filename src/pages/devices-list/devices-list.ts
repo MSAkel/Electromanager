@@ -12,6 +12,8 @@ import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
 //import { TutorialPage } from "../tutorial/tutorial";
 
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
+
 @Component({
   selector: 'page-devices-list',
   templateUrl: 'devices-list.html',

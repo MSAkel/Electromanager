@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -33,6 +33,7 @@ export class AddDevicePage implements OnInit{
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private modalCtrl: ModalController,
     private dlService: DeviceListService,
     private settingsService: SettingsService,
     private translateService: TranslateService) {}
@@ -62,10 +63,14 @@ export class AddDevicePage implements OnInit{
   }
 
   onAddItem() {
-    this.navCtrl.push(CreatePage, {mode: 'New'});
+    //this.navCtrl.push(CreatePage, {mode: 'New'});
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'New'});
+    modal.present();
   }
 
   onAddToCategory(){
-    this.navCtrl.push(CreatePage, {mode: 'Add'});
+    //this.navCtrl.push(CreatePage, {mode: 'Add'});
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Add'});
+    modal.present();
   }
 }
