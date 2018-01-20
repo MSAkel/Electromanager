@@ -10,7 +10,7 @@ import { Device } from "../../models/device";
 //import { CreatePage } from "../add-device/create/create";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
-import { TutorialPage } from "../tutorial/tutorial";
+//import { TutorialPage } from "../tutorial/tutorial";
 
 @Component({
   selector: 'page-devices-list',
@@ -43,14 +43,14 @@ export class DevicesListPage implements OnInit{
     );
   }
 
-  ionViewDidLoad() {
-  this.storage.get('intro-done').then(done => {
-    if (!done) {
-      this.storage.set('intro-done', true);
-      this.navCtrl.setRoot(TutorialPage);
-    }
-  });
-}
+//   ionViewDidLoad() {
+//   this.storage.get('intro-done').then(done => {
+//     if (!done) {
+//       this.storage.set('intro-done', true);
+//       this.navCtrl.setRoot(TutorialPage);
+//     }
+//   });
+// }
 
   ionViewWillEnter() {
     this.setLanguage();
