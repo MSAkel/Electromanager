@@ -11,24 +11,24 @@
   <ion-grid>
     <ion-row class="list-top">
       <ion-col>
-        <p>{{ 'DEVICELIST.NAME' | translate}}</p>
+        <p (click)="sortBy('name')">{{ 'DEVICELIST.NAME' | translate}}</p>
       </ion-col>
       <ion-col>
-        <p>{{ 'DEVICELIST.WATTS' | translate }}</p>
+        <p (click)="sortBy('power')">{{ 'DEVICELIST.WATTS' | translate }}</p>
       </ion-col>
       <ion-col>
-        <p>{{ 'DEVICELIST.HOURS' | translate }}</p>
+        <p (click)="sortBy('hours')">{{ 'DEVICELIST.HOURS' | translate }}</p>
       </ion-col>
       <ion-col>
-        <p>{{ 'DEVICELIST.DAYSUSED' | translate }}</p>
+        <p (click)="sortBy('daysUsed')">{{ 'DEVICELIST.DAYSUSED' | translate }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-list>
-    <ion-item-sliding *ngFor="let device of listDevices; let i = index">
+    <ion-item-sliding class="list" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
       <ion-item (click)="onLoadDevice(device, i)" text-wrap class="item no-padding">
         <ion-grid>
-          <ion-row class="col-top">
+          <ion-row>
             <ion-col>
               <p class="text-colour">{{ device.name }} ({{ device.quantity }})</p>
             </ion-col>

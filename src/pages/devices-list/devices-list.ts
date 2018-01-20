@@ -12,7 +12,6 @@ import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
 //import { TutorialPage } from "../tutorial/tutorial";
 
-import {Injectable, Pipe, PipeTransform} from '@angular/core';
 
 @Component({
   selector: 'page-devices-list',
@@ -27,6 +26,11 @@ export class DevicesListPage implements OnInit{
   rtl: string;
   arabic = false;
   slide: string;
+
+  descending: boolean = false;
+  order: number;
+  column: string;
+
 
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
@@ -69,6 +73,13 @@ export class DevicesListPage implements OnInit{
 
     }
     return this.rtl;
+  }
+
+  sortBy(sort){
+    this.column = sort;
+    console.log();
+    this.descending = !this.descending;
+    this.order = this.descending ? 1 : -1;
   }
 
   onLoadDevice(device: Device, index: number) {

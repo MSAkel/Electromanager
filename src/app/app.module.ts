@@ -24,6 +24,7 @@ import { DeviceListService } from "../services/devices-list";
 import { SettingsService } from "../services/settings";
 import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
 import { TutorialPage } from "../pages/tutorial/tutorial";
+import { SortPipe } from '../pipes/sort/sort';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -42,6 +43,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddModalPage,
     AddCategoryPage,
     TutorialPage,
+    SortPipe,
     TabsPage
   ],
   imports: [
