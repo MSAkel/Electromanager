@@ -2,10 +2,10 @@
   <ion-navbar>
     <ion-buttons end>
 			<button ion-button navPop color="primary">
-				Close
+				{{ 'CREATE.CLOSE' | translate }}
 			</button>
 		</ion-buttons>
-    <ion-title>{{ mode }} Device</ion-title>
+    <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label floating>Name</ion-label>
+              <ion-label floating>{{ 'CREATE.NAME' | translate }}</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
           </ion-col>
@@ -24,13 +24,13 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label floating>Quantity</ion-label>
+              <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label>
               <ion-input type="number" formControlName="quantity"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item>
-              <ion-label floating>Power (Watts)</ion-label>
+              <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label>
               <ion-input type="number" formControlName="power"></ion-input>
             </ion-item>
           </ion-col>
@@ -39,13 +39,13 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label floating>Hours/day</ion-label>
+              <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
               <ion-input type="number" formControlName="hours"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item>
-              <ion-label floating>Days Used</ion-label>
+              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
                 <ion-input type="number" min="0" max="30" formControlName="daysUsed"></ion-input>
               <!-- <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="daysUsed"></ion-datetime> -->
             </ion-item>
@@ -54,7 +54,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label>category</ion-label>
+              <ion-label>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
               <ion-select formControlName="category">
                 <ion-option value="Lights">Lights</ion-option>
                 <ion-option value="Living Room">Living Room</ion-option>
@@ -67,6 +67,6 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    <button ion-button type="submit" block [disabled]="!deviceForm.valid">{{ mode }} Device</button>
+    <button ion-button type="submit" block [disabled]="!deviceForm.valid">{{ 'CREATE.CONFIRM' | translate }}</button>
   </form>
 </ion-content>

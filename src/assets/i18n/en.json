@@ -5,7 +5,11 @@
   },
   "SETTINGS": {
     "TITLE": "Settings",
-    "LANGUAGE": "Select Language"
+    "LANGUAGE": "Select Language",
+    "COST": "Cost",
+    "TAX": "Tax Rate",
+    "PREFS": "Prefs",
+    "FLATRATE": "Flat Rate"
   },
   "SUMMARY": {
     "MENU": "Menu",

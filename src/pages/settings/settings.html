@@ -8,8 +8,8 @@
 </ion-header>
 
 
-<ion-content padding dir="{{rtl}}">
-  <ion-label>{{ 'SETTINGS.LANGUAGE' | translate }}</ion-label>
+<ion-content dir="{{rtl}}">
+  <ion-list-header>{{ 'SETTINGS.LANGUAGE' | translate }}</ion-list-header>
   <ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="selected($event)">
         <ion-segment-button value="en">
             English
@@ -19,10 +19,28 @@
         </ion-segment-button>
     </ion-segment>
 
-    <p>VAT: 5%</p>
-    <p>Flat Rate: 10</p>
-    <p>Cent/Kwh</p>
-    <p>1-6000: 18</p>
-    <p>More than 6000: 30</p>
-    <!-- <ion-toggle (ionChange)="onToggle($event)" [checked]="checkArabic()"></ion-toggle> -->
+    <ion-list-header color="primary">
+      {{ 'SETTINGS.PREFS' | translate }}
+    </ion-list-header>
+
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <ion-item-group>
+      <button ion-item>
+        <ion-label color="primary" fixed>{{ 'SETTINGS.COST' | translate}}</ion-label>
+        <ion-input type="number" formControlName="cost"></ion-input>
+      </button>
+      
+      <ion-item>
+        <ion-label color="primary" fixed>{{ 'SETTINGS.TAX' | translate}}</ion-label>
+        <ion-input type="number" formControlName="tax"></ion-input>
+      </ion-item>
+
+      <button ion-item>
+        <ion-label color="primary" fixed>{{ 'SETTINGS.FLATRATE' | translate}}</ion-label>
+        <ion-input type="number" formControlName="flatRate"></ion-input>
+      </button>
+
+    </ion-item-group>
+    <button ion-button type="submit" (click)='presentToast()'>Save Settings</button>
+  </form>
 </ion-content>

@@ -21,9 +21,10 @@ export class SummaryPage implements OnInit{
   listDevices: Device[];
   totalPower: number = 0;
   totalHours: number;
+  flat: number;
   power: number;
   multi: number;
-  capacity = 10;
+  capacity: number;
   vat: number;
   consumptionTotal: number;
   totalBill: number;
@@ -40,7 +41,6 @@ export class SummaryPage implements OnInit{
   rtl: string;
   arabic = false;
 
-
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private dlService: DeviceListService,
@@ -48,9 +48,9 @@ export class SummaryPage implements OnInit{
      private translateService: TranslateService
      ) {}
 
-
   ngOnInit() {
     this.settingsService.getLanguage();
+
     this.dlService.fetchDevices()
       .then(
         (devices: Device[]) => this.listDevices = devices
@@ -61,10 +61,13 @@ export class SummaryPage implements OnInit{
     this.category = "close";
     this.setLanguage();
     this.isArabic();
+    this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
+
     this.calculate();
     this.consumptionTotalFunction();
     this.vatFunction();
+    this.capacityFunction();
     this.totalBillFunction();
 
     this.defineChartData();
@@ -97,7 +100,6 @@ export class SummaryPage implements OnInit{
     }
     return color;
   }
-
 
   defineChartData()
      {
@@ -159,27 +161,44 @@ export class SummaryPage implements OnInit{
       this.power = this.listDevices[index].power;
       this.multi = this.totalHours * this.power * this.listDevices[index].daysUsed;
       this.totalPower = this.totalPower + this.multi;
-      console.log(this.listDevices.length);
-      console.log('count ' + index);
+      //console.log(this.listDevices.length);
+      //console.log('count ' + index);
     }
     return this.totalPower;
   }
 
      consumptionTotalFunction() {
        if(this.totalPower > 0 && this.totalPower <= 6000000){
-         this.consumptionTotal = this.totalPower/1000 * 0.18;
+         this.consumptionTotal = this.totalPower/1000 * this.settingsService.getCost;
        } else if (this.totalPower > 60000000) {
          this.consumptionTotal = this.totalPower/1000 * 0.30;
        }
        return this.consumptionTotal;
      }
 
+     capacityFunction() {
+       this.capacity = this.settingsService.getFlatRate * 1;
+       return this.capacity;
+     }
+
      vatFunction() {
-       this.vat = (5/100) * (this.capacity + (this.totalPower/1000 * 0.18));
+       //console.log('Flat Rate: ' + this.settingsService.getFlatRate + "Tax");
+       console.log('Tax: ' + this.settingsService.getTax);
+       console.log('Cost: ' + this.settingsService.getCost);
+       console.log('Flat: ' + this.settingsService.getFlatRate);
+       console.log((this.settingsService.getTax/100) * (this.capacity + this.consumptionTotal));
+       this.vat = (this.settingsService.getTax/100) * (this.capacity + this.consumptionTotal);
        return this.vat;
      }
 
      totalBillFunction(){
-       return this.totalBill = this.consumptionTotal + this.capacity + this.vat;
+        //this.flat = this.settingsService.getFlatRate;
+        this.totalBill = this.consumptionTotal + this.vat + this.capacity;
+        //this.totalBill += this.capacity
+        //console.log('Consumption: ' + this.consumptionTotal);
+        //console.log('Flat Rate: ' + this.capacity + " TOTAL");
+        //console.log('Tax: ' + this.vat);
+        //console.log(this.totalBill);
+        return this.totalBill;
      }
 }
