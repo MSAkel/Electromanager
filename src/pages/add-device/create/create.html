@@ -46,7 +46,8 @@
           <ion-col>
             <ion-item>
               <ion-label floating>Days Used</ion-label>
-              <ion-input type="number" formControlName="daysUsed"></ion-input>
+                <ion-input type="number" min="0" max="30" formControlName="daysUsed"></ion-input>
+              <!-- <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="daysUsed"></ion-datetime> -->
             </ion-item>
           </ion-col>
         </ion-row>

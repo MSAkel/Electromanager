@@ -61,6 +61,7 @@ export class DevicesListPage implements OnInit{
   ionViewWillEnter() {
     this.setLanguage();
     this.listDevices = this.dlService.getDevices();
+    console.log(this.listDevices);
   }
 
   setLanguage() {

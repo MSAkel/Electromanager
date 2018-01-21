@@ -16,8 +16,10 @@
         <p>{{ CatGroup.devices.length }} Devices</p>
       </ion-item>
       <!-- CUSTOM CATEGORIES -->
-      <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)" text-wrap>
-          <p class="text-colour">{{ category.name }}</p>
+      <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)">
+        <ion-icon name="book" item-left></ion-icon>
+        <h2>{{ category.name | uppercase }}</h2>
+        <p>{{ category.length }} Devices</p>
       </ion-item>
     </ion-list>
     <!-- BUTTONS -->

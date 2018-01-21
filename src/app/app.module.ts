@@ -9,7 +9,6 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 
-
 import { MyApp } from './app.component';
 import { AddDevicePage } from "../pages/add-device/add-device";
 import { CreatePage } from "../pages/add-device/create/create";
@@ -24,6 +23,7 @@ import { DeviceListService } from "../services/devices-list";
 import { SettingsService } from "../services/settings";
 import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
 import { TutorialPage } from "../pages/tutorial/tutorial";
+import { HelpPage } from '../pages/help/help';
 import { SortPipe } from '../pipes/sort/sort';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -43,6 +43,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddModalPage,
     AddCategoryPage,
     TutorialPage,
+    HelpPage,
     SortPipe,
     TabsPage
   ],
@@ -72,6 +73,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddModalPage,
     AddCategoryPage,
     TutorialPage,
+    HelpPage,
     TabsPage
   ],
   providers: [
