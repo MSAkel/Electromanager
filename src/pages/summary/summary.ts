@@ -41,6 +41,10 @@ export class SummaryPage implements OnInit{
   rtl: string;
   arabic = false;
 
+  descending: boolean = false;
+  order: number;
+  column: string;
+
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private dlService: DeviceListService,
@@ -200,5 +204,12 @@ export class SummaryPage implements OnInit{
         //console.log('Tax: ' + this.vat);
         //console.log(this.totalBill);
         return this.totalBill;
+     }
+
+     sortBy(sort){
+       this.column = sort;
+       console.log();
+       this.descending = !this.descending;
+       this.order = this.descending ? 1 : -1;
      }
 }

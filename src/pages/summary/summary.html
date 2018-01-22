@@ -88,7 +88,15 @@
      </div>
      <div [ngSwitch]="category">
        <ion-list *ngSwitchCase="'consumption'">
-          <ion-item id="top" *ngFor="let device of listDevices; let i = index">
+         <ion-row padding>
+           <ion-col>
+             <p (click)="sortBy('name')">{{ 'SUMMARY.SEGMENTNAME' | translate}}</p>
+           </ion-col>
+           <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+             <p (click)="sortBy('power')">{{ 'SUMMARY.SEGMENTWATTS' | translate}}</p>
+           </ion-col>
+         </ion-row>
+          <ion-item id="top" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
               <ion-row class="col-top">
                 <ion-col>
                   <p>{{ device.name }} ({{ device.quantity }})</p>
@@ -98,11 +106,18 @@
                 </ion-col>
               </ion-row>
           </ion-item>
-
        </ion-list>
 
        <ion-list *ngSwitchCase="'hours'">
-           <ion-item id="top" *ngFor="let device of listDevices; let i = index">
+         <ion-row padding>
+           <ion-col>
+             <p (click)="sortBy('name')">{{ 'SUMMARY.SEGMENTNAME' | translate}}</p>
+           </ion-col>
+           <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+             <p (click)="sortBy('hours')">{{ 'SUMMARY.SEGMENTHOURS' | translate}}</p>
+           </ion-col>
+         </ion-row>
+           <ion-item id="top" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
               <ion-row class="col-top">
                 <ion-col>
                   <p>{{ device.name }} ({{ device.quantity }})</p>
@@ -115,7 +130,15 @@
        </ion-list>
 
        <ion-list *ngSwitchCase="'cost'">
-         <ion-item id="top" *ngFor="let device of listDevices; let i = index">
+         <ion-row padding>
+           <ion-col>
+             <p (click)="sortBy('name')">{{ 'SUMMARY.SEGMENTNAME' | translate}}</p>
+           </ion-col>
+           <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+             <p (click)="sortBy('power')">{{ 'SUMMARY.SEGMENTCOST' | translate}}</p>
+           </ion-col>
+         </ion-row>
+         <ion-item id="top" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
             <ion-row class="col-top">
               <ion-col>
                 <p>{{ device.name }} ({{ device.quantity }})</p>

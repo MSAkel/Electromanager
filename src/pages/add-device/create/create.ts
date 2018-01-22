@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DeviceListService } from "../../../services/devices-list";
 import { Device } from "../../../models/device";
 import { DeviceCategory } from "../../../models/device-category";
+import { Category } from "../../../models/category";
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ export class CreatePage implements OnInit {
   mode = 'New';
   deviceForm: FormGroup;
   device: Device;
+  listCategory: Category[];
   deviceCategory: DeviceCategory;
   index: number;
 
@@ -37,11 +39,18 @@ export class CreatePage implements OnInit {
 
   ngOnInit() {
     this.settingsService.getLanguage();
+    this.dlService.fetchCategories()
+    .then(
+      (category: Category[]) => this.listCategory = category
+    );
     this.mode = this.navParams.get('mode');
     if (this.mode == 'Edit') {
       this.device = this.navParams.get('device');
       this.index = this.navParams.get('index');
-    } else if (this.mode == 'Create') {
+    } else if (this.mode == 'Category Edit') {
+      this.device = this.navParams.get('device');
+      this.index = this.navParams.get('index');
+    }else if (this.mode == 'Create') {
       this.deviceCategory = this.navParams.get('deviceCategory');
       this.index = this.navParams.get('index');
     }
@@ -67,6 +76,14 @@ export class CreatePage implements OnInit {
     const value = this.deviceForm.value;
     if (this.mode == 'Edit') {
       this.dlService.updateDevice(this.index, value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      const toast = this.toastCtrl.create({
+        message: 'Edit Successful',
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.present();
+    } else if (this.mode == 'Category Edit') {
+      this.dlService.updateDeviceCategory(this.index, value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
         duration: 2000,
@@ -121,6 +138,15 @@ export class CreatePage implements OnInit {
     let AddToCategory = false;
 
     if(this.mode == 'Edit'){
+      name = this.device.name;
+      quantity = this.device.quantity;
+      power = this.device.power;
+      hours = this.device.hours;
+      daysUsed = this.device.daysUsed;
+      category = this.device.category;
+    }
+
+    if(this.mode == 'Category Edit'){
       name = this.device.name;
       quantity = this.device.quantity;
       power = this.device.power;

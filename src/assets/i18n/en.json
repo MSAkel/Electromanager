@@ -23,7 +23,11 @@
     "CALC_2": "Capacity of breaker",
     "CALC_3": "Tax",
     "CALC_4": "Total",
-    "CHARTTITLE": "Total Power Consumed Per Appliance (Watts)"
+    "CHARTTITLE": "Total Power Consumed Per Appliance (Watts)",
+    "SEGMENTNAME": "Name",
+    "SEGMENTWATTS": "Watts",
+    "SEGMENTHOURS": "Hours",
+    "SEGMENTCOST": "Cost"
   },
   "DEVICELIST": {
     "TITLE": "Appliances",

@@ -41,6 +41,10 @@ export class AddDevicePage implements OnInit{
   ngOnInit() {
     this.settingsService.getLanguage();
     this.deviceCat = devices;
+    this.dlService.fetchCategories()
+      .then(
+        (categories: Category[]) => this.listCategories = categories
+      );
   }
 
   ionViewWillEnter() {
@@ -56,6 +60,10 @@ export class AddDevicePage implements OnInit{
       this.arabic = true;
     }
     return this.rtl;
+  }
+
+  onLoadCategory(category: Category, index: number) {
+    this.navCtrl.push(DisplayCatPage, {mode: 'Custom', category: category, index: index});
   }
 
   onAddCategory() {
