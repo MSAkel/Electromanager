@@ -45,8 +45,8 @@
         </ion-grid>
       </ion-item>
       <ion-item-options side="{{slide}}">
-        <button ion-button color="primary" (click)="onEdit()"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
-        <button ion-button color="danger" (click)="onDelete()"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+        <button ion-button color="primary" (click)="onEdit(device, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
+        <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { DeviceListService } from "../../services/devices-list";
@@ -10,6 +10,7 @@ import { Device } from "../../models/device";
 //import { CreatePage } from "../add-device/create/create";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
+import { CreatePage } from "../add-device/create/create";
 //import { TutorialPage } from "../tutorial/tutorial";
 
 
@@ -34,6 +35,7 @@ export class DevicesListPage implements OnInit{
 
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
+     private modalCtrl: ModalController,
     // private alertCtrl: AlertController,
      public navParams: NavParams,
      public storage: Storage,
@@ -87,16 +89,15 @@ export class DevicesListPage implements OnInit{
     this.navCtrl.push(SelectPage, {device: device, index: index});
   }
 
-  onDelete() {
-    this.dlService.removeDevice(this.index);
+  onDelete(index: number) {
+    this.dlService.removeDevice(index);
     this.listDevices = this.dlService.getDevices();
   }
 
-  // onEdit() {
-  //   this.device = this.navParams.get('device');
-  //   this.index = this.navParams.get('index');
-  //   this.navCtrl.push(CreatePage, {mode: 'Edit', device: this.device, index: this.index});
-  // }
+  onEdit(device: Device, index: number) {
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Edit', device: device, index: index});
+    modal.present();
+  }
 
   onAddDevice() {
     this.navCtrl.push(AddDevicePage);

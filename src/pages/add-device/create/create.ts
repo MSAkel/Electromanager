@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { IonicPage, NavParams, ViewController, NavController } from "ionic-angular";
+import { IonicPage, NavParams, ViewController, NavController, ToastController } from "ionic-angular";
 
 import { SettingsService } from "../../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
@@ -26,9 +26,11 @@ export class CreatePage implements OnInit {
   arabic = false;
 
   constructor (
+    private viewCtrl: ViewController,
     private navParams: NavParams,
     private dlService: DeviceListService,
     private navCtrl: NavController,
+    public toastCtrl: ToastController,
     private settingsService: SettingsService,
     private translateService: TranslateService
   ) {}
@@ -65,15 +67,40 @@ export class CreatePage implements OnInit {
     const value = this.deviceForm.value;
     if (this.mode == 'Edit') {
       this.dlService.updateDevice(this.index, value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      const toast = this.toastCtrl.create({
+        message: 'Edit Successful',
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.present();
     } else if (this.mode == 'New') {
       this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      const toast = this.toastCtrl.create({
+        message: 'Item Added Successfully',
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.present();
     } else if (this.mode == 'Add') {
         this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+        const toast = this.toastCtrl.create({
+          message: 'Item Added Successfully',
+          duration: 2000,
+          position: 'bottom'
+        });
+        toast.present();
     } else  if (this.mode == 'Create') {
         this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+        const toast = this.toastCtrl.create({
+          message: 'Item Added Successfully',
+          duration: 2000,
+          position: 'bottom'
+        });
+        toast.present();
     }
     this.deviceForm.reset();
-    this.navCtrl.popToRoot();
+    //this.navCtrl.popToRoot();
+    this.viewCtrl.dismiss();
   }
 
   private initializeForm() {
