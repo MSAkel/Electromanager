@@ -68,9 +68,9 @@ export class AddDevicePage implements OnInit{
     modal.present();
   }
 
-  onAddToCategory(){
-    //this.navCtrl.push(CreatePage, {mode: 'Add'});
-    const modal = this.modalCtrl.create(CreatePage, {mode: 'Add'});
-    modal.present();
-  }
+  // onAddToCategory(){
+  //   //this.navCtrl.push(CreatePage, {mode: 'Add'});
+  //   const modal = this.modalCtrl.create(CreatePage, {mode: 'Add'});
+  //   modal.present();
+  // }
 }

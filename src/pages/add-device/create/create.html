@@ -15,7 +15,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-item>
+            <ion-item no-lines>
               <ion-label floating>{{ 'CREATE.NAME' | translate }}</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
@@ -23,13 +23,13 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item>
+            <ion-item no-lines>
               <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label>
               <ion-input type="number" formControlName="quantity"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item>
+            <ion-item no-lines>
               <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label>
               <ion-input type="number" formControlName="power"></ion-input>
             </ion-item>
@@ -38,13 +38,13 @@
 
         <ion-row>
           <ion-col>
-            <ion-item>
+            <ion-item no-lines>
               <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
               <ion-input type="number" formControlName="hours"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item>
+            <ion-item no-lines>
               <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
                 <ion-input type="number" min="0" max="30" formControlName="daysUsed"></ion-input>
               <!-- <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="daysUsed"></ion-datetime> -->
@@ -53,7 +53,7 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item>
+            <ion-item no-lines>
               <ion-label>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
               <ion-select formControlName="category">
                 <ion-option value="Lights">Lights</ion-option>
@@ -63,6 +63,18 @@
                 <ion-option value="Others">Others</ion-option>
               </ion-select>
             </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="mode == 'New'">
+          <ion-col>
+            <ion-item>
+               <ion-label>Add To Appliance List</ion-label>
+               <ion-checkbox formControlName="AddToList"></ion-checkbox>
+             </ion-item>
+             <ion-item>
+               <ion-label>Add To Category</ion-label>
+               <ion-checkbox formControlName="AddToCategory"></ion-checkbox>
+             </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -38,7 +38,7 @@
   "ADD": {
     "TITLE": "Add Appliance",
     "CATEGORIES": "Categories",
-    "ADDTOLIST": "Add To List",
+    "ADDDEVICE": "Add Device",
     "ADDTOCAT": "Add To Category"
   }
 }

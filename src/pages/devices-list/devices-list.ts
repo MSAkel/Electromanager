@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, NavParams, ModalController } from 'ionic-angular';
+import {NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { DeviceListService } from "../../services/devices-list";
@@ -36,6 +36,7 @@ export class DevicesListPage implements OnInit{
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
      private modalCtrl: ModalController,
+     public toastCtrl: ToastController,
     // private alertCtrl: AlertController,
      public navParams: NavParams,
      public storage: Storage,
@@ -92,6 +93,13 @@ export class DevicesListPage implements OnInit{
   onDelete(index: number) {
     this.dlService.removeDevice(index);
     this.listDevices = this.dlService.getDevices();
+
+    const toast = this.toastCtrl.create({
+      message: 'Item Delete',
+      duration: 1500,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   onEdit(device: Device, index: number) {

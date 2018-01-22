@@ -74,22 +74,29 @@ export class CreatePage implements OnInit {
       });
       toast.present();
     } else if (this.mode == 'New') {
-      this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      if(value.AddToList == true) {
+        this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      }
+      if(value.AddToCategory == true) {
+        this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      }
       const toast = this.toastCtrl.create({
         message: 'Item Added Successfully',
         duration: 2000,
         position: 'bottom'
       });
       toast.present();
-    } else if (this.mode == 'Add') {
-        this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
-        const toast = this.toastCtrl.create({
-          message: 'Item Added Successfully',
-          duration: 2000,
-          position: 'bottom'
-        });
-        toast.present();
-    } else  if (this.mode == 'Create') {
+    }
+    // else if (this.mode == 'Add') {
+    //     this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+    //     const toast = this.toastCtrl.create({
+    //       message: 'Item Added Successfully',
+    //       duration: 2000,
+    //       position: 'bottom'
+    //     });
+    //     toast.present();
+    // }
+    else  if (this.mode == 'Create') {
         this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
         const toast = this.toastCtrl.create({
           message: 'Item Added Successfully',
@@ -109,7 +116,9 @@ export class CreatePage implements OnInit {
     let power = null;
     let hours = null;
     let daysUsed = 30;
-    let category = null;
+    let category = 'Others';
+    let AddToList = null;
+    let AddToCategory = false;
 
     if(this.mode == 'Edit'){
       name = this.device.name;
@@ -136,7 +145,9 @@ export class CreatePage implements OnInit {
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
       'daysUsed': new FormControl(daysUsed, Validators.required),
-      'category': new FormControl(category, Validators.required)
+      'category': new FormControl(category, Validators.required),
+      'AddToList': new FormControl(AddToList),
+      'AddToCategory': new FormControl(AddToCategory)
     });
   }
 }
