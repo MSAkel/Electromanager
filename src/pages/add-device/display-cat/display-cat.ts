@@ -38,11 +38,11 @@ export class DisplayCatPage implements OnInit{
 
   ngOnInit() {
     this.mode = this.navParams.get('mode');
-    if(this.mode == 'Custom') {
+
       this.category = this.navParams.get('category');
-    } else {
+
       this.deviceGroup = this.navParams.data;
-    }
+    
     console.log(this.mode);
     this.dlService.fetchDevicesCategory()
     .then(

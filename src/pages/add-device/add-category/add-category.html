@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add Category</ion-title>
+    <ion-buttons end>
+			<button ion-button navPop color="primary">
+				{{ 'CREATE.CLOSE' | translate }}
+			</button>
+		</ion-buttons>
+    <ion-title>{{ mode }} Category</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -19,6 +24,6 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    <button ion-button type="submit" block [disabled]="!categoryForm.valid">Add Category</button>
+    <button ion-button type="submit" block [disabled]="!categoryForm.valid">{{ mode }} Category</button>
   </form>
 </ion-content>

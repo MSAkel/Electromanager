@@ -13,7 +13,7 @@
 <ion-content padding>
   <ion-list>
     <div *ngFor="let device of listDevicesCategory; let i = index">
-    <ion-item-sliding *ngIf="device.category == category.name">
+    <ion-item-sliding *ngIf="device.category == deviceGroup.category || device.category == category.name">
       <ion-item (click)="onAddDevice(device)">
         <p>{{ device.name }}</p>
         <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>

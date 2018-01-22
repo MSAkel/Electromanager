@@ -13,14 +13,20 @@
         [navPush]="displayCatPage" [navParams]="CatGroup">
         <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
         <h2>{{ CatGroup.category | uppercase }}</h2>
-        <p>{{ CatGroup.devices.length }} Devices</p>
+        <!-- <p>{{ CatGroup.devices.length }} Devices</p> -->
       </ion-item>
       <!-- CUSTOM CATEGORIES -->
-      <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)">
-        <ion-icon name="book" item-left></ion-icon>
-        <h2>{{ category.name | uppercase }}</h2>
-        <p>{{ category.length }} Devices</p>
-      </ion-item>
+      <ion-item-sliding *ngFor="let category of listCategories; let i = index">
+        <ion-item (click)="onLoadCategory(category, i)">
+          <ion-icon name="book" item-left></ion-icon>
+          <h2>{{ category.name | uppercase }}</h2>
+          <!-- <p>{{ category.name.length }} Devices</p> -->
+        </ion-item>
+        <ion-item-options side="{{slide}}">
+          <button ion-button color="primary" (click)="onEdit(category, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
+          <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
     <!-- BUTTONS -->
     <ion-grid>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, NavParams, ModalController } from 'ionic-angular';
+import {NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -34,6 +34,7 @@ export class AddDevicePage implements OnInit{
     public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
+    private toastCtrl: ToastController,
     private dlService: DeviceListService,
     private settingsService: SettingsService,
     private translateService: TranslateService) {}
@@ -62,12 +63,29 @@ export class AddDevicePage implements OnInit{
     return this.rtl;
   }
 
+  onDelete(index: number) {
+    this.dlService.removeCategory(index);
+    this.listCategories = this.dlService.getCategories();
+
+    const toast = this.toastCtrl.create({
+      message: 'Category Deleted',
+      duration: 1500,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  onEdit(category: Category, index: number) {
+    const modal = this.modalCtrl.create(AddCategoryPage, {mode: 'Edit', category: category, index: index});
+    modal.present();
+  }
+
   onLoadCategory(category: Category, index: number) {
     this.navCtrl.push(DisplayCatPage, {mode: 'Custom', category: category, index: index});
   }
 
   onAddCategory() {
-    this.navCtrl.push(AddCategoryPage);
+    this.navCtrl.push(AddCategoryPage, {mode: 'Add'});
   }
 
   onAddItem() {
