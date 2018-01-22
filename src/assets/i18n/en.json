@@ -1,18 +1,44 @@
 {
+  "TABS": {
+    "LIST": "Appliance List",
+    "SUMMARY": "Summary"
+  },
   "SETTINGS": {
     "TITLE": "Settings",
-    "LANGUAGE": "Select Language"
+    "LANGUAGE": "Select Language",
+    "COST": "Cost",
+    "TAX": "Tax Rate",
+    "PREFS": "Prefs",
+    "FLATRATE": "Flat Rate"
   },
   "SUMMARY": {
+    "MENU": "Menu",
     "TITLE": "Summary",
     "DETAILS": "Your Estimated bill details",
     "TOTAL": "Total power consumed in 30 days",
     "TOTALCONSUMED": "Total Consumed:",
     "ESTIMATEDTOTAL": "Estimated Total:",
-    "CALCUALTION": "Total bill calculation",
+    "CALCULATION": "Total bill calculation",
     "CALC_1": "Consumption Total",
     "CALC_2": "Capacity of breaker",
-    "CALC_3": "VAT",
-    "CALC_4": "Total"
+    "CALC_3": "Tax",
+    "CALC_4": "Total",
+    "CHARTTITLE": "Total Power Consumed Per Appliance (Watts)"
+  },
+  "DEVICELIST": {
+    "TITLE": "Appliances",
+    "NAME": "Name",
+    "CONSUMPTION": "Consumption",
+    "HOURS": "Hours",
+    "DAYSUSED": "Days Used",
+    "WATTS": "Watts",
+    "DELETE": "Delete",
+    "EDIT": "Edit"
+  },
+  "ADD": {
+    "TITLE": "Add Appliance",
+    "CATEGORIES": "Categories",
+    "ADDTOLIST": "Add To List",
+    "ADDTOCAT": "Add To Category"
   }
 }

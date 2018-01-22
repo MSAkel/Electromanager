@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { Device } from "../../../models/device";
 import { CreatePage } from "../create/create";
@@ -14,7 +14,11 @@ export class SelectPage implements OnInit {
   device: Device;
   index: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private dlService: DeviceListService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private modalCtrl: ModalController,
+    private dlService: DeviceListService) {
   }
 
   ngOnInit() {
@@ -23,7 +27,9 @@ export class SelectPage implements OnInit {
   }
 
   onEditDevice() {
-    this.navCtrl.push(CreatePage, {mode: 'Edit', device: this.device, index: this.index});
+    //this.navCtrl.push(CreatePage, {mode: 'Edit', device: this.device, index: this.index});
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Edit', device: this.device, index: this.index});
+    modal.present();
   }
 
   onDeleteDevice() {

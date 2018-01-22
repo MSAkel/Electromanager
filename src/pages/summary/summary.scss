@@ -1,5 +1,7 @@
 page-summary {
-
+  #content {
+    background-color: #efefef;
+  }
   .col-top {
     border-bottom: 1px solid #d1d1d1;
   }
@@ -20,6 +22,11 @@ page-summary {
   }
 
   .text-colour {
-    color: #488aff;
+    color: dark;
   }
+
+  // @include rtl() {
+  //       // Custom rtl style goes here
+  //       float: right;
+  //   }
 }

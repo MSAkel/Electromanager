@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, AlertController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ModalController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { DeviceListService } from "../../services/devices-list";
+import { SettingsService } from "../../services/settings";
+import { TranslateService } from '@ngx-translate/core';
+
 import { Device } from "../../models/device";
-import { CreatePage } from "../add-device/create/create";
+//import { CreatePage } from "../add-device/create/create";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
+import { CreatePage } from "../add-device/create/create";
+//import { TutorialPage } from "../tutorial/tutorial";
+
 
 @Component({
   selector: 'page-devices-list',
@@ -16,37 +23,81 @@ export class DevicesListPage implements OnInit{
   device: Device;
   index: number;
 
+  language: string;
+  rtl: string;
+  arabic = false;
+  slide: string;
+
+  descending: boolean = false;
+  order: number;
+  column: string;
+
+
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
-     private alertCtrl: AlertController,
-     public navParams: NavParams) {
+     private modalCtrl: ModalController,
+    // private alertCtrl: AlertController,
+     public navParams: NavParams,
+     public storage: Storage,
+     private settingsService: SettingsService,
+     private translateService: TranslateService) {
   }
 
   ngOnInit() {
+    this.settingsService.getLanguage();
     this.dlService.fetchDevices()
     .then(
       (devices: Device[]) => this.listDevices = devices
     );
   }
 
+//   ionViewDidLoad() {
+//   this.storage.get('intro-done').then(done => {
+//     if (!done) {
+//       this.storage.set('intro-done', true);
+//       this.navCtrl.setRoot(TutorialPage);
+//     }
+//   });
+// }
+
   ionViewWillEnter() {
+    this.setLanguage();
     this.listDevices = this.dlService.getDevices();
+    console.log(this.listDevices);
+  }
+
+  setLanguage() {
+    this.language = this.translateService.currentLang;
+    if(this.language == 'ar')
+    {
+      this.rtl = 'rtl';
+      this.slide = 'left';
+      this.arabic = true;
+
+    }
+    return this.rtl;
+  }
+
+  sortBy(sort){
+    this.column = sort;
+    console.log();
+    this.descending = !this.descending;
+    this.order = this.descending ? 1 : -1;
   }
 
   onLoadDevice(device: Device, index: number) {
     this.navCtrl.push(SelectPage, {device: device, index: index});
   }
 
-  onDelete() {
-    this.dlService.removeDevice(this.index);
+  onDelete(index: number) {
+    this.dlService.removeDevice(index);
     this.listDevices = this.dlService.getDevices();
   }
 
-  // onEdit() {
-  //   this.device = this.navParams.get('device');
-  //   this.index = this.navParams.get('index');
-  //   this.navCtrl.push(CreatePage, {mode: 'Edit', device: this.device, index: this.index});
-  // }
+  onEdit(device: Device, index: number) {
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Edit', device: device, index: index});
+    modal.present();
+  }
 
   onAddDevice() {
     this.navCtrl.push(AddDevicePage);

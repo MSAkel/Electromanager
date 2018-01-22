@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header dir="{{rtl}}">
   <ion-navbar>
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
@@ -7,32 +7,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content id="content">
+<ion-content id="content" dir="{{rtl}}">
+
   <div text-center padding>
     <h2>{{ 'SUMMARY.DETAILS' | translate }}</h2>
-    <!-- <p *ngIf="totalPower <= 0;">You do not have any input data</p>
-    <p *ngIf="totalPower <= 0;">You must have at least one(1) item with over zero(0) power consumption to display results</p> -->
   </div>
-
-  <!-- <div id="container" style="display: block;"	></div> -->
-  <!-- <ion-grid padding id="summary-first" *ngIf="totalPower > 0;">
-    <ion-row text-center>
-      <ion-col>
-        <p *ngIf="totalPower > 0;"><b>{{ 'SUMMARY.TOTAL' | translate }}</b></p>
-      </ion-col>
-    </ion-row>
-    <ion-row text-center>
-      <ion-col class="split-col">
-        <ion-icon name="flash" class="flash"></ion-icon>
-        <p *ngIf="totalPower > 0">{{ 'SUMMARY.TOTALCONSUMED' | translate }} {{ totalPower | number : '1.2-2'}}</p>
-      </ion-col>
-      <ion-col>
-        <ion-icon name="logo-usd" class="dollar"></ion-icon>
-        <p *ngIf="totalPower > 0 && totalPower <= 6000000">{{ 'SUMMARY.ESTIMATEDTOTAL' | translate }} {{ consumptionTotal | number : '1.2-2' }}</p>
-        <p *ngIf="totalPower > 60000000">Estimated Total: {{ consumptionTotal | number : '1.2-2' }}</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
 <ion-card>
   <ion-grid padding *ngIf="totalPower > 0;">
     <ion-row text-center>
@@ -45,7 +24,7 @@
         <ion-col>
           <p class="text-colour">{{ 'SUMMARY.CALC_1' | translate }}</p>
         </ion-col>
-        <ion-col text-right>
+        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
             <p class="text-colour">{{ consumptionTotal | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
@@ -53,9 +32,9 @@
     <ion-item >
       <ion-row class="col-top" >
         <ion-col>
-          <p class="text-colour">Capacity of breaker</p>
+          <p class="text-colour">{{ 'SUMMARY.CALC_2' | translate }}</p>
         </ion-col>
-        <ion-col text-right>
+        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
           <p class="text-colour">{{ capacity }}</p>
         </ion-col>
       </ion-row>
@@ -63,9 +42,9 @@
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p class="text-colour">VAT (5%)</p>
+          <p class="text-colour">{{ 'SUMMARY.CALC_3' | translate }}</p>
         </ion-col>
-        <ion-col text-right>
+        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
           <p class="text-colour">{{ vat | number : '1.2-2'}}</p>
         </ion-col>
       </ion-row>
@@ -73,9 +52,9 @@
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p class="text-colour">Total</p>
+          <p class="text-colour">{{ 'SUMMARY.CALC_4' | translate }}</p>
         </ion-col>
-        <ion-col text-right>
+        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
           <p class="text-colour">{{ totalBill | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
@@ -86,7 +65,7 @@
 <ion-card>
   <ion-grid>
     <ion-list>
-      <p text-center><b>Total power consumed per appliance</b></p>
+      <p text-center><b>{{ 'SUMMARY.CHARTTITLE' | translate }}</b></p>
       <ion-item>
          <canvas #pieCanvas></canvas>
        </ion-item>
@@ -114,7 +93,7 @@
                 <ion-col>
                   <p>{{ device.name }} ({{ device.quantity }})</p>
                 </ion-col>
-                <ion-col text-right>
+                <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
                   <p>{{ device.quantity * device.power * device.hours * device.daysUsed }}</p>
                 </ion-col>
               </ion-row>
@@ -128,7 +107,7 @@
                 <ion-col>
                   <p>{{ device.name }} ({{ device.quantity }})</p>
                 </ion-col>
-                <ion-col text-right>
+                <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
                   <p>{{ device.quantity * device.hours * device.daysUsed }}</p>
                 </ion-col>
               </ion-row>
@@ -141,7 +120,7 @@
               <ion-col>
                 <p>{{ device.name }} ({{ device.quantity }})</p>
               </ion-col>
-              <ion-col text-right>
+              <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
                 <p>{{ ((device.quantity * device.power * device.hours * device.daysUsed)/1000) * 0.18 | number : '1.2-2' }}</p>
               </ion-col>
             </ion-row>

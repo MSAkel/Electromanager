@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController }
 
 import { DeviceListService } from "../../../services/devices-list";
 import { Device } from "../../../models/device";
-import { AddModalPage } from "./add-modal/add-modal";
+//import { AddModalPage } from "./add-modal/add-modal";
+import { CreatePage } from "../create/create";
 import { CatDevice } from "../../../data/device-cat.interface";
 import { DeviceCategory } from "../../../models/device-category";
 //import { CreatePage } from "../create/create";
@@ -17,7 +18,7 @@ import { DeviceCategory } from "../../../models/device-category";
 export class DisplayCatPage implements OnInit{
   deviceGroup: {category: string, devices: CatDevice[], icon: string};
   listDevicesCategory: DeviceCategory[];
-  device: Device;
+  deviceCategory: DeviceCategory;
   index: number;
 
 
@@ -42,8 +43,8 @@ export class DisplayCatPage implements OnInit{
     this.listDevicesCategory = this.dlService.getDevicesCategory();
   }
 
-  onAddDevice(device: Device) {
-    const modal = this.modalCtrl.create(AddModalPage, device);
+  onAddDevice(deviceCategory: DeviceCategory, index: number) {
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Create', deviceCategory: deviceCategory, index: index});
     modal.present();
   }
 

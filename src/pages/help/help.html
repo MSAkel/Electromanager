@@ -1,0 +1,47 @@
+<ion-header dir="{{rtl}}">
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    </ion-buttons>
+    <ion-title>{{ 'HELP.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content dir="{{rtl}}">
+  <ion-list>
+    <ion-item-divider color="primary">{{ 'HELP.TAXTITLE' | translate }}</ion-item-divider>
+    <ion-item text-wrap no-lines>
+      {{ 'HELP.TAX' | translate }}
+    </ion-item>
+
+    <ion-item-divider color="primary">
+      {{ 'HELP.FLATRATETITLE' | translate }}
+    </ion-item-divider>
+    <ion-item text-wrap>
+      {{ 'HELP.FLATRATE' | translate }}
+    </ion-item>
+
+    <ion-item-divider color="primary">
+      {{ 'HELP.COSTTITLE' | translate }}
+    </ion-item-divider>
+    <ion-item text-wrap no-lines>
+      {{ 'HELP.COST' | translate }}
+    </ion-item>
+
+    <ion-item-divider color="primary">
+      {{ 'HELP.CONSUMPTIONTITLE' | translate }}
+    </ion-item-divider>
+    <ion-item text-wrap no-lines>
+      {{ 'HELP.CONSUMPTION' | translate }}
+    </ion-item>
+
+    <ion-item-divider color="primary">
+      {{ 'HELP.THERMOSTATTITLE' | translate }}
+    </ion-item-divider>
+    <ion-item text-wrap no-lines>
+      {{ 'HELP.THERMOSTAT' | translate }}
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

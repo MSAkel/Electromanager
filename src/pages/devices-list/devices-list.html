@@ -1,39 +1,39 @@
-<ion-header>
+<ion-header dir="{{rtl}}">
   <ion-navbar>
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>Appliances</ion-title>
+    <ion-title>{{ 'DEVICELIST.TITLE' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-grid>
+<ion-content dir="{{rtl}}">
+  <ion-grid class="list-top">
     <ion-row>
       <ion-col>
-        <p>Name</p>
+        <p (click)="sortBy('name')">{{ 'DEVICELIST.NAME' | translate}}</p>
       </ion-col>
       <ion-col>
-        <p>Consumption</p>
+        <p (click)="sortBy('power')">{{ 'DEVICELIST.WATTS' | translate }}</p>
       </ion-col>
       <ion-col>
-        <p>Hours</p>
+        <p (click)="sortBy('hours')">{{ 'DEVICELIST.HOURS' | translate }}</p>
       </ion-col>
       <ion-col>
-        <p>Days Used</p>
+        <p (click)="sortBy('daysUsed')">{{ 'DEVICELIST.DAYSUSED' | translate }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-list>
-    <ion-item-sliding *ngFor="let device of listDevices; let i = index">
-      <ion-item (click)="onLoadDevice(device, i)" text-wrap>
+    <ion-item-sliding class="list" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
+      <ion-item (click)="onLoadDevice(device, i)" text-wrap class="item no-padding">
         <ion-grid>
-          <ion-row class="col-top">
+          <ion-row>
             <ion-col>
               <p class="text-colour">{{ device.name }} ({{ device.quantity }})</p>
             </ion-col>
             <ion-col>
-              <p class="text-colour"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+              <p class="text-colour"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }}</p>
             </ion-col>
             <ion-col>
               <p class="text-colour"><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
@@ -44,13 +44,13 @@
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item-options>
-        <!-- <button ion-button color="secondary" (click)="onEdit()"><ion-icon name="create"></ion-icon>Edit</button> -->
-        <button ion-button color="danger" (click)="onDelete()"><ion-icon name="trash"></ion-icon>Delete</button>
+      <ion-item-options side="{{slide}}">
+        <button ion-button color="primary" (click)="onEdit(device, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
+        <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <ion-fab  bottom right>
+  <ion-fab  bottom [attr.left]="arabic ? '' : null" [attr.right]="!arabic ? '' : null">
     <button ion-fab mini color="secondary" (click)="onAddDevice()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
   <!-- <button ion-button full icon-left (click)="onAddDevice()" color="secondary">ADD NEW ITEM</button> -->

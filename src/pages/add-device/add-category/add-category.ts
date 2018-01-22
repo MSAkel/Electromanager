@@ -1,6 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { IonicPage, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams, ToastController } from 'ionic-angular';
 
 import { DeviceListService } from "../../../services/devices-list";
 
@@ -14,7 +14,7 @@ export class AddCategoryPage {
   categoryForm: FormGroup;
 
 
-  constructor(private viewCtrl: ViewController, private navParams: NavParams, private dlService: DeviceListService) {}
+  constructor(private viewCtrl: ViewController, public toastCtrl: ToastController, private navParams: NavParams, private dlService: DeviceListService) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -25,6 +25,12 @@ export class AddCategoryPage {
     this.dlService.addCategory(value.name);
     this.categoryForm.reset();
     this.viewCtrl.dismiss();
+    const toast = this.toastCtrl.create({
+      message: 'Category Added Successfully',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   private initializeForm() {

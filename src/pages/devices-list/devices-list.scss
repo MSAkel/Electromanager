@@ -1,32 +1,22 @@
 page-devices-list {
 
-  .dollar {
-    color: green;
-  }
-
-  .flash {
-    //color: #ffff63;
-  }
-
-  .time {
-    color: #BBBBBB;
-  }
-
-  .split-col {
-    border-right: 1px solid grey;
-  }
-
-  .col-top {
+  .list {
     //border-top: 1px solid grey;
-
-  }
-
-  #list {
-    //background-color: #f1efff;
-    margin-bottom: 1%;
+    box-shadow: 0 4px 38px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   .text-colour {
+    //color: #488aff;
+    color: dark;
+  }
+
+  .no-padding {
+    padding: 0px !important;
+    	text-align: center;
+  }
+
+  .list-top {
     color: #488aff;
+    background-color: #efefef;;
   }
 }
