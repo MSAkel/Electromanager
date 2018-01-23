@@ -64,6 +64,55 @@
 
 <ion-card>
   <ion-grid>
+    <ion-list-header no-lines>
+      <h2 text-center>{{ 'SUMMARY.ADJUSTTITLE' | translate }}</h2><button ion-button icon-only clear item-end (click)="onAddBill()"><ion-icon name="add"></ion-icon></button>
+    </ion-list-header>
+
+    <ion-row padding class="col-top">
+      <ion-col>
+        <p>{{ 'SUMMARY.ADJUSTPARA' | translate}}</p>
+      </ion-col>
+      <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+        <p> {{ adjusting | number : '1.2-2' }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row padding>
+      <ion-col>
+        <p>{{ 'SUMMARY.BILL' | translate }}</p>
+      </ion-col>
+      <ion-col>
+        <p>{{ 'SUMMARY.APPBILL' | translate }}</p>
+      </ion-col>
+      <ion-col>
+        <p>{{ 'SUMMARY.DIFFERENCE' | translate }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-list>
+      <ion-item-sliding *ngFor="let adjust of listAdjust; let i = index">
+      <ion-item>
+        <ion-row class="col-top">
+          <ion-col>
+            <p class="text-colour">{{ adjust.bill }}</p>
+          </ion-col>
+          <ion-col>
+            <p class="text-colour">{{ adjust.appBill }}</p>
+          </ion-col>
+          <ion-col>
+            <p class="text-colour">{{ adjust.difference }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item-options side="{{slide}}">
+        <button ion-button color="primary" (click)="onEdit(adjust, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
+        <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+      </ion-item-options>
+    </ion-item-sliding>
+    </ion-list>
+  </ion-grid>
+</ion-card>
+
+<ion-card>
+  <ion-grid>
     <ion-list>
       <p text-center><b>{{ 'SUMMARY.CHARTTITLE' | translate }}</b></p>
       <ion-item>

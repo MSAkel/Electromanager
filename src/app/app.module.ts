@@ -18,6 +18,7 @@ import { SummaryPage } from "../pages/summary/summary";
 import { SettingsPage } from "../pages/settings/settings";
 import { AddModalPage } from "../pages/add-device/display-cat/add-modal/add-modal";
 import { AddCategoryPage } from "../pages/add-device/add-category/add-category";
+import { AddBillPage } from "../pages/summary/add-bill/add-bill";
 import { TabsPage } from "../pages/tabs/tabs";
 import { DeviceListService } from "../services/devices-list";
 import { SettingsService } from "../services/settings";
@@ -42,6 +43,7 @@ export function createTranslateLoader(http: HttpClient) {
     SettingsPage,
     AddModalPage,
     AddCategoryPage,
+    AddBillPage,
     TutorialPage,
     HelpPage,
     SortPipe,
@@ -72,6 +74,7 @@ export function createTranslateLoader(http: HttpClient) {
     SettingsPage,
     AddModalPage,
     AddCategoryPage,
+    AddBillPage,
     TutorialPage,
     HelpPage,
     TabsPage

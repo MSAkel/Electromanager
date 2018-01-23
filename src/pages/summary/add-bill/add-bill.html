@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+			<button ion-button navPop color="primary">
+				{{ 'CREATE.CLOSE' | translate }}
+			</button>
+		</ion-buttons>
+    <ion-title>{{ mode }} {{ 'ADDBILL.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="billForm" (ngSubmit)="onSubmit()">
+      <ion-list>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item no-lines>
+                <ion-label floating>{{ 'ADDBILL.BILL' | translate }}</ion-label>
+                <ion-input type="text" formControlName="bill"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item no-lines>
+                <ion-label floating>{{ 'ADDBILL.APPBILL' | translate }}</ion-label>
+                <ion-input type="number" formControlName="appBill"></ion-input>
+              </ion-item>
+            </ion-col>
+            <!-- <ion-col>
+              <ion-item no-lines>
+                <ion-label floating>{{ 'ADDBILL.DIFFERENCE' | translate }}</ion-label>
+                <ion-input type="number" formControlName="difference"></ion-input>
+              </ion-item>
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+      <button ion-button type="submit" block [disabled]="!billForm.valid">{{ 'CREATE.CONFIRM' | translate }}</button>
+    </form>
+</ion-content>

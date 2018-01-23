@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
+import { AddBillPage } from "./add-bill/add-bill";
+
 import { Device } from "../../models/device";
+import { Adjust } from "../../models/adjust";
 import { Chart } from 'chart.js';
 //import * as HighCharts from 'highcharts';
 
@@ -30,6 +33,9 @@ export class SummaryPage implements OnInit{
   totalBill: number;
   check = 0;
 
+  listAdjust: Adjust[];
+  adjusting:number;
+
   pieChart: any;
   public chartLabels: any = [];
   public chartValues: any = [];
@@ -47,6 +53,8 @@ export class SummaryPage implements OnInit{
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
+     private modalCtrl: ModalController,
+     public toastCtrl: ToastController,
      private dlService: DeviceListService,
      private settingsService: SettingsService,
      private translateService: TranslateService
@@ -54,7 +62,10 @@ export class SummaryPage implements OnInit{
 
   ngOnInit() {
     this.settingsService.getLanguage();
-
+    this.dlService.fetchAdjust()
+      .then(
+        (adjust: Adjust[]) => this.listAdjust = adjust
+      );
     this.dlService.fetchDevices()
       .then(
         (devices: Device[]) => this.listDevices = devices
@@ -67,6 +78,7 @@ export class SummaryPage implements OnInit{
     this.isArabic();
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
+    this.listAdjust = this.dlService.getAdjust();
 
     this.calculate();
     this.consumptionTotalFunction();
@@ -74,8 +86,11 @@ export class SummaryPage implements OnInit{
     this.capacityFunction();
     this.totalBillFunction();
 
+    this.adjust();
+
     this.defineChartData();
     this.createPieChart();
+    console.log(this.listAdjust);
   }
 
   setLanguage() {
@@ -96,6 +111,52 @@ export class SummaryPage implements OnInit{
     return this.arabic;
   }
 
+  onAddBill() {
+    // this.navCtrl.push(AddBillPage, { mode: 'Add'});
+    const modal = this.modalCtrl.create(AddBillPage, { mode: 'Add'});
+    modal.present();
+  }
+
+  onEdit(bill: Adjust, index: number) {
+    const modal = this.modalCtrl.create(AddBillPage, {mode: 'Edit', bill: bill, index: index});
+    modal.present();
+  }
+
+  onDelete(index: number) {
+    this.dlService.removeAdjust(index);
+    this.listAdjust = this.dlService.getAdjust();
+
+    const toast = this.toastCtrl.create({
+      message: 'Category Deleted',
+      duration: 1500,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  adjust() {
+    var avgDifference:number = 0;
+    var avgAppBill:number = 0;
+    var avgPercentage:number;
+    //var adjusting:number;
+
+    for ( var index = 0; index < this.listAdjust.length; index++) {
+      avgDifference +=  this.listAdjust[index].difference * 1;
+      console.log("Avg. difference: " + avgDifference);
+      avgAppBill += this.listAdjust[index].appBill * 1;
+      console.log("Avg. App Bill: " + avgAppBill);
+    }
+    avgPercentage = (avgDifference/avgAppBill) * 100;
+    console.log("avg%: " + avgPercentage);
+    console.log("Total Bill: " + this.totalBill);
+    this.adjusting = (avgPercentage/100) * this.totalBill;
+    console.log("adjusting: " + this.adjusting);
+    this.adjusting = this.totalBill - this.adjusting;
+    return this.adjusting;
+  }
+
+
+  //CHART FUNCTIONS
   getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
@@ -157,6 +218,7 @@ export class SummaryPage implements OnInit{
     this.chartValues = [];
 
   }
+  //END OF CHART FUNCTIONS
 
   calculate(){
     this.totalPower = 0;

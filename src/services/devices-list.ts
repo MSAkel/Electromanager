@@ -4,15 +4,66 @@ import { Storage } from '@ionic/storage';
 import { Device } from "../models/device";
 import { Category } from "../models/category";
 import { DeviceCategory } from "../models/device-category";
-
+import { Adjust } from "../models/adjust";
 
 @Injectable()
 export class DeviceListService {
   private devices: Device[] = [];
   private categories: Category[] = [];
   private devicescategory: DeviceCategory[] = [];
+  private adjust: Adjust[] = [];
 
   constructor(private storage: Storage) {}
+
+//ADJUST SERVICE
+addAdjust(bill: number, appBill: number, difference: number) {
+  const adjust = new Adjust(bill, appBill, difference);
+  this.adjust.push(adjust);
+  this.storage.set('adjust', this.adjust)
+    .then()
+    .catch(
+      err => {
+        this.adjust.splice(this.adjust.indexOf(adjust),1);
+      }
+    );
+}
+
+getAdjust() {
+  return this.adjust.slice();
+}
+
+fetchAdjust() {
+  return this.storage.get('adjust')
+    .then(
+      (adjust: Adjust[]) => {
+        this.adjust = adjust != null ? adjust : [];
+        return this.adjust;
+      }
+    )
+    .catch(
+      err => console.log(err)
+    );
+}
+
+updateAdjust(index: number, bill: number, appBill: number, difference: number) {
+  this.adjust[index] = new Adjust(bill, appBill, difference);
+  this.storage.set('adjust', this.adjust)
+    .then()
+    .catch(
+      err => {
+        err => console.log(err)
+      }
+    );
+}
+
+removeAdjust(index: number) {
+  this.adjust.splice(index, 1);
+  this.storage.set('adjust', this.adjust)
+    .then()
+    .catch(
+      err => console.log(err)
+    );
+}
 
 //DEVICE CATEGORY SERVICE
 addDeviceCategory(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
