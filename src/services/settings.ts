@@ -15,7 +15,6 @@ export class SettingsService {
   public getTax: number;
   public getFlatRate: number;
 
-
   constructor(private storage: Storage, private translateService: TranslateService,) {}
 
   setLanguage(event: string) {
@@ -26,8 +25,9 @@ export class SettingsService {
   }
 
   getLanguage() {
-    this.storage.get('language').then((lang) => {
+    return this.storage.get('language').then((lang) => {
       this.translateService.use(lang);
+      return this.translateService.currentLang;
     });
   }
 

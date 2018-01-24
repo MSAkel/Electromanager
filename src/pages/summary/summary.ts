@@ -46,6 +46,7 @@ export class SummaryPage implements OnInit{
   language: string;
   rtl: string;
   arabic = false;
+  slide: string;
 
   descending: boolean = false;
   order: number;
@@ -75,15 +76,14 @@ export class SummaryPage implements OnInit{
   ionViewWillEnter() {
     this.category = "close";
     this.setLanguage();
-    this.isArabic();
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
     this.listAdjust = this.dlService.getAdjust();
 
     this.calculate();
     this.consumptionTotalFunction();
-    this.vatFunction();
     this.capacityFunction();
+    this.vatFunction();
     this.totalBillFunction();
 
     this.adjust();
@@ -98,28 +98,26 @@ export class SummaryPage implements OnInit{
     if(this.language == 'ar')
     {
       this.rtl = 'rtl';
-    }
-    return this.rtl;
-  }
-
-  isArabic() {
-    if(this.language == 'ar')
-    {
+      this.slide = 'left';
       this.arabic = true;
-      console.log(this.arabic);
     }
-    return this.arabic;
   }
 
   onAddBill() {
     // this.navCtrl.push(AddBillPage, { mode: 'Add'});
     const modal = this.modalCtrl.create(AddBillPage, { mode: 'Add'});
     modal.present();
+    modal.onDidDismiss(() => {
+      this.listAdjust = this.dlService.getAdjust();
+    });
   }
 
   onEdit(bill: Adjust, index: number) {
     const modal = this.modalCtrl.create(AddBillPage, {mode: 'Edit', bill: bill, index: index});
     modal.present();
+    modal.onDidDismiss(() => {
+      this.listAdjust = this.dlService.getAdjust();
+    });
   }
 
   onDelete(index: number) {

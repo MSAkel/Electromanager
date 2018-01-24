@@ -42,8 +42,8 @@ export class DisplayCatPage implements OnInit{
       this.category = this.navParams.get('category');
 
       this.deviceGroup = this.navParams.data;
-    
-    console.log(this.mode);
+
+    //console.log(this.mode);
     this.dlService.fetchDevicesCategory()
     .then(
       (devices: DeviceCategory[]) => this.listDevicesCategory = devices
@@ -65,6 +65,9 @@ export class DisplayCatPage implements OnInit{
   onEdit(device: DeviceCategory, index: number) {
     const modal = this.modalCtrl.create(CreatePage, {mode: 'Category Edit', device: device, index: index});
     modal.present();
+    modal.onDidDismiss(() => {
+      this.listDevicesCategory = this.dlService.getDevicesCategory();
+    });
   }
 
   ionViewWillEnter() {

@@ -45,39 +45,35 @@ export class DevicesListPage implements OnInit{
   }
 
   ngOnInit() {
-    this.settingsService.getLanguage();
+    this.settingsService.getLanguage()
+      .then(() =>{
+        if(this.translateService.currentLang === "ar"){
+          this.rtl = "rtl";
+          this.slide = 'left';
+          this.arabic = true;
+        }
+    });
     this.dlService.fetchDevices()
     .then(
       (devices: Device[]) => this.listDevices = devices
     );
   }
 
-//   ionViewDidLoad() {
-//   this.storage.get('intro-done').then(done => {
-//     if (!done) {
-//       this.storage.set('intro-done', true);
-//       this.navCtrl.setRoot(TutorialPage);
-//     }
-//   });
-// }
-
   ionViewWillEnter() {
-    this.setLanguage();
+    //this.setLanguage();
     this.listDevices = this.dlService.getDevices();
     console.log(this.listDevices);
   }
 
-  setLanguage() {
-    this.language = this.translateService.currentLang;
-    if(this.language == 'ar')
-    {
-      this.rtl = 'rtl';
-      this.slide = 'left';
-      this.arabic = true;
-
-    }
-    return this.rtl;
-  }
+  // setLanguage() {
+  //   this.language = this.translateService.currentLang;
+  //   if(this.language == 'ar')
+  //   {
+  //     this.rtl = 'rtl';
+  //     this.slide = 'left';
+  //     this.arabic = true;
+  //   }
+  // }
 
   sortBy(sort){
     this.column = sort;
@@ -105,6 +101,9 @@ export class DevicesListPage implements OnInit{
   onEdit(device: Device, index: number) {
     const modal = this.modalCtrl.create(CreatePage, {mode: 'Edit', device: device, index: index});
     modal.present();
+    modal.onDidDismiss(() => {
+      this.listDevices = this.dlService.getDevices();
+    });
   }
 
   onAddDevice() {
