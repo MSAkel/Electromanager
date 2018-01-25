@@ -7,12 +7,10 @@ import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
 import { Device } from "../../models/device";
-//import { CreatePage } from "../add-device/create/create";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
 import { CreatePage } from "../add-device/create/create";
-//import { TutorialPage } from "../tutorial/tutorial";
-
+import { AddGroupPage } from "./add-group/add-group";
 
 @Component({
   selector: 'page-devices-list',
@@ -65,16 +63,6 @@ export class DevicesListPage implements OnInit{
     console.log(this.listDevices);
   }
 
-  // setLanguage() {
-  //   this.language = this.translateService.currentLang;
-  //   if(this.language == 'ar')
-  //   {
-  //     this.rtl = 'rtl';
-  //     this.slide = 'left';
-  //     this.arabic = true;
-  //   }
-  // }
-
   sortBy(sort){
     this.column = sort;
     console.log();
@@ -108,24 +96,11 @@ export class DevicesListPage implements OnInit{
 
   onAddDevice() {
     this.navCtrl.push(AddDevicePage);
-  //   const alert = this.alertCtrl.create({
-  //     title: 'Add New Appliance',
-  //     message: 'Select an appliance or create a new one',
-  //     buttons: [
-  //       {
-  //         text: "Create New",
-  //         handler: () => {
-  //           this.navCtrl.push(CreatePage, {mode: 'Add'});
-  //         }
-  //       },
-  //       {
-  //         text: "Select Appliance",
-  //         handler: () => {
-  //           this.navCtrl.push(AddDevicePage);
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   alert.present();
    }
+
+  onAddGroup() {
+    const modal = this.modalCtrl.create(AddGroupPage);
+    modal.present();
+  }
+
 }

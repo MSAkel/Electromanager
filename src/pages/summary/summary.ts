@@ -6,9 +6,12 @@ import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
 import { AddBillPage } from "./add-bill/add-bill";
+import { DisplayGroupPage } from "./display-group/display-group";
 
 import { Device } from "../../models/device";
 import { Adjust } from "../../models/adjust";
+import { Group } from "../../models/group";
+import { GroupList } from "../../models/group-list";
 import { Chart } from 'chart.js';
 //import * as HighCharts from 'highcharts';
 
@@ -35,6 +38,9 @@ export class SummaryPage implements OnInit{
 
   listAdjust: Adjust[];
   adjusting:number;
+
+  listGroup: Group[];
+  listGroupDevices: GroupList[];
 
   pieChart: any;
   public chartLabels: any = [];
@@ -67,10 +73,19 @@ export class SummaryPage implements OnInit{
       .then(
         (adjust: Adjust[]) => this.listAdjust = adjust
       );
+    this.dlService.fetchGroup()
+        .then(
+          (group: Group[]) => this.listGroup = group
+        );
     this.dlService.fetchDevices()
       .then(
         (devices: Device[]) => this.listDevices = devices
       );
+      this.dlService.fetchGroupList()
+        .then(
+          (GroupListDevices: GroupList[]) => this.listGroupDevices = GroupListDevices
+        );
+
     }
 
   ionViewWillEnter() {
@@ -79,6 +94,8 @@ export class SummaryPage implements OnInit{
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
     this.listAdjust = this.dlService.getAdjust();
+    this.listGroup = this.dlService.getGroup();
+    this.listGroupDevices = this.dlService.getGroupList();
 
     this.calculate();
     this.consumptionTotalFunction();
@@ -90,7 +107,9 @@ export class SummaryPage implements OnInit{
 
     this.defineChartData();
     this.createPieChart();
-    console.log(this.listAdjust);
+    //console.log(this.listAdjust);
+    console.log(this.listGroup);
+    this.groupDetails();
   }
 
   setLanguage() {
@@ -120,7 +139,7 @@ export class SummaryPage implements OnInit{
     });
   }
 
-  onDelete(index: number) {
+  onDeleteAdjust(index: number) {
     this.dlService.removeAdjust(index);
     this.listAdjust = this.dlService.getAdjust();
 
@@ -140,17 +159,85 @@ export class SummaryPage implements OnInit{
 
     for ( var index = 0; index < this.listAdjust.length; index++) {
       avgDifference +=  this.listAdjust[index].difference * 1;
-      console.log("Avg. difference: " + avgDifference);
+      //console.log("Avg. difference: " + avgDifference);
       avgAppBill += this.listAdjust[index].appBill * 1;
-      console.log("Avg. App Bill: " + avgAppBill);
+    //  console.log("Avg. App Bill: " + avgAppBill);
     }
     avgPercentage = (avgDifference/avgAppBill) * 100;
-    console.log("avg%: " + avgPercentage);
-    console.log("Total Bill: " + this.totalBill);
+    //console.log("avg%: " + avgPercentage);
+    //console.log("Total Bill: " + this.totalBill);
     this.adjusting = (avgPercentage/100) * this.totalBill;
-    console.log("adjusting: " + this.adjusting);
+    //console.log("adjusting: " + this.adjusting);
     this.adjusting = this.totalBill - this.adjusting;
     return this.adjusting;
+  }
+
+
+  groupDetails() {
+    let groupHours: number;
+    let groupPower: number;
+    let groupMulti: number;
+    let groupVat: number;
+    let groupConsumptionTotal: number;
+    let groupTotalPower = 0;
+    let groupTotalCost = 0;
+    for(let groupIndex = 0; groupIndex < this.listGroup.length; groupIndex++){
+      for(let deviceIndex = 0; deviceIndex < this.listGroupDevices.length; deviceIndex++) {
+        if(this.listGroupDevices[deviceIndex].group === this.listGroup[groupIndex].name) {
+          groupHours = this.listGroupDevices[deviceIndex].hours * this.listGroupDevices[deviceIndex].quantity;
+          groupPower = this.listGroupDevices[deviceIndex].power;
+          groupMulti = groupHours * groupPower * this.listGroupDevices[deviceIndex].daysUsed;
+          groupTotalPower = groupTotalPower + groupMulti;
+          console.log("Group Power 4th: ", groupTotalPower);
+        }
+        if(groupTotalPower > 0 && groupTotalPower <= 6000000){
+          groupConsumptionTotal = groupTotalPower/1000 * this.settingsService.getCost;
+        } else if (groupTotalPower > 60000000) {
+          groupConsumptionTotal = groupTotalPower/1000 * 0.30;
+        }
+        console.log("Consumption: ", groupConsumptionTotal);
+        groupVat = (this.settingsService.getTax/100) * (this.capacity + groupConsumptionTotal);
+        console.log("Tax: ", groupVat);
+        console.log("Capacity: ", this.capacity);
+        groupTotalCost = groupConsumptionTotal + this.capacity + groupVat;
+      }
+      this.dlService.updateGroup(groupIndex, this.listGroup[groupIndex].name, groupTotalPower, groupTotalCost);
+      groupHours = 0;
+      groupPower = 0;
+      groupMulti = 0;
+      groupVat = 0;
+      groupConsumptionTotal = 0;
+      groupTotalPower = 0;
+      groupTotalCost = 0;
+    }
+    this.listGroup = this.dlService.getGroup();
+  }
+
+  onLoadGroup(group: Group) {
+    const modal = this.modalCtrl.create(DisplayGroupPage, {group: group});
+    modal.present();
+  }
+
+  onDeleteGroup(index: number) {
+    for (let deviceIndex = 0; deviceIndex < this.listGroupDevices.length; deviceIndex++) {
+      try {
+        while(this.listGroupDevices[deviceIndex].group === this.listGroup[index].name) {
+              this.dlService.removeGroupList(deviceIndex);
+              this.listGroupDevices = this.dlService.getGroupList();
+        }
+      }
+      catch(err) {
+        continue;
+      }
+    }
+    this.dlService.removeGroup(index);
+    this.listGroup = this.dlService.getGroup();
+    const toast = this.toastCtrl.create({
+      message: 'Group Deleted',
+      duration: 1500,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 
@@ -225,8 +312,6 @@ export class SummaryPage implements OnInit{
       this.power = this.listDevices[index].power;
       this.multi = this.totalHours * this.power * this.listDevices[index].daysUsed;
       this.totalPower = this.totalPower + this.multi;
-      //console.log(this.listDevices.length);
-      //console.log('count ' + index);
     }
     return this.totalPower;
   }
@@ -241,34 +326,23 @@ export class SummaryPage implements OnInit{
      }
 
      capacityFunction() {
+       console.log("flat rate: ", this.settingsService.getFlatRate)
        this.capacity = this.settingsService.getFlatRate * 1;
        return this.capacity;
      }
 
      vatFunction() {
-       //console.log('Flat Rate: ' + this.settingsService.getFlatRate + "Tax");
-       console.log('Tax: ' + this.settingsService.getTax);
-       console.log('Cost: ' + this.settingsService.getCost);
-       console.log('Flat: ' + this.settingsService.getFlatRate);
-       console.log((this.settingsService.getTax/100) * (this.capacity + this.consumptionTotal));
        this.vat = (this.settingsService.getTax/100) * (this.capacity + this.consumptionTotal);
        return this.vat;
      }
 
      totalBillFunction(){
-        //this.flat = this.settingsService.getFlatRate;
         this.totalBill = this.consumptionTotal + this.vat + this.capacity;
-        //this.totalBill += this.capacity
-        //console.log('Consumption: ' + this.consumptionTotal);
-        //console.log('Flat Rate: ' + this.capacity + " TOTAL");
-        //console.log('Tax: ' + this.vat);
-        //console.log(this.totalBill);
         return this.totalBill;
      }
 
      sortBy(sort){
        this.column = sort;
-       console.log();
        this.descending = !this.descending;
        this.order = this.descending ? 1 : -1;
      }

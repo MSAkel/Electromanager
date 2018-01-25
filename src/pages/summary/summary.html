@@ -67,7 +67,6 @@
     <ion-list-header no-lines>
       <h2 text-center>{{ 'SUMMARY.ADJUSTTITLE' | translate }}</h2><button ion-button icon-only clear item-end (click)="onAddBill()"><ion-icon name="add"></ion-icon></button>
     </ion-list-header>
-
     <ion-row padding class="col-top">
       <ion-col>
         <p>{{ 'SUMMARY.ADJUSTPARA' | translate}}</p>
@@ -104,7 +103,46 @@
       </ion-item>
       <ion-item-options side="{{slide}}">
         <button ion-button color="primary" (click)="onEdit(adjust, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
-        <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+        <button ion-button color="danger" (click)="onDeleteAdjust(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+      </ion-item-options>
+    </ion-item-sliding>
+    </ion-list>
+  </ion-grid>
+</ion-card>
+
+<ion-card>
+  <ion-grid>
+    <ion-list-header no-lines>
+      <h2 text-center>{{ 'SUMMARY.GROUPTITLE' | translate }}</h2>
+    </ion-list-header>
+    <ion-row padding>
+      <ion-col>
+        <p>{{ 'SUMMARY.GROUP' | translate }}</p>
+      </ion-col>
+      <ion-col>
+        <p>{{ 'SUMMARY.TOTALPOWER' | translate }}</p>
+      </ion-col>
+      <ion-col>
+        <p>{{ 'SUMMARY.TOTALCOST' | translate }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-list>
+      <ion-item-sliding *ngFor="let group of listGroup; let i = index">
+      <ion-item (click)="onLoadGroup(group, i)">
+        <ion-row class="col-top">
+          <ion-col>
+            <p class="text-colour">{{ group.name }}</p>
+          </ion-col>
+          <ion-col>
+            <p class="text-colour">{{ group.totalPower }}</p>
+          </ion-col>
+          <ion-col>
+            <p class="text-colour">{{ group.totalCost }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      <ion-item-options side="{{slide}}">
+        <button ion-button color="danger" (click)="onDeleteGroup(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
       </ion-item-options>
     </ion-item-sliding>
     </ion-list>

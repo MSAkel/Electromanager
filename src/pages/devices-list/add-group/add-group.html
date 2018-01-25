@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button navPop color="primary">
+        {{ 'CREATE.CLOSE' | translate }}
+      </button>
+    </ion-buttons>
+    <ion-title>Add Group</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item no-lines>
+              <ion-label floating>Group Name</ion-label>
+              <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    <button ion-button type="submit" block [disabled]="!groupForm.valid">Add Group</button>
+  </form>
+</ion-content>

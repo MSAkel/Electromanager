@@ -1,6 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { IonicPage, ViewController, NavParams, ToastController } from 'ionic-angular';
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { DeviceListService } from "../../../services/devices-list";
 import { Category } from "../../../models/category";
@@ -11,7 +11,7 @@ import { DeviceCategory } from "../../../models/device-category";
   selector: 'page-add-category',
   templateUrl: 'add-category.html',
 })
-export class AddCategoryPage {
+export class AddCategoryPage implements OnInit{
   mode = 'New';
   category: Category;
   listCategory: Category[];
@@ -20,8 +20,12 @@ export class AddCategoryPage {
 
   index: number;
 
-
-  constructor(private viewCtrl: ViewController, public toastCtrl: ToastController, private navParams: NavParams, private dlService: DeviceListService) {}
+  constructor(
+    private viewCtrl: ViewController,
+    public toastCtrl: ToastController,
+    private navParams: NavParams,
+    private dlService: DeviceListService
+  ) {}
 
   ngOnInit() {
     this.mode = this.navParams.get('mode');

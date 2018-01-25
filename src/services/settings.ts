@@ -58,7 +58,7 @@ export class SettingsService {
     this.storage.get('flatRate')
     .then((flat) => {
       this.flatRate = flat;
-      //console.log(this.flatRate);
+      console.log(this.flatRate);
     }
   );
     this.getCost = this.cost;
