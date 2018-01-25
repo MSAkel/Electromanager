@@ -40,21 +40,34 @@
           <ion-col>
             <ion-item no-lines>
               <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
-              <ion-input type="number" formControlName="hours"></ion-input>
+              <!-- <ion-input type="number" formControlName="hours"></ion-input> -->
+                <ion-select formControlName="hours" interface="popover">
+                  <ion-option *ngFor="let listHours of hours" value="{{listHours.hours}}">{{listHours.hours}}</ion-option>
+                </ion-select>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item no-lines>
-              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
-                <ion-input type="number" min="0" max="30" formControlName="daysUsed"></ion-input>
-              <!-- <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" formControlName="daysUsed"></ion-datetime> -->
+              <ion-label floating>{{ 'CREATE.MINUTES' | translate }}</ion-label>
+                <ion-select interface="popover">
+                  <ion-option *ngFor="let listMinutes of minutes" value="{{listMinutes.minutes}}">{{listMinutes.minutes}}</ion-option>
+                </ion-select>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-item no-lines>
-              <ion-label>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
+              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
+              <ion-select formControlName="daysUsed" interface="popover">
+                <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
+              </ion-select>
+                <!-- <ion-input type="number" min="0" max="30" formControlName="daysUsed"></ion-input> -->
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item no-lines>
+              <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
               <ion-select formControlName="category">
                 <ion-option value="Lights">Lights</ion-option>
                 <ion-option value="Living Room">Living Room</ion-option>
@@ -69,11 +82,11 @@
         <ion-row *ngIf="mode == 'New'">
           <ion-col>
             <ion-item>
-               <ion-label>Add To Appliance List</ion-label>
+               <ion-label>{{ 'CREATE.ADDTOAPPLIANCE' | translate }}</ion-label>
                <ion-checkbox formControlName="AddToList"></ion-checkbox>
              </ion-item>
              <ion-item>
-               <ion-label>Add To Category</ion-label>
+               <ion-label>{{ 'CREATE.ADDTOCATEGORY' | translate }}</ion-label>
                <ion-checkbox formControlName="AddToCategory"></ion-checkbox>
              </ion-item>
           </ion-col>

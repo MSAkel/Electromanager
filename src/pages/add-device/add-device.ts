@@ -11,6 +11,7 @@ import { DisplayCatPage } from "./display-cat/display-cat";
 import { AddModalPage } from "./display-cat/add-modal/add-modal";
 
 import { Category } from "../../models/category";
+import { DeviceCategory } from "../../models/device-category";
 import { CatDevice } from "../../data/device-cat.interface";
 import devices from '../../data/device-cat';
 
@@ -25,6 +26,8 @@ export class AddDevicePage implements OnInit{
   listCategories: Category[];
   category: Category;
   index: number;
+
+  listCategoryDevices: DeviceCategory[];
 
   language: string;
   rtl: string;
@@ -46,11 +49,16 @@ export class AddDevicePage implements OnInit{
       .then(
         (categories: Category[]) => this.listCategories = categories
       );
+    this.dlService.fetchDevicesCategory()
+      .then(
+        (devices: DeviceCategory[]) => this.listCategoryDevices = devices
+      );
   }
 
   ionViewWillEnter() {
     this.setLanguage();
     this.listCategories = this.dlService.getCategories();
+    console.log(this.listCategoryDevices);
   }
 
   setLanguage() {
@@ -63,7 +71,19 @@ export class AddDevicePage implements OnInit{
     return this.rtl;
   }
 
+  //TODO: Fix this
   onDelete(index: number) {
+    for (let deviceIndex = 0; deviceIndex < this.listCategoryDevices.length; deviceIndex++) {
+      try {
+        while(this.listCategoryDevices[deviceIndex].category === this.listCategories[index].name) {
+              this.dlService.removeDeviceCategory(deviceIndex);
+              this.listCategoryDevices = this.dlService.getDevicesCategory();
+        }
+      }
+      catch(err) {
+        continue;
+      }
+    }
     this.dlService.removeCategory(index);
     this.listCategories = this.dlService.getCategories();
 
@@ -78,6 +98,9 @@ export class AddDevicePage implements OnInit{
   onEdit(category: Category, index: number) {
     const modal = this.modalCtrl.create(AddCategoryPage, {mode: 'Edit', category: category, index: index});
     modal.present();
+    modal.onDidDismiss(() => {
+      this.listCategories = this.dlService.getCategories();
+    });
   }
 
   onLoadCategory(category: Category, index: number) {
@@ -85,13 +108,21 @@ export class AddDevicePage implements OnInit{
   }
 
   onAddCategory() {
-    this.navCtrl.push(AddCategoryPage, {mode: 'Add'});
+    const modal = this.modalCtrl.create(AddCategoryPage, {mode: 'Add'})
+    modal.present();
+    modal.onDidDismiss(() => {
+      this.listCategories = this.dlService.getCategories();
+    });
   }
 
   onAddItem() {
     //this.navCtrl.push(CreatePage, {mode: 'New'});
     const modal = this.modalCtrl.create(CreatePage, {mode: 'New'});
     modal.present();
+    modal.onDidDismiss(() => {
+      this.listCategories = this.dlService.getCategories();
+      this.listCategoryDevices = this.dlService.getDevicesCategory();
+    });
   }
 
   // onAddToCategory(){

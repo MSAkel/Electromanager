@@ -27,6 +27,10 @@ export class CreatePage implements OnInit {
   rtl: string;
   arabic = false;
 
+  hours = [];
+  minutes = [];
+  days = [];
+
   constructor (
     private viewCtrl: ViewController,
     private navParams: NavParams,
@@ -59,6 +63,26 @@ export class CreatePage implements OnInit {
 
   ionViewWillEnter() {
     this.setLanguage();
+    this.countHours();
+    this.countMinutes();
+    this.countDays();
+  }
+
+  countHours() {
+    for(let i = 0; i <= 24; i++) {
+      this.hours.push({hours: i});
+    }
+  }
+  countMinutes() {
+    for(let i = 0; i < 60; i++) {
+      this.minutes.push({minutes: i});
+    }
+  }
+  countDays() {
+    for(let i = 0; i <= 30; i++) {
+      this.days.push({days: i});
+    }
+    console.log(this.days);
   }
 
   setLanguage() {
@@ -70,7 +94,6 @@ export class CreatePage implements OnInit {
     }
     return this.rtl;
   }
-
 
   onSubmit() {
     const value = this.deviceForm.value;
@@ -92,7 +115,7 @@ export class CreatePage implements OnInit {
       toast.present();
     } else if (this.mode == 'New') {
       if(value.AddToList == true) {
-        this.dlService.addDevice(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
+        this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category);
       }
       if(value.AddToCategory == true) {
         this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
@@ -123,7 +146,6 @@ export class CreatePage implements OnInit {
         toast.present();
     }
     this.deviceForm.reset();
-    //this.navCtrl.popToRoot();
     this.viewCtrl.dismiss();
   }
 
@@ -131,7 +153,7 @@ export class CreatePage implements OnInit {
     let name = null;
     let quantity = 1;
     let power = null;
-    let hours = null;
+    let hours = 0o0;
     let daysUsed = 30;
     let category = 'Others';
     let AddToList = null;

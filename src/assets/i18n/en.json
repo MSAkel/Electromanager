@@ -5,11 +5,25 @@
   },
   "SETTINGS": {
     "TITLE": "Settings",
-    "LANGUAGE": "Select Language",
+    "LANGUAGE": "Language",
     "COST": "Cost",
     "TAX": "Tax Rate",
     "PREFS": "Prefs",
-    "FLATRATE": "Flat Rate"
+    "FLATRATE": "Flat Rate",
+    "SAVE": "Save Settings"
+  },
+  "HELP": {
+    "TITLE": "Help",
+    "TAXTITLE": "Tax Rate",
+    "TAX": "",
+    "FLATRATETITLE": "Flat Rate",
+    "FLATRATE": "",
+    "COSTTITLE": "Cost Per Kilowatt hour (kWh)",
+    "COST": "",
+    "CONSUMPTIONTITLE": "Total kWh Consumed",
+    "CONSUMPTION": "",
+    "THERMOSTATTITLE": "Thermostat",
+    "THERMOSTAT": ""
   },
   "SUMMARY": {
     "MENU": "Menu",
@@ -49,5 +63,19 @@
     "CATEGORIES": "Categories",
     "ADDDEVICE": "Add Device",
     "ADDTOCAT": "Add To Category"
+  },
+  "CREATE": {
+    "TITLE": "Appliance",
+    "CLOSE": "Back",
+    "NAME": "Name",
+    "QUANTITY": "Quantity",
+    "POWER": "Power",
+    "HOURS": "Hours",
+    "MINUTES": "Minutes",
+    "DAYS": "Days",
+    "CATEGORY": "Category",
+    "ADDTOAPPLIANCE": "Add To Appliance List",
+    "ADDTOCATEGORY": "Add To Category",
+    "CONFIRM": "Confirm"
   }
 }

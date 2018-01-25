@@ -26,8 +26,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-
-
   }
 
   onLoad(page: any) {

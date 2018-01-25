@@ -25,22 +25,22 @@
 
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <ion-item-group>
-      <button ion-item>
+      <ion-item no-lines>
         <ion-label color="primary" fixed>{{ 'SETTINGS.COST' | translate}}</ion-label>
         <ion-input type="number" formControlName="cost"></ion-input>
-      </button>
+      </ion-item>
 
-      <ion-item>
+      <ion-item no-lines>
         <ion-label color="primary" fixed>{{ 'SETTINGS.TAX' | translate}}</ion-label>
         <ion-input type="number" formControlName="tax"></ion-input>
       </ion-item>
 
-      <button ion-item>
+      <ion-item no-lines>
         <ion-label color="primary" fixed>{{ 'SETTINGS.FLATRATE' | translate}}</ion-label>
         <ion-input type="number" formControlName="flatRate"></ion-input>
-      </button>
+      </ion-item>
 
     </ion-item-group>
-    <button ion-button type="submit" (click)='presentToast()'>Save Settings</button>
+    <button ion-button type="submit" (click)='presentToast()'>{{ 'SETTINGS.SAVE' | translate }}</button>
   </form>
 </ion-content>
