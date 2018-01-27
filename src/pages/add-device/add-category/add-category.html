@@ -1,6 +1,11 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Add Category</ion-title>
+  <ion-navbar color="navbar">
+    <ion-buttons left>
+			<button ion-button icon-only navPop>
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+		</ion-buttons>
+    <ion-title>{{ mode }} Category</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,7 +16,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-item>
+            <ion-item no-lines color="background">
               <ion-label floating>Category Name</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
@@ -19,7 +24,6 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    <button ion-button type="submit" block [disabled]="!categoryForm.valid">Add Category</button>
+    <button ion-button color="secondary" type="submit" block [disabled]="!categoryForm.valid">{{ mode }} Category</button>
   </form>
-    <button ion-button block (click)="onClose()" color="danger">Close</button>
 </ion-content>

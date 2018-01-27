@@ -1,34 +1,28 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>{{ deviceGroup.category  | uppercase }}</ion-title>
+  <ion-navbar color="navbar">
+    <div *ngIf="mode != 'Custom'">
+        <ion-title>{{ deviceGroup.category  | uppercase }}</ion-title>
+    </div>
+    <div *ngIf="mode == 'Custom'">
+        <ion-title>{{ category.name  | uppercase }}</ion-title>
+    </div>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <!-- <ion-list>
-    <button ion-item *ngFor="let device of deviceGroup.devices" (click)="onAddDevice(device)">
-      <ion-card-header>
-        {{ device.name }}
-      </ion-card-header>
-      <ion-card-content>
-        <p class="power">Power (Watts): {{ device.power }}</p>
-      </ion-card-content>
-    </button>
-  </ion-list> -->
-
-
-  <div  *ngFor="let device of listDevicesCategory; let i = index">
-      <ion-list id="item" *ngIf="device.category == deviceGroup.category">
-      <ion-item  (click)="onAddDevice(device)">
-        <p>
-          {{ device.name }}
-        </p>
-
-          <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
-
-
-    </ion-item>
+  <ion-list>
+    <div *ngFor="let device of listDevicesCategory; let i = index">
+    <ion-item-sliding *ngIf="device.category == deviceGroup.category || device.category == category.name">
+      <ion-item (click)="onAddDevice(device)" color="background">
+        <p>{{ device.name }}</p>
+        <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+      </ion-item>
+      <ion-item-options side="{{slide}}">
+        <button ion-button color="primary" (click)="onEdit(device, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
+        <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+      </ion-item-options>
+    </ion-item-sliding>
+    </div>
   </ion-list>
-</div>
 </ion-content>

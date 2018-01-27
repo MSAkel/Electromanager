@@ -5,11 +5,25 @@
   },
   "SETTINGS": {
     "TITLE": "Settings",
-    "LANGUAGE": "Select Language",
+    "LANGUAGE": "Language",
     "COST": "Cost",
     "TAX": "Tax Rate",
     "PREFS": "Prefs",
-    "FLATRATE": "Flat Rate"
+    "FLATRATE": "Flat Rate",
+    "SAVE": "Save Settings"
+  },
+  "HELP": {
+    "TITLE": "Help",
+    "TAXTITLE": "Tax Rate",
+    "TAX": "",
+    "FLATRATETITLE": "Flat Rate",
+    "FLATRATE": "",
+    "COSTTITLE": "Cost Per Kilowatt hour (kWh)",
+    "COST": "",
+    "CONSUMPTIONTITLE": "Total kWh Consumed",
+    "CONSUMPTION": "",
+    "THERMOSTATTITLE": "Thermostat",
+    "THERMOSTAT": ""
   },
   "SUMMARY": {
     "MENU": "Menu",
@@ -23,11 +37,25 @@
     "CALC_2": "Capacity of breaker",
     "CALC_3": "Tax",
     "CALC_4": "Total",
-    "CHARTTITLE": "Total Power Consumed Per Appliance (Watts)"
+    "ADJUSTTITLE": "Bill Adjusting",
+    "ADJUSTPARA": "Adjusted Bill Total:",
+    "BILL": "Bill",
+    "APPBILL": "App Bill",
+    "DIFFERENCE": "Difference",
+    "GROUPTITLE": "Group List",
+    "GROUP": "Groups",
+    "TOTALPOWER": "Total Watts",
+    "TOTALCOST": "Total Cost",
+    "CHARTTITLE": "Total Power Consumed Per Appliance (Watts)",
+    "SEGMENTNAME": "Name",
+    "SEGMENTWATTS": "Total Watts",
+    "SEGMENTHOURS": "Total Hours",
+    "SEGMENTCOST": "Cost"
   },
   "DEVICELIST": {
     "TITLE": "Appliances",
     "NAME": "Name",
+    "COUNT": "Count",
     "CONSUMPTION": "Consumption",
     "HOURS": "Hours",
     "DAYSUSED": "Days Used",
@@ -38,7 +66,21 @@
   "ADD": {
     "TITLE": "Add Appliance",
     "CATEGORIES": "Categories",
-    "ADDTOLIST": "Add To List",
+    "ADDDEVICE": "Add Device",
     "ADDTOCAT": "Add To Category"
+  },
+  "CREATE": {
+    "TITLE": "Appliance",
+    "CLOSE": "Back",
+    "NAME": "Name",
+    "QUANTITY": "Quantity",
+    "POWER": "Power",
+    "HOURS": "Hours",
+    "MINUTES": "Minutes",
+    "DAYS": "Days",
+    "CATEGORY": "Category",
+    "ADDTOAPPLIANCE": "Add To Appliance List",
+    "ADDTOCATEGORY": "Add To Category",
+    "CONFIRM": "Confirm"
   }
 }

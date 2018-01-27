@@ -1,0 +1,51 @@
+<ion-header dir="{{rtl}}">
+  <ion-navbar>
+    <ion-buttons end>
+			<button ion-button navPop color="primary">
+				{{ 'CREATE.CLOSE' | translate }}
+			</button>
+		</ion-buttons>
+    <ion-title>{{ 'DEVICELIST.TITLE' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content dir="{{rtl}}">
+  <ion-grid class="list-top">
+    <ion-row>
+      <ion-col>
+        <p (click)="sortBy('name')">{{ 'DEVICELIST.NAME' | translate}}</p>
+      </ion-col>
+      <ion-col>
+        <p (click)="sortBy('power')">{{ 'DEVICELIST.WATTS' | translate }}</p>
+      </ion-col>
+      <ion-col>
+        <p (click)="sortBy('hours')">{{ 'DEVICELIST.HOURS' | translate }}</p>
+      </ion-col>
+      <ion-col>
+        <p (click)="sortBy('daysUsed')">{{ 'DEVICELIST.DAYSUSED' | translate }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <div *ngFor="let device of listGroupDevices | sort: {property: column, order: order}">
+      <ion-item class="list item no-padding" *ngIf="device.group == group.name" text-wrap>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p class="text-colour">{{ device.name }} ({{ device.quantity }})</p>
+            </ion-col>
+            <ion-col>
+              <p class="text-colour"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }}</p>
+            </ion-col>
+            <ion-col>
+              <p class="text-colour"><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
+            </ion-col>
+            <ion-col>
+              <p class="text-colour">{{ device.daysUsed }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

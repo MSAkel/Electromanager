@@ -8,6 +8,7 @@ import { NavController, MenuController } from 'ionic-angular';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { HelpPage } from '../pages/help/help';
+import { SettingsService } from "../services/settings";
 
 @Component({
   templateUrl: 'app.html'
@@ -19,16 +20,14 @@ export class MyApp {
   helpPage = HelpPage;
   @ViewChild('nav') nav: NavController;
 
-  constructor(translate: TranslateService, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {
+  constructor(private settingsService: SettingsService,translate: TranslateService, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.settingsService.getSettings();
     });
-
-    translate.setDefaultLang('en');
-    translate.use('en');
   }
 
   onLoad(page: any) {
