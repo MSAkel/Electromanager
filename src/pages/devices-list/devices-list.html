@@ -14,7 +14,7 @@
         <p (click)="sortBy('name')">{{ 'DEVICELIST.NAME' | translate}}</p>
       </ion-col>
       <ion-col>
-        <p (click)="sortBy('count')">{{ 'DEVICELIST.COUNT' | translate}}</p>
+        <p (click)="sortBy('quantity')">{{ 'DEVICELIST.COUNT' | translate}}</p>
       </ion-col>
       <ion-col>
         <p (click)="sortBy('power')">{{ 'DEVICELIST.WATTS' | translate }}</p>
@@ -28,7 +28,7 @@
     </ion-row>
   </ion-grid>
   <ion-list>
-    <ion-item-sliding class="list" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index" (swipe)="onDelete(i)">
+    <ion-item-sliding class="list" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
       <ion-item (click)="onEdit(device, i)" text-wrap class="item no-padding">
         <ion-grid>
           <ion-row>
@@ -50,7 +50,7 @@
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item-options side="{{slide}}">
+      <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
         <!-- <button ion-button color="primary" (click)="onEdit(device, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button> -->
         <button ion-button color="danger" expandable (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
       </ion-item-options>

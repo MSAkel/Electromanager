@@ -38,33 +38,47 @@
 
         <ion-row>
           <ion-col>
-            <ion-item no-lines color="background">
+            <ion-item color="background">
               <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
               <!-- <ion-input type="number" formControlName="hours"></ion-input> -->
-                <ion-select formControlName="hours" interface="popover">
+                <!-- <ion-select formControlName="hours" interface="popover">
                   <ion-option *ngFor="let listHours of hours" value="{{listHours.hours}}">{{listHours.hours}}</ion-option>
-                </ion-select>
+                </ion-select> -->
+                <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <!-- <ion-col>
             <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.MINUTES' | translate }}</ion-label>
                 <ion-select interface="popover">
                   <ion-option *ngFor="let listMinutes of minutes" value="{{listMinutes.minutes}}">{{listMinutes.minutes}}</ion-option>
                 </ion-select>
             </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
+          </ion-col> -->
+          <!-- <ion-col>
+            <ion-item color="background">
+              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
+              <ion-datetime type="datetime-local" (click)="asd()" formControlName="daysUsed" displayFormat="YYYY-MM-DD" pickerFormat="DD"></ion-datetime>
+            </ion-item>
+          </ion-col> -->
           <ion-col>
             <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
               <ion-select formControlName="daysUsed" interface="popover">
                 <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
               </ion-select>
-                <!-- <ion-input type="number" min="0" max="30" formControlName="daysUsed"></ion-input> -->
             </ion-item>
           </ion-col>
+        </ion-row>
+        <ion-row>
+          <!-- <ion-col>
+            <ion-item no-lines color="background">
+              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
+              <ion-select formControlName="daysUsed" interface="popover">
+                <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col> -->
           <ion-col>
             <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
