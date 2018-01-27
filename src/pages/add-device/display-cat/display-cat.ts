@@ -75,7 +75,7 @@ export class DisplayCatPage implements OnInit{
   }
 
   onAddDevice(deviceCategory: DeviceCategory, index: number) {
-    const modal = this.modalCtrl.create(CreatePage, {mode: 'Create', deviceCategory: deviceCategory, index: index});
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
     modal.present();
   }
 

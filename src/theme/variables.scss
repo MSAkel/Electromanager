@@ -22,7 +22,9 @@ $app-direction: multi;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-
+$background-ios-color: #fff8ed;
+$background-md-color: #fff8ed;
+$background-wp-color: #fff8ed;
 
 
 // Named Color Variables
@@ -35,10 +37,12 @@ $app-direction: multi;
 
 $colors: (
   primary:    #488aff, //488aff
-  secondary:  #7ad61d, //32bd64
+  secondary:  #32bd64, //7ad61d
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  navbar:     #289b52, //#2ead5c
+  background: #fff8ed
 );
 
 

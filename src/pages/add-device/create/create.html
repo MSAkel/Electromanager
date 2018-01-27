@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-navbar>
-    <ion-buttons end>
-			<button ion-button navPop color="primary">
-				{{ 'CREATE.CLOSE' | translate }}
+  <ion-navbar color="navbar">
+    <ion-buttons left>
+			<button ion-button icon-only navPop>
+				<!-- {{ 'CREATE.CLOSE' | translate }} --><ion-icon name="arrow-back"></ion-icon>
 			</button>
 		</ion-buttons>
     <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title>
@@ -15,7 +15,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-item no-lines>
+            <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.NAME' | translate }}</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
@@ -23,13 +23,13 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item no-lines>
+            <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label>
               <ion-input type="number" formControlName="quantity"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item no-lines>
+            <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label>
               <ion-input type="number" formControlName="power"></ion-input>
             </ion-item>
@@ -38,7 +38,7 @@
 
         <ion-row>
           <ion-col>
-            <ion-item no-lines>
+            <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
               <!-- <ion-input type="number" formControlName="hours"></ion-input> -->
                 <ion-select formControlName="hours" interface="popover">
@@ -47,7 +47,7 @@
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item no-lines>
+            <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.MINUTES' | translate }}</ion-label>
                 <ion-select interface="popover">
                   <ion-option *ngFor="let listMinutes of minutes" value="{{listMinutes.minutes}}">{{listMinutes.minutes}}</ion-option>
@@ -57,7 +57,7 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item no-lines>
+            <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
               <ion-select formControlName="daysUsed" interface="popover">
                 <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
@@ -66,7 +66,7 @@
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item no-lines>
+            <ion-item no-lines color="background">
               <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
               <ion-select formControlName="category">
                 <ion-option value="Lights">Lights</ion-option>
@@ -79,7 +79,7 @@
             </ion-item>
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="mode == 'New'">
+        <!-- <ion-row *ngIf="mode == 'New'">
           <ion-col>
             <ion-item>
                <ion-label>{{ 'CREATE.ADDTOAPPLIANCE' | translate }}</ion-label>
@@ -90,9 +90,9 @@
                <ion-checkbox formControlName="AddToCategory"></ion-checkbox>
              </ion-item>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
       </ion-grid>
     </ion-list>
-    <button ion-button type="submit" block [disabled]="!deviceForm.valid">{{ 'CREATE.CONFIRM' | translate }}</button>
+    <button ion-button color="secondary" type="submit" block [disabled]="!deviceForm.valid">{{ 'CREATE.CONFIRM' | translate }}</button>
   </form>
 </ion-content>

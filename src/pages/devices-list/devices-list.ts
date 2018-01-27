@@ -10,7 +10,7 @@ import { Device } from "../../models/device";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
 import { CreatePage } from "../add-device/create/create";
-import { AddGroupPage } from "./add-group/add-group";
+//import { AddGroupPage } from "./add-group/add-group";
 
 @Component({
   selector: 'page-devices-list',
@@ -70,9 +70,9 @@ export class DevicesListPage implements OnInit{
     this.order = this.descending ? 1 : -1;
   }
 
-  onLoadDevice(device: Device, index: number) {
-    this.navCtrl.push(SelectPage, {device: device, index: index});
-  }
+  // onLoadDevice(device: Device, index: number) {
+  //   this.navCtrl.push(SelectPage, {device: device, index: index});
+  // }
 
   onDelete(index: number) {
     this.dlService.removeDevice(index);
@@ -98,9 +98,9 @@ export class DevicesListPage implements OnInit{
     this.navCtrl.push(AddDevicePage);
    }
 
-  onAddGroup() {
-    const modal = this.modalCtrl.create(AddGroupPage);
-    modal.present();
-  }
+  // onAddGroup() {
+  //   const modal = this.modalCtrl.create(AddGroupPage);
+  //   modal.present();
+  // }
 
 }

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="navbar">
     <div *ngIf="mode != 'Custom'">
         <ion-title>{{ deviceGroup.category  | uppercase }}</ion-title>
     </div>
@@ -14,7 +14,7 @@
   <ion-list>
     <div *ngFor="let device of listDevicesCategory; let i = index">
     <ion-item-sliding *ngIf="device.category == deviceGroup.category || device.category == category.name">
-      <ion-item (click)="onAddDevice(device)">
+      <ion-item (click)="onAddDevice(device)" color="background">
         <p>{{ device.name }}</p>
         <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
       </ion-item>

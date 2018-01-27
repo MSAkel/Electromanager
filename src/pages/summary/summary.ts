@@ -10,10 +10,10 @@ import { DisplayGroupPage } from "./display-group/display-group";
 
 import { Device } from "../../models/device";
 import { Adjust } from "../../models/adjust";
-import { Group } from "../../models/group";
-import { GroupList } from "../../models/group-list";
+//import { Group } from "../../models/group";
+//import { GroupList } from "../../models/group-list";
 import { Chart } from 'chart.js';
-//import * as HighCharts from 'highcharts';
+import * as HighCharts from 'highcharts';
 
 @IonicPage()
 @Component({
@@ -39,13 +39,17 @@ export class SummaryPage implements OnInit{
   listAdjust: Adjust[];
   adjusting:number;
 
-  listGroup: Group[];
-  listGroupDevices: GroupList[];
+  // listGroup: Group[];
+  // listGroupDevices: GroupList[];
 
   pieChart: any;
   public chartLabels: any = [];
   public chartValues: any = [];
   public chartColours: any = [];
+
+  // public labels: any = [];
+  // public values: any = [];
+  // public colours: any = [];
 
   category: string;
 
@@ -73,19 +77,18 @@ export class SummaryPage implements OnInit{
       .then(
         (adjust: Adjust[]) => this.listAdjust = adjust
       );
-    this.dlService.fetchGroup()
-        .then(
-          (group: Group[]) => this.listGroup = group
-        );
+    // this.dlService.fetchGroup()
+    //     .then(
+    //       (group: Group[]) => this.listGroup = group
+    //     );
     this.dlService.fetchDevices()
       .then(
         (devices: Device[]) => this.listDevices = devices
       );
-      this.dlService.fetchGroupList()
-        .then(
-          (GroupListDevices: GroupList[]) => this.listGroupDevices = GroupListDevices
-        );
-
+      // this.dlService.fetchGroupList()
+      //   .then(
+      //     (GroupListDevices: GroupList[]) => this.listGroupDevices = GroupListDevices
+      //   );
     }
 
   ionViewWillEnter() {
@@ -94,8 +97,8 @@ export class SummaryPage implements OnInit{
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
     this.listAdjust = this.dlService.getAdjust();
-    this.listGroup = this.dlService.getGroup();
-    this.listGroupDevices = this.dlService.getGroupList();
+    // this.listGroup = this.dlService.getGroup();
+    // this.listGroupDevices = this.dlService.getGroupList();
 
     this.calculate();
     this.consumptionTotalFunction();
@@ -106,21 +109,77 @@ export class SummaryPage implements OnInit{
     this.adjust();
 
     this.defineChartData();
+    //this.chartData();
     this.createPieChart();
+    //this.chart();
     //console.log(this.listAdjust);
-    console.log(this.listGroup);
-    this.groupDetails();
   }
 
-  setLanguage() {
-    this.language = this.translateService.currentLang;
-    if(this.language == 'ar')
-    {
-      this.rtl = 'rtl';
-      this.slide = 'left';
-      this.arabic = true;
-    }
+  ionViewDidLoad() {
+
   }
+
+  // chartData()
+  //    {
+  //       for(let index = 0; index < this.listDevices.length; index++)
+  //       {
+  //
+  //         var getPower = this.listDevices[index].quantity * this.listDevices[index].power *
+  //                        this.listDevices[index].hours * this.listDevices[index].daysUsed;
+  //         var name = this.listDevices[index].name;
+  //
+  //         this.labels.push(name);
+  //         this.values.push(getPower);
+  //     }
+  //    }
+
+   //   chart() {
+   //     var i =0;
+   //     var myChart = HighCharts.chart('container', {
+   //     chart: {
+   //         plotBackgroundColor: null,
+   //         plotBorderWidth: null,
+   //         plotShadow: false,
+   //         type: 'pie'
+   //     },
+   //     title: {
+   //         text: 'Title'
+   //     },
+   //     tooltip: {
+   //
+   //         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+   //     },
+   //     plotOptions: {
+   //         pie: {
+   //             allowPointSelect: true,
+   //             cursor: 'pointer',
+   //             dataLabels: {
+   //                 enabled: true,
+   //                 format: this.labels[i += 1] + ': {point.percentage:.1f} %',
+   //                 style: {
+   //                     color: (HighCharts.theme && HighCharts.theme.contrastTextColor) || 'black'
+   //                 }
+   //             }
+   //         }
+   //     },
+   //     series: [{
+   //         name: "Watts",
+   //         colorByPoint: true,
+   //         data:  this.values
+   //
+   //     }]
+   // });
+   //   }
+
+     setLanguage() {
+       this.language = this.translateService.currentLang;
+       if(this.language == 'ar')
+       {
+         this.rtl = 'rtl';
+         this.slide = 'left';
+         this.arabic = true;
+       }
+     }
 
   onAddBill() {
     // this.navCtrl.push(AddBillPage, { mode: 'Add'});
@@ -173,72 +232,72 @@ export class SummaryPage implements OnInit{
   }
 
 
-  groupDetails() {
-    let groupHours: number;
-    let groupPower: number;
-    let groupMulti: number;
-    let groupVat: number;
-    let groupConsumptionTotal: number;
-    let groupTotalPower = 0;
-    let groupTotalCost = 0;
-    for(let groupIndex = 0; groupIndex < this.listGroup.length; groupIndex++){
-      for(let deviceIndex = 0; deviceIndex < this.listGroupDevices.length; deviceIndex++) {
-        if(this.listGroupDevices[deviceIndex].group === this.listGroup[groupIndex].name) {
-          groupHours = this.listGroupDevices[deviceIndex].hours * this.listGroupDevices[deviceIndex].quantity;
-          groupPower = this.listGroupDevices[deviceIndex].power;
-          groupMulti = groupHours * groupPower * this.listGroupDevices[deviceIndex].daysUsed;
-          groupTotalPower = groupTotalPower + groupMulti;
-          console.log("Group Power 4th: ", groupTotalPower);
-        }
-        if(groupTotalPower > 0 && groupTotalPower <= 6000000){
-          groupConsumptionTotal = groupTotalPower/1000 * this.settingsService.getCost;
-        } else if (groupTotalPower > 60000000) {
-          groupConsumptionTotal = groupTotalPower/1000 * 0.30;
-        }
-        console.log("Consumption: ", groupConsumptionTotal);
-        groupVat = (this.settingsService.getTax/100) * (this.capacity + groupConsumptionTotal);
-        console.log("Tax: ", groupVat);
-        console.log("Capacity: ", this.capacity);
-        groupTotalCost = groupConsumptionTotal + this.capacity + groupVat;
-      }
-      this.dlService.updateGroup(groupIndex, this.listGroup[groupIndex].name, groupTotalPower, groupTotalCost);
-      groupHours = 0;
-      groupPower = 0;
-      groupMulti = 0;
-      groupVat = 0;
-      groupConsumptionTotal = 0;
-      groupTotalPower = 0;
-      groupTotalCost = 0;
-    }
-    this.listGroup = this.dlService.getGroup();
-  }
-
-  onLoadGroup(group: Group) {
-    const modal = this.modalCtrl.create(DisplayGroupPage, {group: group});
-    modal.present();
-  }
-
-  onDeleteGroup(index: number) {
-    for (let deviceIndex = 0; deviceIndex < this.listGroupDevices.length; deviceIndex++) {
-      try {
-        while(this.listGroupDevices[deviceIndex].group === this.listGroup[index].name) {
-              this.dlService.removeGroupList(deviceIndex);
-              this.listGroupDevices = this.dlService.getGroupList();
-        }
-      }
-      catch(err) {
-        continue;
-      }
-    }
-    this.dlService.removeGroup(index);
-    this.listGroup = this.dlService.getGroup();
-    const toast = this.toastCtrl.create({
-      message: 'Group Deleted',
-      duration: 1500,
-      position: 'bottom'
-    });
-    toast.present();
-  }
+  // groupDetails() {
+  //   let groupHours: number;
+  //   let groupPower: number;
+  //   let groupMulti: number;
+  //   let groupVat: number;
+  //   let groupConsumptionTotal: number;
+  //   let groupTotalPower = 0;
+  //   let groupTotalCost = 0;
+  //   for(let groupIndex = 0; groupIndex < this.listGroup.length; groupIndex++){
+  //     for(let deviceIndex = 0; deviceIndex < this.listGroupDevices.length; deviceIndex++) {
+  //       if(this.listGroupDevices[deviceIndex].group === this.listGroup[groupIndex].name) {
+  //         groupHours = this.listGroupDevices[deviceIndex].hours * this.listGroupDevices[deviceIndex].quantity;
+  //         groupPower = this.listGroupDevices[deviceIndex].power;
+  //         groupMulti = groupHours * groupPower * this.listGroupDevices[deviceIndex].daysUsed;
+  //         groupTotalPower = groupTotalPower + groupMulti;
+  //         console.log("Group Power 4th: ", groupTotalPower);
+  //       }
+  //       if(groupTotalPower > 0 && groupTotalPower <= 6000000){
+  //         groupConsumptionTotal = groupTotalPower/1000 * this.settingsService.getCost;
+  //       } else if (groupTotalPower > 60000000) {
+  //         groupConsumptionTotal = groupTotalPower/1000 * 0.30;
+  //       }
+  //       console.log("Consumption: ", groupConsumptionTotal);
+  //       groupVat = (this.settingsService.getTax/100) * (this.capacity + groupConsumptionTotal);
+  //       console.log("Tax: ", groupVat);
+  //       console.log("Capacity: ", this.capacity);
+  //       groupTotalCost = groupConsumptionTotal + this.capacity + groupVat;
+  //     }
+  //     this.dlService.updateGroup(groupIndex, this.listGroup[groupIndex].name, groupTotalPower, groupTotalCost);
+  //     groupHours = 0;
+  //     groupPower = 0;
+  //     groupMulti = 0;
+  //     groupVat = 0;
+  //     groupConsumptionTotal = 0;
+  //     groupTotalPower = 0;
+  //     groupTotalCost = 0;
+  //   }
+  //   this.listGroup = this.dlService.getGroup();
+  // }
+  //
+  // onLoadGroup(group: Group) {
+  //   const modal = this.modalCtrl.create(DisplayGroupPage, {group: group});
+  //   modal.present();
+  // }
+  //
+  // onDeleteGroup(index: number) {
+  //   for (let deviceIndex = 0; deviceIndex < this.listGroupDevices.length; deviceIndex++) {
+  //     try {
+  //       while(this.listGroupDevices[deviceIndex].group === this.listGroup[index].name) {
+  //             this.dlService.removeGroupList(deviceIndex);
+  //             this.listGroupDevices = this.dlService.getGroupList();
+  //       }
+  //     }
+  //     catch(err) {
+  //       continue;
+  //     }
+  //   }
+  //   this.dlService.removeGroup(index);
+  //   this.listGroup = this.dlService.getGroup();
+  //   const toast = this.toastCtrl.create({
+  //     message: 'Group Deleted',
+  //     duration: 1500,
+  //     position: 'bottom'
+  //   });
+  //   toast.present();
+  // }
 
 
   //CHART FUNCTIONS
@@ -316,7 +375,7 @@ export class SummaryPage implements OnInit{
     return this.totalPower;
   }
 
-     consumptionTotalFunction() {
+  consumptionTotalFunction() {
        if(this.totalPower > 0 && this.totalPower <= 6000000){
          this.consumptionTotal = this.totalPower/1000 * this.settingsService.getCost;
        } else if (this.totalPower > 60000000) {
@@ -325,23 +384,23 @@ export class SummaryPage implements OnInit{
        return this.consumptionTotal;
      }
 
-     capacityFunction() {
+  capacityFunction() {
        console.log("flat rate: ", this.settingsService.getFlatRate)
        this.capacity = this.settingsService.getFlatRate * 1;
        return this.capacity;
      }
 
-     vatFunction() {
+  vatFunction() {
        this.vat = (this.settingsService.getTax/100) * (this.capacity + this.consumptionTotal);
        return this.vat;
      }
 
-     totalBillFunction(){
+  totalBillFunction(){
         this.totalBill = this.consumptionTotal + this.vat + this.capacity;
         return this.totalBill;
      }
 
-     sortBy(sort){
+  sortBy(sort){
        this.column = sort;
        this.descending = !this.descending;
        this.order = this.descending ? 1 : -1;

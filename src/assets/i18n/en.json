@@ -48,13 +48,14 @@
     "TOTALCOST": "Total Cost",
     "CHARTTITLE": "Total Power Consumed Per Appliance (Watts)",
     "SEGMENTNAME": "Name",
-    "SEGMENTWATTS": "Watts",
-    "SEGMENTHOURS": "Hours",
+    "SEGMENTWATTS": "Total Watts",
+    "SEGMENTHOURS": "Total Hours",
     "SEGMENTCOST": "Cost"
   },
   "DEVICELIST": {
     "TITLE": "Appliances",
     "NAME": "Name",
+    "COUNT": "Count",
     "CONSUMPTION": "Consumption",
     "HOURS": "Hours",
     "DAYSUSED": "Days Used",

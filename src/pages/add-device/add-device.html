@@ -1,23 +1,32 @@
 <ion-header dir="{{rtl}}">
-  <ion-navbar>
+  <ion-navbar color="navbar">
     <ion-title>{{ 'ADD.TITLE' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content dir="{{rtl}}">
+  <ion-searchbar [(ngModel)]="terms" placeholder="Search For Appliance"></ion-searchbar>
+  <ion-list [hidden]="!terms">
+    <div *ngFor="let device of listCategoryDevices | search : terms; let i = index">
+      <ion-item (click)="onAddDevice(device)">
+        <p>{{ device.name }}</p>
+        <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+      </ion-item>
+    </div>
+  </ion-list>
+
   <ion-list>
-    <ion-list-header>
+    <ion-list-header color="background">
       {{ 'ADD.CATEGORIES' | translate }}<button ion-button icon-only clear item-end (click)="onAddCategory()"><ion-icon name="add"></ion-icon></button>
     </ion-list-header>
-      <ion-item *ngFor="let CatGroup of deviceCat"
+      <!-- <ion-item *ngFor="let CatGroup of deviceCat"
         [navPush]="displayCatPage" [navParams]="CatGroup">
         <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
         <h2>{{ CatGroup.category | uppercase }}</h2>
-        <!-- <p>{{ CatGroup.devices.length }} Devices</p> -->
-      </ion-item>
+      </ion-item> -->
       <!-- CUSTOM CATEGORIES -->
       <ion-item-sliding *ngFor="let category of listCategories; let i = index">
-        <ion-item (click)="onLoadCategory(category, i)">
+        <ion-item (click)="onLoadCategory(category, i)" color="background">
           <ion-icon name="book" item-left></ion-icon>
           <h2>{{ category.name | uppercase }}</h2>
           <!-- <p>{{ category.name.length }} Devices</p> -->

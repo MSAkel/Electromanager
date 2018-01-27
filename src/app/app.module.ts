@@ -28,6 +28,7 @@ import { DisplayGroupPage } from "../pages/summary/display-group/display-group";
 import { TutorialPage } from "../pages/tutorial/tutorial";
 import { HelpPage } from '../pages/help/help';
 import { SortPipe } from '../pipes/sort/sort';
+import { SearchPipe } from '../pipes/search/search';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -51,6 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
     TutorialPage,
     HelpPage,
     SortPipe,
+    SearchPipe,
     TabsPage
   ],
   imports: [

@@ -71,6 +71,11 @@ export class AddDevicePage implements OnInit{
     return this.rtl;
   }
 
+  onAddDevice(deviceCategory: DeviceCategory, index: number) {
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
+    modal.present();
+  }
+
   //TODO: Fix this
   onDelete(index: number) {
     for (let deviceIndex = 0; deviceIndex < this.listCategoryDevices.length; deviceIndex++) {
