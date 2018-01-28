@@ -7,12 +7,31 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content dir="{{rtl}}">
+  <!-- <ion-item>
+  <canvas #barChart></canvas>
+</ion-item> -->
 
+      <ion-card>
+        <canvas #barChart></canvas>
+      </ion-card>
 
-
-           <div id="container" style="display: block;"	></div>
-
-
-
+        <!-- <ion-list>
+            <ion-item-sliding *ngFor="let month of listMonths; let i = index">
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <p>{{ month.monthName }}</p>
+                  </ion-col>
+                  <ion-col>
+                    <p>{{ month.monthlyPower }}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+            <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
+            </ion-item-options>
+            </ion-item-sliding>
+        </ion-list> -->
 </ion-content>

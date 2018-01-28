@@ -44,17 +44,17 @@ export class DisplayGroupPage implements OnInit{
           this.arabic = true;
         }
     });
-    this.dlService.fetchGroupList()
-    .then(
-      (listDevices: GroupList[]) => this.listGroupDevices = listDevices
-    );
+    // this.dlService.fetchGroupList()
+    // .then(
+    //   (listDevices: GroupList[]) => this.listGroupDevices = listDevices
+    // );
   }
 
-  ionViewWillEnter() {
-    //this.setLanguage();
-    this.listGroupDevices = this.dlService.getGroupList();
-    console.log(this.listGroupDevices);
-  }
+  // ionViewWillEnter() {
+  //   //this.setLanguage();
+  //   this.listGroupDevices = this.dlService.getGroupList();
+  //   console.log(this.listGroupDevices);
+  // }
 
   sortBy(sort){
     this.column = sort;
