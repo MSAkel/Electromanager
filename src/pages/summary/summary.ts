@@ -6,14 +6,14 @@ import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
 import { AddBillPage } from "./add-bill/add-bill";
-import { DisplayGroupPage } from "./display-group/display-group";
+//import { DisplayGroupPage } from "./display-group/display-group";
 
 import { Device } from "../../models/device";
 import { Adjust } from "../../models/adjust";
 //import { Group } from "../../models/group";
 //import { GroupList } from "../../models/group-list";
-import { Chart } from 'chart.js';
-import * as HighCharts from 'highcharts';
+//import { Chart } from 'chart.js';
+//import * as HighCharts from 'highcharts';
 
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ import * as HighCharts from 'highcharts';
 })
 export class SummaryPage implements OnInit{
 
-  @ViewChild('pieCanvas') pieCanvas;
+//  @ViewChild('pieCanvas') pieCanvas;
 
   listDevices: Device[];
   totalPower: number = 0;
@@ -42,10 +42,10 @@ export class SummaryPage implements OnInit{
   // listGroup: Group[];
   // listGroupDevices: GroupList[];
 
-  pieChart: any;
-  public chartLabels: any = [];
-  public chartValues: any = [];
-  public chartColours: any = [];
+  // pieChart: any;
+  // public chartLabels: any = [];
+  // public chartValues: any = [];
+  // public chartColours: any = [];
 
   // public labels: any = [];
   // public values: any = [];
@@ -108,15 +108,11 @@ export class SummaryPage implements OnInit{
 
     this.adjust();
 
-    this.defineChartData();
+    //this.defineChartData();
     //this.chartData();
-    this.createPieChart();
+    //
     //this.chart();
     //console.log(this.listAdjust);
-  }
-
-  ionViewDidLoad() {
-
   }
 
   // chartData()
@@ -301,67 +297,67 @@ export class SummaryPage implements OnInit{
 
 
   //CHART FUNCTIONS
-  getRandomColor() {
-    var letters = '0123456789ABCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  defineChartData()
-     {
-        for(var index = 0; index < this.listDevices.length; index++)
-        {
-          var letters = '0123456789ABCDEF'.split('');
-          var color = '#';
-          for (var i = 0; i < 6; i++ ) {
-              color += letters[Math.floor(Math.random() * 16)];
-          }
-          var getPower = this.listDevices[index].quantity * this.listDevices[index].power *
-                         this.listDevices[index].hours * this.listDevices[index].daysUsed;
-          var name = this.listDevices[index].name;
-          //var y = this.listDevices[index].power;
-
-          this.chartLabels.push(name);
-          this.chartValues.push(getPower);
-          this.chartColours.push(color);
-      }
-     }
-
-  createPieChart(){
-    if(this.pieChart != null) {
-      this.pieChart.destroy();
-    }
-    this.pieChart = new Chart(this.pieCanvas.nativeElement, {
-
-    type: 'pie',
-    data: {
-      labels: this.chartLabels,
-      datasets: [{
-        label: "Power consumed",
-        data: this.chartValues,
-        backgroundColor:  this.chartColours,
-        hoverBackgroundColor: this.chartColours
-      }]
-    },
-    options: {
-        legend: {
-        display: false
-      },
-      // title: {
-      //       display: true,
-      //       text: 'Power Consumption In Watts',
-      //       fontSize: 14
-      //   }
-     }
-    });
-
-    this.chartLabels = [];
-    this.chartValues = [];
-
-  }
+  // getRandomColor() {
+  //   var letters = '0123456789ABCDEF'.split('');
+  //   var color = '#';
+  //   for (var i = 0; i < 6; i++ ) {
+  //       color += letters[Math.floor(Math.random() * 16)];
+  //   }
+  //   return color;
+  // }
+  //
+  // defineChartData()
+  //    {
+  //       for(var index = 0; index < this.listDevices.length; index++)
+  //       {
+  //         var letters = '0123456789ABCDEF'.split('');
+  //         var color = '#';
+  //         for (var i = 0; i < 6; i++ ) {
+  //             color += letters[Math.floor(Math.random() * 16)];
+  //         }
+  //         var getPower = this.listDevices[index].quantity * this.listDevices[index].power *
+  //                        this.listDevices[index].hours * this.listDevices[index].daysUsed;
+  //         var name = this.listDevices[index].name;
+  //         //var y = this.listDevices[index].power;
+  //
+  //         this.chartLabels.push(name);
+  //         this.chartValues.push(getPower);
+  //         this.chartColours.push(color);
+  //     }
+  //    }
+  //
+  // createPieChart(){
+  //   if(this.pieChart != null) {
+  //     this.pieChart.destroy();
+  //   }
+  //   this.pieChart = new Chart(this.pieCanvas.nativeElement, {
+  //
+  //   type: 'pie',
+  //   data: {
+  //     labels: this.chartLabels,
+  //     datasets: [{
+  //       label: "Power consumed",
+  //       data: this.chartValues,
+  //       backgroundColor:  this.chartColours,
+  //       hoverBackgroundColor: this.chartColours
+  //     }]
+  //   },
+  //   options: {
+  //       legend: {
+  //       display: false
+  //     },
+  //     title: {
+  //           display: true,
+  //           text: 'Power Consumption In Watts',
+  //           fontSize: 14
+  //       }
+  //    }
+  //   });
+  //
+  //   this.chartLabels = [];
+  //   this.chartValues = [];
+  //
+  // }
   //END OF CHART FUNCTIONS
 
   calculate(){

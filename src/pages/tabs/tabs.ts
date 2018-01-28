@@ -1,9 +1,11 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import {NavController } from 'ionic-angular';
+
 import { SummaryPage } from "../summary//summary";
 import { DevicesListPage } from "../devices-list//devices-list";
-import { Storage } from '@ionic/storage';
-//import { AddDevicePage } from "../add-device/add-device";
+import { ReportsPage } from "../reports/reports";
+
 import {TranslateService} from '@ngx-translate/core';
 import { TutorialPage } from "../tutorial/tutorial";
 
@@ -14,6 +16,7 @@ import { TutorialPage } from "../tutorial/tutorial";
 export class TabsPage {
   summaryPage = SummaryPage;
   dlPage = DevicesListPage;
+  reportsPage = ReportsPage;
   //adPage = AddDevicePage;
   constructor(translate: TranslateService,
     private navCtrl: NavController,
