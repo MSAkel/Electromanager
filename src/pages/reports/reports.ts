@@ -5,12 +5,11 @@ import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
-import {format, parse, getMinutes, getHours, getDate, addMonths } from 'date-fns'
+import {format} from 'date-fns'
 
 import { Device } from "../../models/device";
 import { Month } from "../../models/month";
 import { Chart } from 'chart.js';
-//import * as HighCharts from 'highcharts';
 
 @IonicPage()
 @Component({
@@ -20,89 +19,33 @@ import { Chart } from 'chart.js';
 export class ReportsPage implements OnInit{
 
   @ViewChild('barChart') barChart;
+  @ViewChild('barChartItems') barChartItems;
+  @ViewChild('monthlyCostChart') monthlyCostChart;
+  @ViewChild('barChartItemsCost') barChartItemsCost;
 
   listDevices: Device[];
   public totalPower: any = [];
 
-
   public barChartEl: any;
-  //public months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  listMonths: Month[];
+  public barChartItemsEl: any;
+  public monthlyCostEl: any;
+  public itemsCostEl: any;
 
-  // public months: any = {
-  //    										        "months" : [
-  //                                                   {
-  //                                                      'monthName': 'Jan',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Feb',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Mar',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Apr',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'May',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Jun',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Jul',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Aug',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Sep',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Oct',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Nov',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //                                                   {
-  //                                                      'monthName': 'Dec',
-  //                                                      'monthlyPower': 0,
-  //                                                      'monthlyCost': 0
-  //                                                   },
-  //
-  //    										       ]
-  //    										    };
-  // public chartMonthName: any = [];
-  // public chartMonthlyPower: any = [];
-  //lineChart: any;
-  // public chartLabels: any = [];
-  // public chartValues: any = [];
+  listMonths: Month[];
 
   public monthName: any = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public monthlyPower: any = [];
   public monthlyCost: any = [];
+
+  public dailyPowerItem: any = [];
+  public monthlyPowerItem: any = [];
+  public yearlyPowerItem: any = [];
+
+  public dailyItemCost: any = [];
+  public monthlyItemCost: any = [];
+  public yearlyItemCost: any = [];
+
+  public items: any = [];
 
   language: string;
   rtl: string;
@@ -134,94 +77,262 @@ export class ReportsPage implements OnInit{
     this.listDevices = this.dlService.getDevices();
     this.listMonths = this.dlService.getMonths();
 
-    // this.consumptionChartData();
-    // this.consumptionChart();
-    //this.monthFun();
     this.calculate();
     this.createBarChart();
+    this.createBarChartItems();
+    this.createChartMonthlyCost();
+    this.createBarChartItemsCost();
   }
 
   calculate(){
     var thisMonth = format(new Date(), 'MMM')
-    console.log(thisMonth);
+    //console.log(thisMonth);
     let count : any;
     let total = 0;
+    let totalCost = 0;
+
     for(let index = 0; index < this.listDevices.length; index++){
       let totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
       let power = this.listDevices[index].power;
       let multi = totalHours * power * this.listDevices[index].daysUsed;
+      let daily = totalHours * power;
+      let yearly = multi * 12;
+      let dailyCost = (daily/1000) * this.settingsService.getCost;
+      let monthlyCost = +(dailyCost * 30).toFixed(2);
+      let yearlyCost = +(monthlyCost * 12).toFixed(2);
+      //console.log('Multi: ',multi);
+      //console.log('Device: ',this.listDevices[index].name);
       total = total + multi;
+
+      //console.log('total ',total);
+      this.dailyPowerItem.push(daily);
+      this.monthlyPowerItem.push(multi);
+      this.yearlyPowerItem.push(yearly);
+
+      this.dailyItemCost.push(dailyCost);
+      this.monthlyItemCost.push(monthlyCost);
+      this.yearlyItemCost.push(yearlyCost);
+      //this.monthlyCost.push(totalCost);
+      this.items.push(this.listDevices[index].name);
     }
-    for(count in this.monthName)
-      {
-        console.log('Count:', count, this.monthName[count]);
-         //var data = this.monthName;
-         if(this.monthName[count] == thisMonth){
-              // data.monthlyPower = 0;
-              // data.monthlyPower += total;
-              this.dlService.updateMonth(count, this.listMonths[count].monthName, total, this.listMonths[count].monthlyCost);
-              this.listMonths = this.dlService.getMonths();
-          }
-          if(this.listMonths.length <= 0){
-         this.dlService.addMonth(this.monthName, 0, 0);
-           //this.monthName.push[data.monthName];
-           //this.monthlyPower.push[0];
-           //this.monthlyCost.push[0];
-       } else {
-         this.dlService.updateMonth(count, this.listMonths[count].monthName, this.listMonths[count].monthlyPower, this.listMonths[count].monthlyCost);
-         //this.monthName.push[this.listMonths[count].monthName];
-         this.monthlyPower.push(this.listMonths[count].monthlyPower);
-         this.monthlyCost.push(this.listMonths[count].monthlyCost);
-       }
-          // this.chartMonthName.push(data.monthName);
-          // this.chartMonthlyPower.push(data.monthlyPower)
+    totalCost = +((total/1000) * this.settingsService.getCost).toFixed(2);
+    //console.log('cost',totalCost);
+    for(count in this.monthName) {
+      while(this.listMonths.length < 12) {
+        this.dlService.addMonth(this.monthName, 0, 0);
+        //console.log('length',this.listMonths.length);
+        this.listMonths = this.dlService.getMonths();
       }
-     this.listMonths = this.dlService.getMonths();
-      //console.log('monthyl' ,this.monthlyPower);
-     //console.log('monthyl' ,this.monthlyCost);
+          if(this.monthName[count] == thisMonth) {
+              this.dlService.updateMonth(count, this.listMonths[count].monthName, total, totalCost);
+              this.listMonths = this.dlService.getMonths();
+              this.monthlyPower.push(this.listMonths[count].monthlyPower);
+              this.monthlyCost.push(this.listMonths[count].monthlyCost);
+              console.log('cost' ,this.listMonths[count].monthlyCost);
+            } else {
+                this.dlService.updateMonth(count, this.listMonths[count].monthName, this.listMonths[count].monthlyPower, this.listMonths[count].monthlyCost);
+                //this.monthName.push[this.listMonths[count].monthName];
+                this.monthlyPower.push(this.listMonths[count].monthlyPower);
+                this.monthlyCost.push(this.listMonths[count].monthlyCost);
+              }
+      }
+       this.listMonths = this.dlService.getMonths();
+       //console.log(this.monthlyPower);
+    }
+
+  createBarChart() {
+     this.barChartEl = new Chart(this.barChart.nativeElement, {
+        type: 'line',
+        data: {
+           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+           datasets: [{
+              label                 : 'Monthly Watts Usage',
+              data                  : this.monthlyPower,
+              duration              : 2000,
+              easing                : 'easeInQuart',
+              backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+              hoverBackgroundColor  : "#FF6384",
+              fill 				          : false
+           }
+         ]
+        },
+        options : {
+           legend         : {
+              display     : true,
+              boxWidth    : 80,
+              fontSize    : 15,
+              padding     : 0
+           },
+           scales: {
+              yAxes: [{
+                 ticks: {
+                    beginAtZero:true,
+                 }
+              }],
+              xAxes: [{
+                 ticks: {
+                    autoSkip: false
+                 }
+              }]
+           }
+        }
+     });
+      this.monthlyPower = [];
   }
 
-  createBarChart()
-{
-   this.barChartEl = new Chart(this.barChart.nativeElement,
-   {
-      type: 'bar',
-      data: {
-         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-         datasets: [{
-            label                 : 'Monthly Watts Usage',
-            data                  : this.monthlyPower,
-            duration              : 2000,
-            easing                : 'easeInQuart',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-     hoverBackgroundColor: "#FF6384",
-         }]
-      },
-      options : {
-         legend         : {
-            display     : true,
-            boxWidth    : 80,
-            fontSize    : 15,
-            padding     : 0
-         },
-         scales: {
-            yAxes: [{
-               ticks: {
-                  beginAtZero:true,
-               }
-            }],
-            xAxes: [{
-               ticks: {
-                  autoSkip: false
-               }
-            }]
-         }
-      }
-   });
+  createChartMonthlyCost() {
+     this.monthlyCostEl = new Chart(this.monthlyCostChart.nativeElement, {
+        type: 'line',
+        data: {
+           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+           datasets: [{
+              label                 : 'Monthly Expenses',
+              data                  : this.monthlyCost,
+              duration              : 2000,
+              easing                : 'easeInQuart',
+              backgroundColor       : 'rgba(99, 132, 255, 0.2)',
+              hoverBackgroundColor  : "#6384FF",
+              fill 				          : false
+           }
+         ]
+        },
+        options : {
+           legend         : {
+              display     : true,
+              boxWidth    : 80,
+              fontSize    : 15,
+              padding     : 0
+           },
+           scales: {
+              yAxes: [{
+                 ticks: {
+                    beginAtZero:true,
+                 }
+              }],
+              xAxes: [{
+                 ticks: {
+                    autoSkip: false
+                 }
+              }]
+           }
+        }
+     });
+      this.monthlyCost = [];
+  }
 
-   this.monthlyPower = [];
-   this.monthlyCost = [];
-}
+  createBarChartItems() {
+     this.barChartItemsEl = new Chart(this.barChartItems.nativeElement, {
+        type: 'bar',
+        data: {
+           labels: this.items,
+           datasets: [{
+              label                 : 'Daily',
+              data                  : this.dailyPowerItem,
+              duration              : 2000,
+              easing                : 'easeInQuart',
+              backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+              hoverBackgroundColor  : "#FF6384"
+             },{
+               label                 : 'Monthly',
+               data                  : this.monthlyPowerItem,
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(132, 255, 99, 0.2)',
+               hoverBackgroundColor  : "#84FF63"
+             },{
+               label                 : 'Yearly',
+               data                  : this.yearlyPowerItem,
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
+               hoverBackgroundColor  : "#6384FF"
+             }
+         ]
+        },
+        options : {
+           legend         : {
+              display     : true,
+              boxWidth    : 50,
+              fontSize    : 12,
+              padding     : 0
+           },
+           scales: {
+              yAxes: [{
+                 ticks: {
+                    beginAtZero:true
+                 }
+              }],
+              xAxes: [{
+                 ticks: {
+                    autoSkip: false
+                 }
+              }]
+           }
+        }
+     });
+
+     this.dailyPowerItem = [];
+     this.monthlyPowerItem = [];
+     this.yearlyPowerItem = [];
+  }
+
+  createBarChartItemsCost() {
+     this.itemsCostEl = new Chart(this.barChartItemsCost.nativeElement, {
+        type: 'bar',
+        data: {
+           labels: this.items,
+           datasets: [{
+              label                 : 'Daily',
+              data                  : this.dailyItemCost,
+              duration              : 2000,
+              easing                : 'easeInQuart',
+              backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+              hoverBackgroundColor  : "#FF6384"
+             },{
+               label                 : 'Monthly',
+               data                  : this.monthlyItemCost,
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(132, 255, 99, 0.2)',
+               hoverBackgroundColor  : "#84FF63"
+             },{
+               label                 : 'Yearly',
+               data                  : this.yearlyItemCost,
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
+               hoverBackgroundColor  : "#6384FF"
+             }
+         ]
+        },
+        options : {
+           legend         : {
+              display     : true,
+              boxWidth    : 50,
+              fontSize    : 12,
+              padding     : 0
+           },
+           scales: {
+              yAxes: [{
+                 ticks: {
+                    beginAtZero:true
+                 }
+              }],
+              xAxes: [{
+                 ticks: {
+                    autoSkip: false
+                 }
+              }]
+           }
+        }
+     });
+
+     this.dailyItemCost = [];
+     this.monthlyItemCost = [];
+     this.yearlyItemCost = [];
+     this.items = [];
+   }
+
 
   setLanguage() {
     this.language = this.translateService.currentLang;
@@ -232,61 +343,4 @@ export class ReportsPage implements OnInit{
       this.arabic = true;
     }
   }
-
-  // consumptionChartData()
-  //    {
-  //       for(var index = 0; index < this.listDevices.length; index++)
-  //       {
-  //         var getPower = this.listDevices[index].quantity * this.listDevices[index].power *
-  //                        this.listDevices[index].hours * this.listDevices[index].daysUsed;
-  //         var name = this.listDevices[index].name;
-  //
-  //         // this.chartLabels.push(name);
-  //         // this.chartValues.push(getPower);
-  //     }
-  //    }
-  //
-  //    onDelete(index: number) {
-  //      this.dlService.removeMonth(index);
-  //      this.listMonths = this.dlService.getMonths();
-  //    }
-  //
-  // consumptionChart(){
-  //   HighCharts.chart('container', {
-  //   chart: {
-  //       type: 'column'
-  //   },
-  //   credits: {
-  //     enabled: false
-  //     },
-  //   title: {
-  //       text: 'Monthly Average Consumption'
-  //   },
-  //   xAxis: {
-  //       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  //   },
-  //   yAxis: {
-  //       title: {
-  //           text: 'Watts Consumed'
-  //       }
-  //   },
-  //   plotOptions: {
-  //     series: {
-  //         borderWidth: 0,
-  //         dataLabels: {
-  //             enabled: true,
-  //             format: '{point.y:.1f} W'
-  //         }
-  //     }
-  // },
-  //   tooltip: {
-  //     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-  //     pointFormat: 'Total: <b>{point.y:.2f}</b> Watts<br/>'
-  // },
-  //   series: [{
-  //       name: 'Monthly Consumption',
-  //       data: this.totalPower,
-  //   }]
-  // });
-  // }
 }

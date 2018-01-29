@@ -8,13 +8,39 @@
 </ion-header>
 
 <ion-content dir="{{rtl}}">
-  <!-- <ion-item>
-  <canvas #barChart></canvas>
-</ion-item> -->
+      <ion-slides pager="true">
+        <ion-slide>
+            <ion-card>
+              <h2 text-center>Monthly Readings (Watts)</h2>
+              <canvas #barChart></canvas>
+            </ion-card>
+          <br>
+        </ion-slide>
+        <ion-slide>
+          <ion-card>
+            <h2 text-center>Monthly Readings (Expenses)</h2>
+            <canvas #monthlyCostChart></canvas>
+          </ion-card>
+          <br>
+        </ion-slide>
+  </ion-slides>
 
+  <ion-slides pager="true">
+    <ion-slide>
       <ion-card>
-        <canvas #barChart></canvas>
+        <h2 text-center>Power Consumption Per Appliance</h2>
+        <canvas #barChartItems></canvas>
       </ion-card>
+      <br>
+    </ion-slide>
+    <ion-slide>
+        <ion-card>
+          <h2 text-center>Cost Per Appliance</h2>
+          <canvas #barChartItemsCost></canvas>
+        </ion-card>
+      <br>
+    </ion-slide>
+  </ion-slides>
 
         <!-- <ion-list>
             <ion-item-sliding *ngFor="let month of listMonths; let i = index">
