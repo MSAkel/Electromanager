@@ -5,7 +5,8 @@ export class DeviceCategory {
     public power: number,
     public hours: number,
     public daysUsed: number,
-    public category: string
+    public category: string,
+    public compressor: number
     ) {
   }
 }

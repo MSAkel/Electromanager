@@ -94,12 +94,12 @@ export class ReportsPage implements OnInit{
     for(let index = 0; index < this.listDevices.length; index++){
       let totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
       let power = this.listDevices[index].power;
-      let multi = totalHours * power * this.listDevices[index].daysUsed;
+      let multi = (totalHours * this.listDevices[index].daysUsed * power ) * this.listDevices[index].compressor;;
       let daily = totalHours * power;
       let yearly = multi * 12;
-      let dailyCost = (daily/1000) * this.settingsService.getCost;
+      let dailyCost = +((daily/1000) * this.settingsService.getCost).toFixed(2);
       let monthlyCost = +(dailyCost * 30).toFixed(2);
-      let yearlyCost = +(monthlyCost * 12).toFixed(2);
+      let yearlyCost = +(dailyCost * 365).toFixed(2);
       //console.log('Multi: ',multi);
       //console.log('Device: ',this.listDevices[index].name);
       total = total + multi;

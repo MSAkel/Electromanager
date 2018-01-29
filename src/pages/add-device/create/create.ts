@@ -34,6 +34,7 @@ export class CreatePage implements OnInit {
   // hours = [];
   // minutes = [];
      days = [];
+     check = false;
 
   constructor (
     private viewCtrl: ViewController,
@@ -89,6 +90,14 @@ export class CreatePage implements OnInit {
     console.log(this.days);
   }
 
+  checked () {
+    if(this.check == false){
+      this.check = true;
+    } else {
+      this.check = false;
+    }
+  }
+
   // asd() {
   //   const value = this.deviceForm.value;
   //   let result = parse('2018-05-' + value.daysUsed);
@@ -121,7 +130,7 @@ export class CreatePage implements OnInit {
     value.daysUsed = getDate(new Date(getDays));
 
     if (this.mode == 'Edit') {
-      this.dlService.updateDevice(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      this.dlService.updateDevice(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
         duration: 2000,
@@ -132,11 +141,10 @@ export class CreatePage implements OnInit {
       for(let index = 0; index < this.listDevices.length; index++) {
         if(this.listDevices[index].name === this.device.name) {
           console.log("Device: ", this.listDevices[index].name);
-          this.dlService.updateDevice(index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category
-          )
+          this.dlService.updateDevice(index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor)
         }
       }
-      this.dlService.updateDeviceCategory(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      this.dlService.updateDeviceCategory(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
         duration: 2000,
@@ -150,8 +158,8 @@ export class CreatePage implements OnInit {
       // if(value.AddToCategory == true) {
       //
       // }
-      this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category);
-      this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category);
+      this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
+      this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
       const toast = this.toastCtrl.create({
         message: 'Item Added Successfully',
         duration: 2000,
@@ -169,7 +177,7 @@ export class CreatePage implements OnInit {
     //     toast.present();
     // }
     else  if (this.mode == 'Add') {
-        this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category);
+        this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
         const toast = this.toastCtrl.create({
           message: 'Item Added Successfully',
           duration: 2000,
@@ -185,9 +193,10 @@ export class CreatePage implements OnInit {
     let name = null;
     let quantity = 1;
     let power = null;
-    let hours = 0o0;
+    let hours = null;
     let daysUsed = 30;
     let category = 'Others';
+    let compressor = 1;
     // let AddToList = null;
     // let AddToCategory = false;
 
@@ -198,6 +207,7 @@ export class CreatePage implements OnInit {
       hours = this.device.hours;
       daysUsed = this.device.daysUsed;
       category = this.device.category;
+      compressor = this.device.compressor;
     }
 
     if(this.mode == 'Category Edit'){
@@ -207,16 +217,17 @@ export class CreatePage implements OnInit {
       hours = this.device.hours;
       daysUsed = this.device.daysUsed;
       category = this.device.category;
+      compressor = this.device.compressor;
     }
 
     if(this.mode == 'Add') {
-
       name = this.categoryDevice.name;
       quantity = this.categoryDevice.quantity;
       power = this.categoryDevice.power;
       hours = this.categoryDevice.hours;
       daysUsed = this.categoryDevice.daysUsed;
       category = this.categoryDevice.category;
+      compressor = this.categoryDevice.compressor;
     }
 
     this.deviceForm = new FormGroup({
@@ -225,7 +236,8 @@ export class CreatePage implements OnInit {
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
       'daysUsed': new FormControl(daysUsed),
-      'category': new FormControl(category, Validators.required)
+      'category': new FormControl(category, Validators.required),
+      'compressor': new FormControl(compressor)
       // 'AddToList': new FormControl(AddToList),
       // 'AddToCategory': new FormControl(AddToCategory)
     });

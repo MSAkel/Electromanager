@@ -47,22 +47,8 @@
                 <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
-          <!-- <ion-col>
-            <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.MINUTES' | translate }}</ion-label>
-                <ion-select interface="popover">
-                  <ion-option *ngFor="let listMinutes of minutes" value="{{listMinutes.minutes}}">{{listMinutes.minutes}}</ion-option>
-                </ion-select>
-            </ion-item>
-          </ion-col> -->
-          <!-- <ion-col>
-            <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
-              <ion-datetime type="datetime-local" (click)="asd()" formControlName="daysUsed" displayFormat="YYYY-MM-DD" pickerFormat="DD"></ion-datetime>
-            </ion-item>
-          </ion-col> -->
           <ion-col>
-            <ion-item no-lines color="background">
+            <ion-item color="background">
               <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
               <ion-select formControlName="daysUsed" interface="popover">
                 <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
@@ -80,7 +66,7 @@
             </ion-item>
           </ion-col> -->
           <ion-col>
-            <ion-item no-lines color="background">
+            <ion-item color="background">
               <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
               <ion-select formControlName="category">
                 <ion-option value="Lights">Lights</ion-option>
@@ -105,6 +91,32 @@
              </ion-item>
           </ion-col>
         </ion-row> -->
+        <ion-row>
+          <ion-col>
+            <ion-item color="background" no-lines>
+              <ion-label>Enable compressor cycles</ion-label>
+              <ion-checkbox (click)="checked()"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row [hidden]="!check">
+          <!-- <ion-col>
+            <ion-item no-lines color="background">
+              <ion-label floating>Manual Input</ion-label>
+              <ion-input type="number" formControlName="compressor" ></ion-input>
+            </ion-item>
+          </ion-col> -->
+          <ion-col>
+            <ion-item color="background">
+              <ion-label floating>Predefined List</ion-label>
+              <ion-select formControlName="compressor">
+                <ion-option value="0.6">Fridge 1987-2000</ion-option>
+                <ion-option value="0.4">Fridge 2001-2010</ion-option>
+                <ion-option value="0.2">Fridge 2011-2017</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-list>
     <button ion-button color="secondary" type="submit" block [disabled]="!deviceForm.valid">{{ 'CREATE.CONFIRM' | translate }}</button>
