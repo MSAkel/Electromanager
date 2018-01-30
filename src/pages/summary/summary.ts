@@ -10,6 +10,8 @@ import { AddBillPage } from "./add-bill/add-bill";
 import { Device } from "../../models/device";
 import { Adjust } from "../../models/adjust";
 
+import {parse, getMinutes, getHours, getDate } from 'date-fns';
+
 @IonicPage()
 @Component({
   selector: 'page-summary',
@@ -117,31 +119,36 @@ export class SummaryPage implements OnInit{
     var avgPercentage:number;
     //var adjusting:number;
 
-    for ( var index = 0; index < this.listAdjust.length; index++) {
+    for (var index = 0; index < this.listAdjust.length; index++) {
       avgDifference +=  this.listAdjust[index].difference * 1;
-      //console.log("Avg. difference: " + avgDifference);
+      console.log("Avg. difference: " + avgDifference);
       avgAppBill += this.listAdjust[index].appBill * 1;
-    //  console.log("Avg. App Bill: " + avgAppBill);
+      console.log("Avg. App Bill: " + avgAppBill);
     }
     avgPercentage = (avgDifference/avgAppBill) * 100;
-    //console.log("avg%: " + avgPercentage);
-    //console.log("Total Bill: " + this.totalBill);
+    console.log("avg%: " + avgPercentage);
+    console.log("Total Bill: " + this.totalBill);
     this.adjusting = (avgPercentage/100) * this.totalBill;
-    //console.log("adjusting: " + this.adjusting);
+    console.log("adjusting: " + this.adjusting);
     this.adjusting = this.totalBill - this.adjusting;
     return this.adjusting;
   }
 
   calculate(){
     this.totalPower = 0;
-    for(var index = 0; index < this.listDevices.length; index++){
-      this.totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
+    for(let index in this.listDevices) {
+      let getTime = parse('0000-00-00T' + this.listDevices[index].hours + '00');
+      let mins = getMinutes(new Date(getTime));
+      let hours = getHours(new Date(getTime));
+      mins = +(mins/60).toFixed(2);
+      let time = mins + hours;
+
+      this.totalHours = time * this.listDevices[index].quantity;
       this.power = this.listDevices[index].power;
       this.multi = (this.totalHours * this.listDevices[index].daysUsed * this.power) * this.listDevices[index].compressor;
 
-      console.log("compressor", this.listDevices[index].compressor);
-      console.log("pwooer",this.multi);
       this.totalPower = this.totalPower + this.multi;
+      console.log("Power",this.totalPower);
     }
     return this.totalPower;
   }
@@ -152,11 +159,12 @@ export class SummaryPage implements OnInit{
        } else if (this.totalPower > 60000000) {
          this.consumptionTotal = this.totalPower/1000 * 0.30;
        }
+       console.log('Summary consumption total:',this.consumptionTotal);
        return this.consumptionTotal;
      }
 
   capacityFunction() {
-       console.log("flat rate: ", this.settingsService.getFlatRate)
+      // console.log("flat rate: ", this.settingsService.getFlatRate)
        this.capacity = this.settingsService.getFlatRate * 1;
        return this.capacity;
      }

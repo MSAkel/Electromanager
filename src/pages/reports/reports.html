@@ -42,22 +42,34 @@
     </ion-slide>
   </ion-slides>
 
-        <!-- <ion-list>
-            <ion-item-sliding *ngFor="let month of listMonths; let i = index">
-            <ion-item>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    <p>{{ month.monthName }}</p>
-                  </ion-col>
-                  <ion-col>
-                    <p>{{ month.monthlyPower }}</p>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
-            <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
-            </ion-item-options>
-            </ion-item-sliding>
-        </ion-list> -->
+  <!-- <ion-grid class="list-top">
+    <ion-row>
+      <ion-col>
+        <p>{{ 'DEVICELIST.NAME' | translate}}</p>
+      </ion-col>
+      <ion-col>
+        <p>{{ 'DEVICELIST.HOURS' | translate }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+      <ion-item text-wrap class="no-padding" *ngFor="let device of listDevices">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>{{ device.name }}</p>
+            </ion-col>
+            <ion-col>
+              <p><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
+            </ion-col>
+            <ion-col>
+              <ion-item no-lines [hidden]="!select">
+                <ion-range min="20" max="80" step="2" [(ngModel)]="brightness">
+                </ion-range>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list> -->
 </ion-content>

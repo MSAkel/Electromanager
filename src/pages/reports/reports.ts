@@ -5,7 +5,7 @@ import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
-import {format} from 'date-fns'
+import {format, parse, getMinutes, getHours} from 'date-fns'
 
 import { Device } from "../../models/device";
 import { Month } from "../../models/month";
@@ -51,6 +51,7 @@ export class ReportsPage implements OnInit{
   rtl: string;
   arabic = false;
   slide: string;
+  select = false;
 
   constructor(
     public navCtrl: NavController,
@@ -91,12 +92,19 @@ export class ReportsPage implements OnInit{
     let total = 0;
     let totalCost = 0;
 
-    for(let index = 0; index < this.listDevices.length; index++){
-      let totalHours = this.listDevices[index].hours * this.listDevices[index].quantity;
+    for(let index in this.listDevices) {
+      let getTime = parse('0000-00-00T' + this.listDevices[index].hours + '00');
+      let mins = getMinutes(new Date(getTime));
+      let hours = getHours(new Date(getTime));
+      mins = +(mins/60).toFixed(2);
+      let time = mins + hours;
+
+      let totalHours = time * this.listDevices[index].quantity;
       let power = this.listDevices[index].power;
-      let multi = (totalHours * this.listDevices[index].daysUsed * power ) * this.listDevices[index].compressor;;
-      let daily = totalHours * power;
-      let yearly = multi * 12;
+      let multi = +((totalHours * this.listDevices[index].daysUsed * power ) * this.listDevices[index].compressor).toFixed(2);
+      let daily = +((totalHours * power) * this.listDevices[index].compressor).toFixed(2); //CONSUMPTION
+      let yearly = (multi * 12).toFixed(2);
+
       let dailyCost = +((daily/1000) * this.settingsService.getCost).toFixed(2);
       let monthlyCost = +(dailyCost * 30).toFixed(2);
       let yearlyCost = +(dailyCost * 365).toFixed(2);
@@ -139,6 +147,14 @@ export class ReportsPage implements OnInit{
        this.listMonths = this.dlService.getMonths();
        //console.log(this.monthlyPower);
     }
+
+    // selected() {
+    //   if(this.select == false){
+    //     this.select = true;
+    //   } else {
+    //     this.select = false;
+    //   }
+    // }
 
   createBarChart() {
      this.barChartEl = new Chart(this.barChart.nativeElement, {

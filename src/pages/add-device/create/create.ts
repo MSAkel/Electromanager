@@ -10,7 +10,7 @@ import { Device } from "../../../models/device";
 import { DeviceCategory } from "../../../models/device-category";
 import { Category } from "../../../models/category";
 
-import {parse, getMinutes, getHours, getDate } from 'date-fns'
+//import {parse, getMinutes, getHours, getDate } from 'date-fns';
 
 @IonicPage()
 @Component({
@@ -116,18 +116,30 @@ export class CreatePage implements OnInit {
     return this.rtl;
   }
 
+  // count() {
+  //   const value = this.deviceForm.value;
+  //   if(value.daysUsed < 10) {
+  //     value.daysUsed = 0 + value.daysUsed;
+  //   }
+  //
+  //   console.log(value.daysUsed);
+  // }
+
   onSubmit() {
     const value = this.deviceForm.value;
 
-    let result = parse('0000-00-00T' + value.hours + '00');
-    let mins = getMinutes(new Date(result));
-    let hours = getHours(new Date(result));
-    mins = +(mins/60).toFixed(2);
-    //console.log(mins);
-    value.hours = mins + hours;
+    if(value.daysUsed < 10) {
+      value.daysUsed = 0 + value.daysUsed;
+    }
 
-    let getDays = parse('0000-00-' + value.daysUsed + 'T00:00:00');
-    value.daysUsed = getDate(new Date(getDays));
+    // let result = parse('0000-00-00T' + value.hours + '00');
+    // let mins = getMinutes(new Date(result));
+    // let hours = getHours(new Date(result));
+    // mins = +(mins/60).toFixed(2);
+    // value.hours = mins + hours;
+
+    // let getDays = parse('0000-00-' + value.daysUsed + 'T00:00:00');
+    // value.daysUsed = getDate(new Date(getDays));
 
     if (this.mode == 'Edit') {
       this.dlService.updateDevice(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);

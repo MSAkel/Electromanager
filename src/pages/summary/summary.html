@@ -23,7 +23,7 @@
           <p>{{ 'SUMMARY.CALC_1' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-            <p>{{ consumptionTotal | number : '1.2-2' }}</p>
+            <p class="num">{{ consumptionTotal | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
     </ion-item>
@@ -33,27 +33,27 @@
           <p>{{ 'SUMMARY.CALC_2' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p>{{ capacity }}</p>
+          <p class="num">{{ capacity }}</p>
         </ion-col>
       </ion-row>
     </ion-item>
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p class="text-colour">{{ 'SUMMARY.CALC_3' | translate }}</p>
+          <p>{{ 'SUMMARY.CALC_3' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p>{{ vat | number : '1.2-2'}}</p>
+          <p class="num">{{ vat | number : '1.2-2'}}</p>
         </ion-col>
       </ion-row>
     </ion-item>
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p class="text-colour">{{ 'SUMMARY.CALC_4' | translate }}</p>
+          <p>{{ 'SUMMARY.CALC_4' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p class="text-colour">{{ totalBill | number : '1.2-2' }}</p>
+          <p class="num">{{ totalBill | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
       </ion-item>
@@ -63,7 +63,7 @@
           <p>{{ 'SUMMARY.ADJUSTPARA' | translate}}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p> {{ adjusting | number : '1.2-2' }}</p>
+          <p class="num">{{ adjusting | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
     </ion-item>

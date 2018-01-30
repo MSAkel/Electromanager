@@ -1,3 +1,9 @@
 page-add-bill {
+  .num{
+    color: color($colors, secondary);
+  }
 
+  .item{
+    border-top: 1px solid #ccc;
+  }
 }
