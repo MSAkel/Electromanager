@@ -8,7 +8,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { AddCategoryPage } from "./add-category/add-category";
 import { CreatePage } from "../add-device/create/create";
 import { DisplayCatPage } from "./display-cat/display-cat";
-import { AddModalPage } from "./display-cat/add-modal/add-modal";
 
 import { Category } from "../../models/category";
 import { DeviceCategory } from "../../models/device-category";

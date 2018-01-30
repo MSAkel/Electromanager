@@ -28,6 +28,7 @@ export class MyApp {
       splashScreen.hide();
       this.settingsService.getSettings();
     });
+    translate.setDefaultLang('en');
   }
 
   onLoad(page: any) {

@@ -10,7 +10,6 @@ import { Device } from "../../models/device";
 import { AddDevicePage } from "../add-device/add-device";
 import { SelectPage } from "../add-device/select/select";
 import { CreatePage } from "../add-device/create/create";
-//import { AddGroupPage } from "./add-group/add-group";
 
 @Component({
   selector: 'page-devices-list',
@@ -97,10 +96,4 @@ export class DevicesListPage implements OnInit{
   onAddDevice() {
     this.navCtrl.push(AddDevicePage);
    }
-
-  // onAddGroup() {
-  //   const modal = this.modalCtrl.create(AddGroupPage);
-  //   modal.present();
-  // }
-
 }

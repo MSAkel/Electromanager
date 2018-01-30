@@ -1,7 +1,10 @@
 page-devices-list {
   .list {
     //border-top: 1px solid grey;
-    box-shadow: 0 4px 38px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    //border: 0.5px solid green;
+    //background-color: color($colors, secondary);
+
   }
 
   .no-padding {
@@ -11,5 +14,7 @@ page-devices-list {
 
   .list-top {
     color: #488aff;
+    background-color: white;
+    //border: 0.5px solid green;
   }
 }

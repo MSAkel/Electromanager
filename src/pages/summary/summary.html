@@ -9,68 +9,85 @@
 
 <ion-content dir="{{rtl}}">
   <!-- <div id="container" style="display: block;"	></div> -->
-
   <div text-center padding>
     <h2>{{ 'SUMMARY.DETAILS' | translate }}</h2>
   </div>
 <ion-card>
-  <ion-grid padding *ngIf="totalPower > 0;">
-    <ion-row text-center>
-      <ion-col>
-        <p *ngIf="totalPower > 0;"><b>{{ 'SUMMARY.CALCULATION' | translate }}</b></p>
-      </ion-col>
-    </ion-row>
+  <ion-grid padding>
+    <ion-list-header no-lines>
+        <h2>{{ 'SUMMARY.CALCULATION' | translate }}</h2><button ion-button icon-only clear item-end (click)="onAddBill()"><ion-icon name="add"></ion-icon></button>
+      </ion-list-header>
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p class="text-colour">{{ 'SUMMARY.CALC_1' | translate }}</p>
+          <p>{{ 'SUMMARY.CALC_1' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-            <p class="text-colour">{{ consumptionTotal | number : '1.2-2' }}</p>
+            <p class="num">{{ consumptionTotal | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
     </ion-item>
     <ion-item >
       <ion-row class="col-top" >
         <ion-col>
-          <p class="text-colour">{{ 'SUMMARY.CALC_2' | translate }}</p>
+          <p>{{ 'SUMMARY.CALC_2' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p class="text-colour">{{ capacity }}</p>
+          <p class="num">{{ capacity }}</p>
         </ion-col>
       </ion-row>
     </ion-item>
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p class="text-colour">{{ 'SUMMARY.CALC_3' | translate }}</p>
+          <p>{{ 'SUMMARY.CALC_3' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p class="text-colour">{{ vat | number : '1.2-2'}}</p>
+          <p class="num">{{ vat | number : '1.2-2'}}</p>
         </ion-col>
       </ion-row>
     </ion-item>
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p class="text-colour">{{ 'SUMMARY.CALC_4' | translate }}</p>
+          <p>{{ 'SUMMARY.CALC_4' | translate }}</p>
         </ion-col>
         <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p class="text-colour">{{ totalBill | number : '1.2-2' }}</p>
+          <p class="num">{{ totalBill | number : '1.2-2' }}</p>
+        </ion-col>
+      </ion-row>
+      </ion-item>
+      <ion-item>
+      <ion-row class="col-top">
+        <ion-col>
+          <p>{{ 'SUMMARY.ADJUSTPARA' | translate}}</p>
+        </ion-col>
+        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+          <p class="num">{{ adjusting | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
     </ion-item>
   </ion-grid>
 </ion-card>
 
-<ion-card>
+<!-- <ion-card>
+  <ion-grid>
+    <ion-list-header no-lines>
+      <h2 text-center>{{ 'SUMMARY.ADJUSTTITLE' | translate }}</h2><button ion-button icon-only clear item-end (click)="onAddBill()"><ion-icon name="add"></ion-icon></button>
+    </ion-list-header>
+  </ion-grid>
+</ion-card> -->
+
+<!-- <ion-card>
   <ion-grid>
     <ion-list>
       <p text-center><b>{{ 'SUMMARY.CHARTTITLE' | translate }}</b></p>
       <ion-item>
          <canvas #pieCanvas></canvas>
        </ion-item>
-
+       <ion-card>
+         <canvas #barChart></canvas>
+       </ion-card>
        <div padding>
          <ion-segment [(ngModel)]="category" color="primary">
            <ion-segment-button value="close">
@@ -79,23 +96,11 @@
            <ion-segment-button value="consumption">
               <ion-icon name ="list"></ion-icon>
            </ion-segment-button>
-           <!-- <ion-segment-button value="hours">
-             <ion-icon name ="time"></ion-icon>
-           </ion-segment-button>
-         <ion-segment-button value="cost">
-           <ion-icon name ="logo-usd"></ion-icon>
-         </ion-segment-button> -->
        </ion-segment>
      </div>
      <div [ngSwitch]="category">
        <ion-list *ngSwitchCase="'consumption'">
          <ion-row padding>
-           <!-- <ion-col>
-             <p (click)="sortBy('name')">{{ 'SUMMARY.SEGMENTNAME' | translate}}</p>
-           </ion-col>
-           <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-             <p (click)="sortBy('power')">{{ 'SUMMARY.SEGMENTWATTS' | translate}}</p>
-           </ion-col> -->
            <ion-col>
              <p (click)="sortBy('name')">{{ 'SUMMARY.SEGMENTNAME' | translate}}</p>
            </ion-col>
@@ -120,137 +125,8 @@
               </ion-row>
           </ion-item>
        </ion-list>
-
-       <!-- <ion-list *ngSwitchCase="'hours'">
-         <ion-row padding>
-           <ion-col>
-             <p (click)="sortBy('name')">{{ 'SUMMARY.SEGMENTNAME' | translate}}</p>
-           </ion-col>
-           <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-             <p (click)="sortBy('hours')">{{ 'SUMMARY.SEGMENTHOURS' | translate}}</p>
-           </ion-col>
-         </ion-row>
-           <ion-item id="top" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
-              <ion-row class="col-top">
-                <ion-col>
-                  <p>{{ device.name }} ({{ device.quantity }})</p>
-                </ion-col>
-                <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-                  <p>{{ device.quantity * device.hours * device.daysUsed }}</p>
-                </ion-col>
-              </ion-row>
-          </ion-item>
-       </ion-list> -->
-
-       <!-- <ion-list *ngSwitchCase="'cost'">
-         <ion-row padding>
-           <ion-col>
-             <p (click)="sortBy('name')">{{ 'SUMMARY.SEGMENTNAME' | translate}}</p>
-           </ion-col>
-           <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-             <p (click)="sortBy('power')">{{ 'SUMMARY.SEGMENTCOST' | translate}}</p>
-           </ion-col>
-         </ion-row>
-         <ion-item id="top" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
-            <ion-row class="col-top">
-              <ion-col>
-                <p>{{ device.name }} ({{ device.quantity }})</p>
-              </ion-col>
-              <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-                <p>{{ ((device.quantity * device.power * device.hours * device.daysUsed)/1000) * 0.18 | number : '1.2-2' }}</p>
-              </ion-col>
-            </ion-row>
-        </ion-item>
-       </ion-list> -->
      </div>
     </ion-list>
     </ion-grid>
-  </ion-card>
-
-<ion-card>
-  <ion-grid>
-    <ion-list-header no-lines>
-      <h2 text-center>{{ 'SUMMARY.ADJUSTTITLE' | translate }}</h2><button ion-button icon-only clear item-end (click)="onAddBill()"><ion-icon name="add"></ion-icon></button>
-    </ion-list-header>
-    <ion-row padding class="col-top">
-      <ion-col>
-        <p>{{ 'SUMMARY.ADJUSTPARA' | translate}}</p>
-      </ion-col>
-      <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-        <p> {{ adjusting | number : '1.2-2' }}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row padding>
-      <ion-col>
-        <p>{{ 'SUMMARY.BILL' | translate }}</p>
-      </ion-col>
-      <ion-col>
-        <p>{{ 'SUMMARY.APPBILL' | translate }}</p>
-      </ion-col>
-      <ion-col>
-        <p>{{ 'SUMMARY.DIFFERENCE' | translate }}</p>
-      </ion-col>
-    </ion-row>
-    <ion-list>
-      <ion-item-sliding *ngFor="let adjust of listAdjust; let i = index">
-      <ion-item>
-        <ion-row class="col-top">
-          <ion-col>
-            <p class="text-colour">{{ adjust.bill }}</p>
-          </ion-col>
-          <ion-col>
-            <p class="text-colour">{{ adjust.appBill }}</p>
-          </ion-col>
-          <ion-col>
-            <p class="text-colour">{{ adjust.difference }}</p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item-options side="{{slide}}">
-        <button ion-button color="primary" (click)="onEdit(adjust, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
-        <button ion-button color="danger" (click)="onDeleteAdjust(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
-      </ion-item-options>
-    </ion-item-sliding>
-    </ion-list>
-  </ion-grid>
-</ion-card>
-
-<!-- <ion-card>
-  <ion-grid>
-    <ion-list-header no-lines>
-      <h2 text-center>{{ 'SUMMARY.GROUPTITLE' | translate }}</h2>
-    </ion-list-header>
-    <ion-row padding>
-      <ion-col>
-        <p>{{ 'SUMMARY.GROUP' | translate }}</p>
-      </ion-col>
-      <ion-col>
-        <p>{{ 'SUMMARY.TOTALPOWER' | translate }}</p>
-      </ion-col>
-      <ion-col>
-        <p>{{ 'SUMMARY.TOTALCOST' | translate }}</p>
-      </ion-col>
-    </ion-row>
-    <ion-list>
-      <ion-item-sliding *ngFor="let group of listGroup; let i = index">
-      <ion-item (click)="onLoadGroup(group, i)">
-        <ion-row class="col-top">
-          <ion-col>
-            <p class="text-colour">{{ group.name }}</p>
-          </ion-col>
-          <ion-col>
-            <p class="text-colour">{{ group.totalPower }}</p>
-          </ion-col>
-          <ion-col>
-            <p class="text-colour">{{ group.totalCost }}</p>
-          </ion-col>
-        </ion-row>
-      </ion-item>
-      <ion-item-options side="{{slide}}">
-        <button ion-button color="danger" (click)="onDeleteGroup(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
-      </ion-item-options>
-    </ion-item-sliding>
-    </ion-list>
-  </ion-grid>
-</ion-card> -->
+  </ion-card> -->
 </ion-content>

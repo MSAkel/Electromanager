@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content dir="{{rtl}}">
-  <ion-grid class="list-top content">
+  <ion-grid class="list-top">
     <ion-row>
       <ion-col>
         <p (click)="sortBy('name')">{{ 'DEVICELIST.NAME' | translate}}</p>
@@ -27,9 +27,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-list>
-    <ion-item-sliding class="list" *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
-      <ion-item (click)="onEdit(device, i)" text-wrap class="item no-padding">
+  <ion-list class="list">
+    <ion-item-sliding *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
+      <ion-item (click)="onEdit(device, i)" text-wrap class="no-padding">
         <ion-grid>
           <ion-row>
             <ion-col>

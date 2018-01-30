@@ -5,8 +5,7 @@ import { Device } from "../models/device";
 import { Category } from "../models/category";
 import { DeviceCategory } from "../models/device-category";
 import { Adjust } from "../models/adjust";
-import { Group } from "../models/group";
-import { GroupList } from "../models/group-list";
+import { Month } from "../models/month";
 
 @Injectable()
 export class DeviceListService {
@@ -14,34 +13,32 @@ export class DeviceListService {
   private categories: Category[] = [];
   private devicescategory: DeviceCategory[] = [];
   private adjust: Adjust[] = [];
-  private group: Group[] = [];
-  private groupList: GroupList[] = [];
+  private months: Month[] = []
 
   constructor(private storage: Storage) {}
 
-  //GROUP LIST SERVICE
-  addGroupList(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string, group: string) {
-    const groupList = new GroupList(name, quantity, power, hours, daysUsed, category, group);
-    this.groupList.push(groupList);
-    this.storage.set('groupList', this.groupList)
+  addMonth(monthName: string, monthlyPower: number, monthlyCost: number) {
+    const month = new Month(monthName, monthlyPower, monthlyCost);
+    this.months.push(month);
+    this.storage.set('months', this.months)
       .then()
       .catch(
         err => {
-          this.groupList.splice(this.groupList.indexOf(groupList),1);
+          this.months.splice(this.months.indexOf(month),1);
         }
       );
   }
 
-  getGroupList() {
-    return this.groupList.slice();
+  getMonths() {
+    return this.months.slice();
   }
 
-  fetchGroupList() {
-    return this.storage.get('groupList')
+  fetchMonths() {
+    return this.storage.get('months')
       .then(
-        (groupList: GroupList[]) => {
-          this.groupList = groupList != null ? groupList : [];
-          return this.groupList;
+        (months: Month[]) => {
+          this.months = months != null ? months : [];
+          return this.months;
         }
       )
       .catch(
@@ -49,48 +46,9 @@ export class DeviceListService {
       );
   }
 
-  removeGroupList(index: number) {
-    this.groupList.splice(index, 1);
-    this.storage.set('groupList', this.groupList)
-      .then()
-      .catch(
-        err => console.log(err)
-      );
-  }
-
-  //GROUP SERVICE
-  addGroup(name: string , totalPower: number, totalCost: number) {
-    const group = new Group(name, totalPower, totalCost);
-    this.group.push(group);
-    this.storage.set('group', this.group)
-      .then()
-      .catch(
-        err => {
-          this.group.splice(this.group.indexOf(group),1);
-        }
-      );
-  }
-
-  getGroup() {
-    return this.group.slice();
-  }
-
-  fetchGroup() {
-    return this.storage.get('group')
-      .then(
-        (group: Group[]) => {
-          this.group = group != null ? group : [];
-          return this.group;
-        }
-      )
-      .catch(
-        err => console.log(err)
-      );
-  }
-
-  updateGroup(index: number, name: string , totalPower: number, totalCost: number) {
-    this.group[index] = new Group(name, totalPower, totalCost);
-    this.storage.set('group', this.group)
+  updateMonth(index: number, monthName: string, monthlyPower: number, monthlyCost: number) {
+    this.months[index] = new Month(monthName, monthlyPower, monthlyCost);
+    this.storage.set('months', this.months)
       .then()
       .catch(
         err => {
@@ -99,15 +57,14 @@ export class DeviceListService {
       );
   }
 
-  removeGroup(index: number) {
-    this.group.splice(index, 1);
-    this.storage.set('group', this.group)
+  removeMonth(index: number) {
+    this.months.splice(index, 1);
+    this.storage.set('months', this.months)
       .then()
       .catch(
         err => console.log(err)
       );
   }
-
 
 //ADJUST SERVICE
 addAdjust(bill: number, appBill: number, difference: number) {
@@ -160,8 +117,8 @@ removeAdjust(index: number) {
 }
 
 //DEVICE CATEGORY SERVICE
-addDeviceCategory(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
-  const devicecategory = new DeviceCategory(name, quantity, power, hours, daysUsed, category);
+addDeviceCategory(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string, compressor: number) {
+  const devicecategory = new DeviceCategory(name, quantity, power, hours, daysUsed, category, compressor);
   this.devicescategory.push(devicecategory);
   this.storage.set('devicescategory', this.devicescategory)
     .then()
@@ -189,8 +146,8 @@ fetchDevicesCategory() {
     );
 }
 
-updateDeviceCategory(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
-  this.devicescategory[index] = new DeviceCategory(name, quantity, power, hours,  daysUsed, category);
+updateDeviceCategory(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string, compressor: number) {
+  this.devicescategory[index] = new DeviceCategory(name, quantity, power, hours,  daysUsed, category, compressor);
   this.storage.set('devicescategory', this.devicescategory)
     .then()
     .catch(
@@ -260,8 +217,8 @@ removeDeviceCategory(index: number) {
   }
 
   //DEVICE SERVICE
-  addDevice(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
-    const device = new Device(name, quantity, power, hours, daysUsed, category);
+  addDevice(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string, compressor: number) {
+    const device = new Device(name, quantity, power, hours, daysUsed, category, compressor);
     this.devices.push(device);
     this.storage.set('devices', this.devices)
       .then()
@@ -271,10 +228,6 @@ removeDeviceCategory(index: number) {
         }
       );
   }
-
-  // addDevices(items: Device[]) {
-  //   this.devices.push(...items);
-  // }
 
   getDevices() {
     return this.devices.slice();
@@ -293,8 +246,8 @@ removeDeviceCategory(index: number) {
       );
   }
 
-  updateDevice(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string) {
-    this.devices[index] = new Device(name, quantity, power, hours,  daysUsed, category);
+  updateDevice(index: number, name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string, compressor: number) {
+    this.devices[index] = new Device(name, quantity, power, hours,  daysUsed, category, compressor);
     this.storage.set('devices', this.devices)
       .then()
       .catch(
@@ -312,5 +265,4 @@ removeDeviceCategory(index: number) {
         err => console.log(err)
       );
   }
-
 }

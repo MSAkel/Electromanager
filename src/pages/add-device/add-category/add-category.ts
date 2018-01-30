@@ -57,7 +57,8 @@ export class AddCategoryPage implements OnInit{
             this.listDeviceCategory[index].power,
             this.listDeviceCategory[index].hours,
             this.listDeviceCategory[index].daysUsed,
-            this.listDeviceCategory[index].category
+            this.listDeviceCategory[index].category,
+            this.listDeviceCategory[index].compressor
           )
 
           this.dlService.updateDevice(index,
@@ -66,7 +67,8 @@ export class AddCategoryPage implements OnInit{
             this.listDeviceCategory[index].power,
             this.listDeviceCategory[index].hours,
             this.listDeviceCategory[index].daysUsed,
-            this.listDeviceCategory[index].category
+            this.listDeviceCategory[index].category,
+            this.listDeviceCategory[index].compressor
           )
         }
       }

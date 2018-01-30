@@ -2,28 +2,8 @@ page-summary {
   .col-top {
     border-bottom: 1px solid #d1d1d1;
   }
-  .dollar {
-    color: green;
-  }
 
-  .flash {
-    color: #ffff63;
+  .num{
+    color: color($colors, secondary);
   }
-
-  .text-center{
-    text-align: center;
-  }
-
-  .split-col {
-    border-right: 1px solid grey;
-  }
-
-  .text-colour {
-    color: dark;
-  }
-
-  // @include rtl() {
-  //       // Custom rtl style goes here
-  //       float: right;
-  //   }
 }
