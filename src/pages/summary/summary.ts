@@ -5,9 +5,10 @@ import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
-import { AddBillPage } from "./add-bill/add-bill";
+//import { AddBillPage } from "./add-bill/add-bill";
 
 import { Device } from "../../models/device";
+import { Rate } from "../../models/rate";
 //import { Adjust } from "../../models/adjust";
 
 import {parse, getMinutes, getHours, getDate } from 'date-fns';
@@ -20,6 +21,7 @@ import {parse, getMinutes, getHours, getDate } from 'date-fns';
 export class SummaryPage implements OnInit{
 
   listDevices: Device[];
+  listRates: Rate[];
   totalPower: number = 0;
   totalHours: number;
   flat: number;
@@ -27,7 +29,7 @@ export class SummaryPage implements OnInit{
   multi: number;
   capacity: number;
   vat: number;
-  consumptionTotal: number;
+  consumptionTotal = 0;
   totalBill: number;
   check = 0;
 
@@ -56,12 +58,17 @@ export class SummaryPage implements OnInit{
       .then(
         (devices: Device[]) => this.listDevices = devices
       );
+    this.settingsService.fetchRates()
+      .then(
+        (rates: Rate[]) => this.listRates = rates
+      );
     }
 
   ionViewWillEnter() {
     this.setLanguage();
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
+    this.listRates = this.settingsService.getRates();
     //this.listAdjust = this.dlService.getAdjust();
 
     this.calculate();
@@ -125,19 +132,34 @@ export class SummaryPage implements OnInit{
       this.multi = (this.totalHours * this.listDevices[index].daysUsed * this.power) * this.listDevices[index].compressor;
 
       this.totalPower = this.totalPower + this.multi;
-      console.log("Power",this.totalPower);
+      //console.log("Power",this.totalPower);
     }
     return this.totalPower;
   }
 
   consumptionTotalFunction() {
-       if(this.totalPower > 0 && this.totalPower <= 6000000){
-         this.consumptionTotal = this.totalPower/1000 * this.settingsService.getCost;
-       } else if (this.totalPower > 60000000) {
-         this.consumptionTotal = this.totalPower/1000 * 0.30;
-       }
-       console.log('Summary consumption total:',this.consumptionTotal);
-       return this.consumptionTotal;
+    let rateValue: number;
+    let total = 0;
+    this.consumptionTotal = 0;
+    this.totalPower = this.totalPower/1000;
+      for(let index in this.listRates) {
+        //console.log("starting Total Power", this.totalPower);
+        if(this.listRates[index].rateRange <= this.totalPower) {
+          rateValue = this.listRates[index].rateRange * this.listRates[index].rateCost;
+          this.totalPower -= this.listRates[index].rateRange;
+          total += rateValue;
+          //console.log("Rate <= Total: ", total);
+        } else if(this.listRates[index].rateRange > this.totalPower && this.totalPower >= 0) {
+          rateValue = this.totalPower * this.listRates[index].rateCost;
+
+          this.totalPower -= this.listRates[index].rateRange;
+          total += rateValue;
+          //console.log("Rate > Total: ", total);
+        }
+        //console.log("Total Power:", this.totalPower, "consumption Total:", this.consumptionTotal);
+      }
+      this.consumptionTotal = total;
+      return this.consumptionTotal;
      }
 
   capacityFunction() {

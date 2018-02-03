@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {format, parse, getMinutes, getHours} from 'date-fns'
 
 import { Device } from "../../models/device";
+import { Rate } from "../../models/rate";
 import { Month } from "../../models/month";
 import { Chart } from 'chart.js';
 
@@ -24,6 +25,7 @@ export class ReportsPage implements OnInit{
   @ViewChild('barChartItemsCost') barChartItemsCost;
 
   listDevices: Device[];
+  listRates: Rate[];
   public totalPower: any = [];
 
   public barChartEl: any;
@@ -70,12 +72,17 @@ export class ReportsPage implements OnInit{
       .then(
         (months: Month[]) => this.listMonths = months
       );
+      this.settingsService.fetchRates()
+        .then(
+          (rates: Rate[]) => this.listRates = rates
+        );
     }
 
   ionViewWillEnter() {
     this.setLanguage();
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
+    this.listRates = this.settingsService.getRates();
     this.listMonths = this.dlService.getMonths();
 
     this.calculate();
@@ -89,6 +96,8 @@ export class ReportsPage implements OnInit{
     var thisMonth = format(new Date(), 'MMM')
     //console.log(thisMonth);
     let count : any;
+    let totalPower = 0;
+    let rateValue: number;
     let total = 0;
     let totalCost = 0;
 
@@ -101,20 +110,20 @@ export class ReportsPage implements OnInit{
 
       let totalHours = time * this.listDevices[index].quantity;
       let power = this.listDevices[index].power;
-      let multi = +((totalHours * this.listDevices[index].daysUsed * power ) * this.listDevices[index].compressor).toFixed(2);
+      let deviceTotalPower = +((totalHours * this.listDevices[index].daysUsed * power ) * this.listDevices[index].compressor).toFixed(2);
       let daily = +((totalHours * power) * this.listDevices[index].compressor).toFixed(2); //CONSUMPTION
-      let yearly = (multi * 12).toFixed(2);
+      let yearly = (deviceTotalPower * 12).toFixed(2);
 
-      let dailyCost = +((daily/1000) * this.settingsService.getCost).toFixed(2);
+      let dailyCost = +((daily/1000) * this.listRates[0].rateCost).toFixed(2);
       let monthlyCost = +(dailyCost * 30).toFixed(2);
       let yearlyCost = +(dailyCost * 365).toFixed(2);
       //console.log('Multi: ',multi);
       //console.log('Device: ',this.listDevices[index].name);
-      total = total + multi;
+      totalPower = totalPower + deviceTotalPower;
 
       //console.log('total ',total);
       this.dailyPowerItem.push(daily);
-      this.monthlyPowerItem.push(multi);
+      this.monthlyPowerItem.push(deviceTotalPower);
       this.yearlyPowerItem.push(yearly);
 
       this.dailyItemCost.push(dailyCost);
@@ -123,8 +132,23 @@ export class ReportsPage implements OnInit{
       //this.monthlyCost.push(totalCost);
       this.items.push(this.listDevices[index].name.slice(0,7));
     }
-    totalCost = +((total/1000) * this.settingsService.getCost).toFixed(2);
+    //totalCost = +((totalPower/1000) * this.settingsService.getCost).toFixed(2);
     //console.log('cost',totalCost);
+    let tempTotalPower = totalPower/1000;
+    for(let index in this.listRates) {
+      if(this.listRates[index].rateRange <= tempTotalPower) {
+        rateValue = this.listRates[index].rateRange * this.listRates[index].rateCost;
+        tempTotalPower -= this.listRates[index].rateRange;
+        total += rateValue;
+      } else if(this.listRates[index].rateRange > tempTotalPower && tempTotalPower >= 0) {
+        rateValue = tempTotalPower * this.listRates[index].rateCost;
+
+        tempTotalPower -= this.listRates[index].rateRange;
+        total += rateValue;
+      }
+    }
+    totalCost = +total.toFixed(2);
+
     for(count in this.monthName) {
       while(this.listMonths.length < 12) {
         this.dlService.addMonth(this.monthName, 0, 0);
@@ -132,7 +156,7 @@ export class ReportsPage implements OnInit{
         this.listMonths = this.dlService.getMonths();
       }
           if(this.monthName[count] == thisMonth) {
-              this.dlService.updateMonth(count, this.listMonths[count].monthName, total, totalCost);
+              this.dlService.updateMonth(count, this.listMonths[count].monthName, totalPower, totalCost);
               this.listMonths = this.dlService.getMonths();
               this.monthlyPower.push(this.listMonths[count].monthlyPower);
               this.monthlyCost.push(this.listMonths[count].monthlyCost);
@@ -148,13 +172,15 @@ export class ReportsPage implements OnInit{
        //console.log(this.monthlyPower);
     }
 
-    // selected() {
-    //   if(this.select == false){
-    //     this.select = true;
-    //   } else {
-    //     this.select = false;
-    //   }
-    // }
+  setLanguage() {
+    this.language = this.translateService.currentLang;
+    if(this.language == 'ar')
+    {
+      this.rtl = 'rtl';
+      this.slide = 'left';
+      this.arabic = true;
+    }
+  }
 
   createBarChart() {
      this.barChartEl = new Chart(this.barChart.nativeElement, {
@@ -348,15 +374,4 @@ export class ReportsPage implements OnInit{
      this.yearlyItemCost = [];
      this.items = [];
    }
-
-
-  setLanguage() {
-    this.language = this.translateService.currentLang;
-    if(this.language == 'ar')
-    {
-      this.rtl = 'rtl';
-      this.slide = 'left';
-      this.arabic = true;
-    }
-  }
 }

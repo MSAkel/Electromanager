@@ -1,3 +1,6 @@
+import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
+
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -6,9 +9,7 @@ import { ToastController } from 'ionic-angular';
 import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
-
+import { Rate } from "../../models/rate";
 
 @IonicPage()
 @Component({
@@ -18,9 +19,12 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class SettingsPage implements OnInit{
   settingsForm: FormGroup;
+  rateForm: FormGroup;
   language: string;
   rtl: string;
   arabic = false;
+
+  listRates: Rate[];
 
   constructor(
     public navCtrl: NavController,
@@ -34,11 +38,16 @@ export class SettingsPage implements OnInit{
   ngOnInit() {
       this.settingsService.getLanguage();
       this.settingsService.getSettings();
+      this.settingsService.fetchRates()
+        .then(
+          (rates: Rate[]) => this.listRates = rates
+        );
       this.initializeForm();
   }
 
   ionViewWillEnter() {
     this.setLanguage();
+    this.listRates = this.settingsService.getRates();
   }
 
   setLanguage() {
@@ -58,20 +67,44 @@ export class SettingsPage implements OnInit{
   refreshPage() {
    this.navCtrl.setRoot(this.navCtrl.getActive().component);
 }
+
+  onSubmitRate() {
+    const value = this.rateForm.value;
+    this.settingsService.addRate(value.range, value.cost);
+    this.listRates = this.settingsService.getRates();
+    this.rateForm.reset();
+  }
   onSubmit() {
     const value = this.settingsForm.value;
-    this.settingsService.saveSettings(value.cost, value.tax, value.flatRate);
+    this.settingsService.saveSettings(value.tax, value.flatRate);
+  }
+
+  onDelete(index: number) {
+    this.settingsService.removeRate(index);
+    this.listRates = this.settingsService.getRates();
+
+    const toast = this.toastCtrl.create({
+      message: 'Item Delete',
+      duration: 1500,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 
   private initializeForm() {
-    let cost = this.settingsService.getCost;
+    let range = null;
+    let cost = null;
     let  tax = this.settingsService.getTax;
     let flatRate = this.settingsService.getFlatRate;
 
+    this.rateForm = new FormGroup({
+      'range':new FormControl(range, Validators.required),
+      'cost': new FormControl(cost, Validators.required)
+    })
 
     this.settingsForm = new FormGroup({
-      'cost': new FormControl(cost, Validators.required),
+
       'tax': new FormControl(tax, Validators.required),
       'flatRate': new FormControl(flatRate, Validators.required)
     });

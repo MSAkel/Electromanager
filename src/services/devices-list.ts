@@ -13,10 +13,11 @@ export class DeviceListService {
   private categories: Category[] = [];
   private devicescategory: DeviceCategory[] = [];
   private adjust: Adjust[] = [];
-  private months: Month[] = []
+  private months: Month[] = [];
 
   constructor(private storage: Storage) {}
 
+  //MONTHS SERVICES
   addMonth(monthName: string, monthlyPower: number, monthlyCost: number) {
     const month = new Month(monthName, monthlyPower, monthlyCost);
     this.months.push(month);
@@ -57,64 +58,64 @@ export class DeviceListService {
       );
   }
 
-  removeMonth(index: number) {
-    this.months.splice(index, 1);
-    this.storage.set('months', this.months)
-      .then()
-      .catch(
-        err => console.log(err)
-      );
-  }
+  // removeMonth(index: number) {
+  //   this.months.splice(index, 1);
+  //   this.storage.set('months', this.months)
+  //     .then()
+  //     .catch(
+  //       err => console.log(err)
+  //     );
+  // }
 
 //ADJUST SERVICE
-addAdjust(bill: number, appBill: number, difference: number) {
-  const adjust = new Adjust(bill, appBill, difference);
-  this.adjust.push(adjust);
-  this.storage.set('adjust', this.adjust)
-    .then()
-    .catch(
-      err => {
-        this.adjust.splice(this.adjust.indexOf(adjust),1);
-      }
-    );
-}
-
-getAdjust() {
-  return this.adjust.slice();
-}
-
-fetchAdjust() {
-  return this.storage.get('adjust')
-    .then(
-      (adjust: Adjust[]) => {
-        this.adjust = adjust != null ? adjust : [];
-        return this.adjust;
-      }
-    )
-    .catch(
-      err => console.log(err)
-    );
-}
-
-updateAdjust(index: number, bill: number, appBill: number, difference: number) {
-  this.adjust[index] = new Adjust(bill, appBill, difference);
-  this.storage.set('adjust', this.adjust)
-    .then()
-    .catch(
-      err => {
-        err => console.log(err)
-      }
-    );
-}
-
-removeAdjust(index: number) {
-  this.adjust.splice(index, 1);
-  this.storage.set('adjust', this.adjust)
-    .then()
-    .catch(
-      err => console.log(err)
-    );
-}
+// addAdjust(bill: number, appBill: number, difference: number) {
+//   const adjust = new Adjust(bill, appBill, difference);
+//   this.adjust.push(adjust);
+//   this.storage.set('adjust', this.adjust)
+//     .then()
+//     .catch(
+//       err => {
+//         this.adjust.splice(this.adjust.indexOf(adjust),1);
+//       }
+//     );
+// }
+//
+// getAdjust() {
+//   return this.adjust.slice();
+// }
+//
+// fetchAdjust() {
+//   return this.storage.get('adjust')
+//     .then(
+//       (adjust: Adjust[]) => {
+//         this.adjust = adjust != null ? adjust : [];
+//         return this.adjust;
+//       }
+//     )
+//     .catch(
+//       err => console.log(err)
+//     );
+// }
+//
+// updateAdjust(index: number, bill: number, appBill: number, difference: number) {
+//   this.adjust[index] = new Adjust(bill, appBill, difference);
+//   this.storage.set('adjust', this.adjust)
+//     .then()
+//     .catch(
+//       err => {
+//         err => console.log(err)
+//       }
+//     );
+// }
+//
+// removeAdjust(index: number) {
+//   this.adjust.splice(index, 1);
+//   this.storage.set('adjust', this.adjust)
+//     .then()
+//     .catch(
+//       err => console.log(err)
+//     );
+// }
 
 //DEVICE CATEGORY SERVICE
 addDeviceCategory(name: string, quantity: number, power: number, hours: number, daysUsed: number, category: string, compressor: number) {
