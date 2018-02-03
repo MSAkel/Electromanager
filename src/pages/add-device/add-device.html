@@ -8,7 +8,7 @@
   <ion-searchbar [(ngModel)]="terms" placeholder="Search For Appliance"></ion-searchbar>
   <ion-list [hidden]="!terms">
     <div *ngFor="let device of listCategoryDevices | search : terms; let i = index">
-      <ion-item (click)="onAddDevice(device)">
+      <ion-item (click)="onAddDevice(device)" color="background">
         <p>{{ device.name }}</p>
         <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
       </ion-item>

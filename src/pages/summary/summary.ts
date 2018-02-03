@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AddBillPage } from "./add-bill/add-bill";
 
 import { Device } from "../../models/device";
-import { Adjust } from "../../models/adjust";
+//import { Adjust } from "../../models/adjust";
 
 import {parse, getMinutes, getHours, getDate } from 'date-fns';
 
@@ -31,18 +31,16 @@ export class SummaryPage implements OnInit{
   totalBill: number;
   check = 0;
 
-  listAdjust: Adjust[];
-  adjusting:number;
+  // listAdjust: Adjust[];
+  // adjusting:number;
 
   language: string;
   rtl: string;
   arabic = false;
-  slide: string;
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private modalCtrl: ModalController,
-     public toastCtrl: ToastController,
      private dlService: DeviceListService,
      private settingsService: SettingsService,
      private translateService: TranslateService
@@ -50,10 +48,10 @@ export class SummaryPage implements OnInit{
 
   ngOnInit() {
     this.settingsService.getLanguage();
-    this.dlService.fetchAdjust()
-      .then(
-        (adjust: Adjust[]) => this.listAdjust = adjust
-      );
+    // this.dlService.fetchAdjust()
+    //   .then(
+    //     (adjust: Adjust[]) => this.listAdjust = adjust
+    //   );
     this.dlService.fetchDevices()
       .then(
         (devices: Device[]) => this.listDevices = devices
@@ -64,7 +62,7 @@ export class SummaryPage implements OnInit{
     this.setLanguage();
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
-    this.listAdjust = this.dlService.getAdjust();
+    //this.listAdjust = this.dlService.getAdjust();
 
     this.calculate();
     this.consumptionTotalFunction();
@@ -72,67 +70,46 @@ export class SummaryPage implements OnInit{
     this.vatFunction();
     this.totalBillFunction();
 
-    this.adjust();
+    //this.adjust();
   }
 
-     setLanguage() {
+  setLanguage() {
        this.language = this.translateService.currentLang;
        if(this.language == 'ar')
        {
          this.rtl = 'rtl';
-         this.slide = 'left';
          this.arabic = true;
        }
      }
 
-  onAddBill() {
-    const modal = this.modalCtrl.create(AddBillPage, { mode: 'Add'});
-    modal.present();
-    modal.onDidDismiss(() => {
-      this.listAdjust = this.dlService.getAdjust();
-    });
-  }
+  // onAddBill() {
+  //   const modal = this.modalCtrl.create(AddBillPage, { mode: 'Add'});
+  //   modal.present();
+  //   modal.onDidDismiss(() => {
+  //     this.listAdjust = this.dlService.getAdjust();
+  //   });
+  // }
 
-  onEdit(bill: Adjust, index: number) {
-    const modal = this.modalCtrl.create(AddBillPage, {mode: 'Edit', bill: bill, index: index});
-    modal.present();
-    modal.onDidDismiss(() => {
-      this.listAdjust = this.dlService.getAdjust();
-    });
-  }
-
-  onDeleteAdjust(index: number) {
-    this.dlService.removeAdjust(index);
-    this.listAdjust = this.dlService.getAdjust();
-
-    const toast = this.toastCtrl.create({
-      message: 'Category Deleted',
-      duration: 1500,
-      position: 'bottom'
-    });
-    toast.present();
-  }
-
-  adjust() {
-    var avgDifference:number = 0;
-    var avgAppBill:number = 0;
-    var avgPercentage:number;
-    //var adjusting:number;
-
-    for (var index = 0; index < this.listAdjust.length; index++) {
-      avgDifference +=  this.listAdjust[index].difference * 1;
-      console.log("Avg. difference: " + avgDifference);
-      avgAppBill += this.listAdjust[index].appBill * 1;
-      console.log("Avg. App Bill: " + avgAppBill);
-    }
-    avgPercentage = (avgDifference/avgAppBill) * 100;
-    console.log("avg%: " + avgPercentage);
-    console.log("Total Bill: " + this.totalBill);
-    this.adjusting = (avgPercentage/100) * this.totalBill;
-    console.log("adjusting: " + this.adjusting);
-    this.adjusting = this.totalBill - this.adjusting;
-    return this.adjusting;
-  }
+  // adjust() {
+  //   var avgDifference:number = 0;
+  //   var avgAppBill:number = 0;
+  //   var avgPercentage:number;
+  //   //var adjusting:number;
+  //
+  //   for (var index = 0; index < this.listAdjust.length; index++) {
+  //     avgDifference +=  this.listAdjust[index].difference * 1;
+  //     console.log("Avg. difference: " + avgDifference);
+  //     avgAppBill += this.listAdjust[index].appBill * 1;
+  //     console.log("Avg. App Bill: " + avgAppBill);
+  //   }
+  //   avgPercentage = (avgDifference/avgAppBill) * 100;
+  //   console.log("avg%: " + avgPercentage);
+  //   console.log("Total Bill: " + this.totalBill);
+  //   this.adjusting = (avgPercentage/100) * this.totalBill;
+  //   console.log("adjusting: " + this.adjusting);
+  //   this.adjusting = this.totalBill - this.adjusting;
+  //   return this.adjusting;
+  // }
 
   calculate(){
     this.totalPower = 0;

@@ -121,7 +121,7 @@ export class ReportsPage implements OnInit{
       this.monthlyItemCost.push(monthlyCost);
       this.yearlyItemCost.push(yearlyCost);
       //this.monthlyCost.push(totalCost);
-      this.items.push(this.listDevices[index].name);
+      this.items.push(this.listDevices[index].name.slice(0,7));
     }
     totalCost = +((total/1000) * this.settingsService.getCost).toFixed(2);
     //console.log('cost',totalCost);
@@ -280,7 +280,7 @@ export class ReportsPage implements OnInit{
               }],
               xAxes: [{
                  ticks: {
-                    autoSkip: false
+                   autoskip: false,
                  }
               }]
            }

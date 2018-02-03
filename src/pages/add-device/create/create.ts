@@ -31,10 +31,8 @@ export class CreatePage implements OnInit {
   rtl: string;
   arabic = false;
 
-  // hours = [];
-  // minutes = [];
-     days = [];
-     check = false;
+  days = [];
+  check = false;
 
   constructor (
     private viewCtrl: ViewController,
@@ -73,16 +71,6 @@ export class CreatePage implements OnInit {
     this.countDays();
   }
 
-  // countHours() {
-  //   for(let i = 0; i <= 24; i++) {
-  //     this.hours.push({hours: i});
-  //   }
-  // }
-  // countMinutes() {
-  //   for(let i = 0; i < 60; i++) {
-  //     this.minutes.push({minutes: i});
-  //   }
-  // }
   countDays() {
     for(let i = 1; i <= 31; i++) {
       this.days.push({days: i});
@@ -98,14 +86,6 @@ export class CreatePage implements OnInit {
     }
   }
 
-  // asd() {
-  //   const value = this.deviceForm.value;
-  //   let result = parse('2018-05-' + value.daysUsed);
-  //   let days = getDate(new Date(2012, 1, value.daysUsed));
-  //   console.log(result);
-  //   console.log(days);
-  // }
-
   setLanguage() {
     this.language = this.translateService.currentLang;
     if(this.language == 'ar')
@@ -116,27 +96,12 @@ export class CreatePage implements OnInit {
     return this.rtl;
   }
 
-  // count() {
-  //   const value = this.deviceForm.value;
-  //   if(value.daysUsed < 10) {
-  //     value.daysUsed = 0 + value.daysUsed;
-  //   }
-  //
-  //   console.log(value.daysUsed);
-  // }
-
   onSubmit() {
     const value = this.deviceForm.value;
 
     if(value.daysUsed < 10) {
       value.daysUsed = 0 + value.daysUsed;
     }
-
-    // let result = parse('0000-00-00T' + value.hours + '00');
-    // let mins = getMinutes(new Date(result));
-    // let hours = getHours(new Date(result));
-    // mins = +(mins/60).toFixed(2);
-    // value.hours = mins + hours;
 
     // let getDays = parse('0000-00-' + value.daysUsed + 'T00:00:00');
     // value.daysUsed = getDate(new Date(getDays));
