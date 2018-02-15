@@ -60,9 +60,9 @@ export class SettingsService {
       );
   }
 
-  removeRate(index: number) {
-    this.rates.splice(index, 1);
-    this.storage.set('months', this.rates)
+  removeRates() {
+    this.rates = [];
+    this.storage.set('rates', this.rates)
       .then()
       .catch(
         err => console.log(err)

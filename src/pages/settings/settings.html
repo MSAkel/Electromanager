@@ -12,14 +12,17 @@
   <ion-list-header color="secondary">
     Language
   </ion-list-header>
-  <ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="selected($event)">
-        <ion-segment-button value="en">
-            English
-        </ion-segment-button>
-        <ion-segment-button value="ar">
-            العربية
-        </ion-segment-button>
-    </ion-segment>
+
+    <ion-list radio-group [(ngModel)]="relationship">
+      <ion-item color="background">
+        <ion-label>English</ion-label>
+        <ion-radio value="en" (ionSelect)="selected('en')" [checked]="english"></ion-radio>
+      </ion-item>
+      <ion-item color="background">
+        <ion-label>عربى</ion-label>
+        <ion-radio value="ar" (ionSelect)="selected('ar')" [checked]="arabic"></ion-radio>
+      </ion-item>
+    </ion-list>
 
     <ion-list-header color="secondary">
       Consumption Tariff
@@ -32,45 +35,34 @@
           <ion-col>
             <ion-item no-lines color="background">
               <!-- <ion-label color="primary" floating>Range</ion-label> -->
-               <ion-input type="number" placeholder="Range" formControlName="range"></ion-input>
+               <ion-input type="number" placeholder="KW:1000" formControlName="range"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item no-lines color="background">
               <!-- <ion-label color="primary" floating>{{ 'SETTINGS.COST' | translate}}</ion-label> -->
-              <ion-input type="number" placeholder="Cost" formControlName="cost"></ion-input>
+              <ion-input type="number" placeholder="Cost kwh" formControlName="cost"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <button ion-button icon-only clear item-end type="submit" color="secondary" [disabled]="!rateForm.valid" (click)='presentToast()'><ion-icon name="add-circle"></ion-icon></button>
+            <button ion-button icon-only clear item-end type="button" color="danger" (click)="onClear()"><ion-icon name="remove-circle"></ion-icon></button>
           </ion-col>
         </ion-row>
       </ion-list>
     </ion-grid>
   </form>
 
-  <ion-list>
-    <ion-item-sliding *ngFor="let rate of listRates; let i = index">
-    <ion-item color="background">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <p>{{rate.rateRange}}</p>
-          </ion-col>
-          <ion-col>
-            <p>{{rate.rateCost}}</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-    <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
-      <!-- <button ion-button color="primary" (click)="onEdit(device, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button> -->
-      <button ion-button color="danger" expandable (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
-    </ion-item-options>
-    </ion-item-sliding>
+  <ion-list padding>
+    <ion-col *ngFor="let rate of listRates; let i = index; let first = first; let last = last">
+      <span *ngIf="first">1 - {{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }}  -</span>
+      <span *ngIf="!first && !last">{{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
+      <span *ngIf="last && !first">{{rate.rateRange}}({{rate.rateCost}})</span>
+  </ion-col>
   </ion-list>
+    <!-- <button ion-button clear item-end (click)="onClear()">Clear All</button> -->
   <ion-list-header color="secondary">
-    Tax and Flat Rates
+    Tax and Flat Rate
   </ion-list-header>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <ion-item-group>
@@ -91,6 +83,8 @@
 
       </ion-grid>
     </ion-item-group>
-    <button ion-button type="submit" color="secondary" (click)='presentToast()'>{{ 'SETTINGS.SAVE' | translate }}</button>
+    <ion-item color="background">
+      <button default ion-button type="submit" item-end color="secondary" (click)='presentToast()'>{{ 'SETTINGS.SAVE' | translate }}</button>
+    </ion-item>
   </form>
 </ion-content>

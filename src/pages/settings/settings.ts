@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Storage } from '@ionic/storage';
 
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ToastController } from 'ionic-angular';
 
@@ -23,12 +23,18 @@ export class SettingsPage implements OnInit{
   language: string;
   rtl: string;
   arabic = false;
+  english = false;
 
   listRates: Rate[];
+  current: number;
+  index = 0;
+  num: number = 1;
+  //previousRate: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public alertCtrl: AlertController,
     private settingsService: SettingsService,
     private translateService: TranslateService,
     public toastCtrl: ToastController,
@@ -42,6 +48,7 @@ export class SettingsPage implements OnInit{
         .then(
           (rates: Rate[]) => this.listRates = rates
         );
+
       this.initializeForm();
   }
 
@@ -56,13 +63,26 @@ export class SettingsPage implements OnInit{
     {
       this.rtl = 'rtl';
       this.arabic = true;
+    } else {
+      this.english = true;
     }
   }
 
   selected(event) {
-    this.settingsService.setLanguage(event._value);
+    this.settingsService.setLanguage(event);
+    console.log(event);
     this.refreshPage();
   }
+
+  // previous() {
+  //     var previousRate = this.listRates[this.index].rateRange;
+  //     if(this.index < this.listRates.length){
+  //       console.log("Value:", previousRate);
+  //       console.log("rate:", this.index);
+  //        this.index++
+  //     }
+  //     return previousRate;
+  // }
 
   refreshPage() {
    this.navCtrl.setRoot(this.navCtrl.getActive().component);
@@ -79,16 +99,49 @@ export class SettingsPage implements OnInit{
     this.settingsService.saveSettings(value.tax, value.flatRate);
   }
 
-  onDelete(index: number) {
-    this.settingsService.removeRate(index);
-    this.listRates = this.settingsService.getRates();
+  // onDelete(index: number) {
+  //   this.settingsService.removeRate(index);
+  //   this.listRates = this.settingsService.getRates();
+  //
+  //   const toast = this.toastCtrl.create({
+  //     message: 'Item Delete',
+  //     duration: 1500,
+  //     position: 'bottom'
+  //   });
+  //   toast.present();
+  // }
 
-    const toast = this.toastCtrl.create({
-      message: 'Item Delete',
-      duration: 1500,
-      position: 'bottom'
-    });
-    toast.present();
+  onClear() {
+    // this.settingsService.removeRates();
+    // this.listRates = this.settingsService.getRates();
+
+      // const toast = this.toastCtrl.create({
+      //   message: 'Cleared List',
+      //   duration: 1500,
+      //   position: 'bottom'
+      // });
+      // toast.present();
+     let alert = this.alertCtrl.create({
+     title: 'Clear List?',
+     message: 'Clicking confirm will delete all your tariff rate entries',
+     buttons: [
+       {
+         text: 'Close',
+         handler: () => {
+           console.log('Disagree clicked');
+         }
+       },
+       {
+         text: 'Confirm',
+         handler: () => {
+           this.settingsService.removeRates();
+           this.listRates = this.settingsService.getRates();
+         }
+       }
+     ]
+   });
+
+   alert.present();
   }
 
 

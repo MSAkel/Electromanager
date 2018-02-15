@@ -23,8 +23,11 @@ export class ReportsPage implements OnInit{
   @ViewChild('barChartItems') barChartItems;
   @ViewChild('monthlyCostChart') monthlyCostChart;
   @ViewChild('barChartItemsCost') barChartItemsCost;
+  @ViewChild('applianceDetails') applianceDetails;
 
   listDevices: Device[];
+  device: Device;
+  index: number;
   listRates: Rate[];
   public totalPower: any = [];
 
@@ -32,6 +35,7 @@ export class ReportsPage implements OnInit{
   public barChartItemsEl: any;
   public monthlyCostEl: any;
   public itemsCostEl: any;
+  public applianceDetailsEl: any;
 
   listMonths: Month[];
 
@@ -54,6 +58,10 @@ export class ReportsPage implements OnInit{
   arabic = false;
   slide: string;
   select = false;
+
+  public selected: any;
+  public hours: any = [];
+  public costPerHour: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -160,7 +168,7 @@ export class ReportsPage implements OnInit{
               this.listMonths = this.dlService.getMonths();
               this.monthlyPower.push(this.listMonths[count].monthlyPower);
               this.monthlyCost.push(this.listMonths[count].monthlyCost);
-              console.log('cost' ,this.listMonths[count].monthlyCost);
+              //console.log('cost' ,this.listMonths[count].monthlyCost);
             } else {
                 this.dlService.updateMonth(count, this.listMonths[count].monthName, this.listMonths[count].monthlyPower, this.listMonths[count].monthlyCost);
                 //this.monthName.push[this.listMonths[count].monthName];
@@ -374,4 +382,54 @@ export class ReportsPage implements OnInit{
      this.yearlyItemCost = [];
      this.items = [];
    }
+
+
+// selectedAppliance(appliance: Device, index: number) {
+//    this.selected = appliance.power;
+//    for(let rate in this.listRates) {
+//      for(let i = 1; i < 24; i++) {
+//        this.hours.push(i);
+//        this.costPerHour.push(i * (appliance.power/1000) * this.listRates[rate].rateCost);
+//      }
+//    }
+//   this.createChartApplianceDetails();
+// }
+//    createChartApplianceDetails() {
+//       this.applianceDetailsEl = new Chart(this.applianceDetails.nativeElement, {
+//          type: 'line',
+//          data: {
+//             labels: this.hours,
+//             datasets: [{
+//                label                 : this.listRates,
+//                data                  : this.costPerHour,
+//                duration              : 2000,
+//                easing                : 'easeInQuart',
+//                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
+//                hoverBackgroundColor  : "#6384FF",
+//                fill 				          : false
+//             }
+//           ]
+//          },
+//          options : {
+//             legend         : {
+//                display     : true,
+//                boxWidth    : 80,
+//                fontSize    : 15,
+//                padding     : 0
+//             },
+//             scales: {
+//                yAxes: [{
+//                   ticks: {
+//                      beginAtZero:true,
+//                   }
+//                }],
+//                xAxes: [{
+//                   ticks: {
+//                      autoSkip: true,
+//                   }
+//                }]
+//             }
+//          }
+//       });
+//    }
 }

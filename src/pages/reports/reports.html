@@ -42,6 +42,21 @@
     </ion-slide>
   </ion-slides>
 
+  <!-- <ion-card>
+    <h2 text-center>Appliance Details</h2>
+    <canvas #applianceDetails></canvas>
+  </ion-card>
+
+  <ion-searchbar [(ngModel)]="terms" placeholder="Search For Appliance"></ion-searchbar>
+  <ion-list [hidden]="!terms">
+    <div *ngFor="let device of listDevices | search : terms; let i = index">
+      <ion-item (click)="selectedAppliance(device)" color="background">
+        <p>{{ device.name }}</p>
+        <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+      </ion-item>
+    </div>
+  </ion-list> -->
+
   <!-- <ion-grid class="list-top">
     <ion-row>
       <ion-col>
