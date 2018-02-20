@@ -16,22 +16,22 @@
         <ion-row>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.NAME' | translate }}</ion-label>
-              <ion-input type="text" formControlName="name"></ion-input>
+              <!-- <ion-label floating>{{ 'CREATE.NAME' | translate }}</ion-label> -->
+              <ion-input type="text" placeholder="{{ 'CREATE.NAME' | translate }}" formControlName="name"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label>
-              <ion-input type="number" formControlName="quantity" clearOnEdit></ion-input>
+              <!-- <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label> -->
+              <ion-input type="number" placeholder="{{ 'CREATE.QUANTITY' | translate }}" formControlName="quantity" clearOnEdit></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label>
-              <ion-input type="number" formControlName="power"></ion-input>
+              <!-- <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label> -->
+              <ion-input type="number" placeholder="{{ 'CREATE.POWER' | translate }}" formControlName="power"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -39,14 +39,14 @@
         <ion-row>
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
-                <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
+              <!-- <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label> -->
+                <ion-datetime formControlName="hours" placeholder="{{ 'CREATE.HOURS' | translate }}" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
-              <ion-select formControlName="daysUsed" interface="popover">
+              <!-- <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label> -->
+              <ion-select placeholder="{{ 'CREATE.DAYS' | translate }}" formControlName="daysUsed" interface="popover">
                 <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
               </ion-select>
             </ion-item>
@@ -55,8 +55,8 @@
         <ion-row>
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
-              <ion-select formControlName="category">
+              <!-- <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label> -->
+              <ion-select placeholder="{{ 'CREATE.CATEGORY' | translate }}" formControlName="category">
                 <ion-option *ngFor="let category of listCategory" value="{{ category.name }}">{{ category.name }}</ion-option>
               </ion-select>
             </ion-item>
@@ -71,19 +71,18 @@
           </ion-col>
         </ion-row>
         <ion-row [hidden]="!check">
-          <!-- <ion-col>
-            <ion-item no-lines color="background">
-              <ion-label floating>Manual Input</ion-label>
-              <ion-input type="number" formControlName="compressor" ></ion-input>
-            </ion-item>
-          </ion-col> -->
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>Predefined List</ion-label>
+              <ion-label floating>Appliance Type</ion-label>
               <ion-select formControlName="compressor">
-                <ion-option value="0.65">Air Conditioner</ion-option>
+                <ion-option value="0.65">Air Conditioner (Average Cycle)</ion-option>
+                <ion-option value="0.84">Air Conditioner (Long Cycle)</ion-option>
+                <ion-option value="1">Air Conditioner (Full Cycle)</ion-option>
+                <ion-option value="0.56">Dishwasher</ion-option>
                 <ion-option value="0.57">Freezer (upright)</ion-option>
-                <ion-option value="0.25">Fridge</ion-option>
+                <ion-option value="0.27">Refrigerator</ion-option>
+                <ion-option value="0.20">Water Cooler</ion-option>
+                <ion-option value="0.25">Washing Machine (Cold Water)</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>

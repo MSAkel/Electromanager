@@ -1,0 +1,163 @@
+<ion-header dir="{{rtl}}">
+  <ion-navbar color="navbar">
+    <ion-title>{{ 'CATALOGUE.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="appliance" class="segment-wrap">
+        <ion-segment-button value="airCons">
+          Air Cons
+        </ion-segment-button>
+        <ion-segment-button value="computers">
+          Computers
+        </ion-segment-button>
+        <ion-segment-button value="kitchen">
+          Kitchen
+        </ion-segment-button>
+
+        <ion-segment-button value="lighting">
+          Lighting
+        </ion-segment-button>
+        <ion-segment-button value="others">
+         Others
+        </ion-segment-button>
+        <ion-segment-button value="tvs">
+          TVs
+        </ion-segment-button>
+        <ion-segment-button value="washing">
+          Washing
+        </ion-segment-button>
+ </ion-segment>
+
+ <div [ngSwitch]="appliance">
+   <ion-list *ngSwitchCase="'airCons'">
+     <ion-item color="background">
+       <!-- <ion-thumbnail item-start>
+         <img src="img/thumbnail-puppy-1.jpg">
+       </ion-thumbnail> -->
+       <h2>Central Air Conditioner</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 3500 Watts</p>
+     </ion-item>
+     <ion-item color="background">
+       <h2>Window Unit (Large)</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 1440 Watts</p>
+     </ion-item>
+   </ion-list>
+
+   <ion-list *ngSwitchCase="'computers'">
+     <ion-item color="background">
+       <h2>Desktop</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 30-160 Watts</p>
+     </ion-item>
+   </ion-list>
+
+   <ion-list *ngSwitchCase="'kitchen'">
+     <ion-item color="background">
+       <h2>18 Cubic-Foot Refrigerators</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 458 kWh/year (average)</p>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 400 kWh/year (Top-Freezer)</p>
+     </ion-item>
+     <ion-item color="background">
+       <h2>21 Cubic-Foot Refrigerator</h2>
+       <ion-col>
+         <p><ion-icon name="flash" class="flash"></ion-icon> 491 kWh/year (top-freezer)</p>
+       </ion-col>
+       <ion-col>
+         <p><ion-icon name="flash" class="flash"></ion-icon> 539 kWh/year (bottom-freezer)</p>
+       </ion-col>
+       <ion-col>
+         <p><ion-icon name="flash" class="flash"></ion-icon> 637 kWh/year (side-by-side)</p>
+       </ion-col>
+     </ion-item>
+   </ion-list>
+
+   <ion-list *ngSwitchCase="'lighting'">
+     <ion-item color="background">
+       <h2>Incandescent Bulb</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 40/60/100 Watts</p>
+     </ion-item>
+     <ion-item color="background">
+       <h2>Compact Fluorescent Lamps (CFL)</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 15/23/40/65 Watts</p>
+     </ion-item>
+     <ion-item color="background">
+       <h2>LED</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 4/8/20 Watts</p>
+     </ion-item>
+   </ion-list>
+
+   <ion-list *ngSwitchCase="'tvs'">
+     <ion-item color="background">
+       <ion-row>
+         <ion-col>
+           <h2>32″ LED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 28 Watts</p>
+         </ion-col>
+         <ion-col>
+           <h2>32″ OLED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 71 Watts</p>
+         </ion-col>
+       </ion-row>
+     </ion-item>
+
+     <ion-item color="background">
+       <ion-row>
+         <ion-col>
+           <h2>43″ LED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 34 Watts</p>
+         </ion-col>
+         <ion-col>
+           <h2>43″ OLED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 77 Watts</p>
+         </ion-col>
+       </ion-row>
+     </ion-item>
+
+     <ion-item color="background">
+       <ion-row>
+         <ion-col>
+           <h2>50″ LED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 45 Watts</p>
+         </ion-col>
+         <ion-col>
+           <h2>50″ OLED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 89 Watts</p>
+         </ion-col>
+       </ion-row>
+     </ion-item>
+     <ion-item color="background">
+       <ion-row>
+         <ion-col>
+           <h2>55″ LED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 57 Watts</p>
+         </ion-col>
+         <ion-col>
+           <h2>55″ OLED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 98 Watts</p>
+         </ion-col>
+       </ion-row>
+     </ion-item>
+     <ion-item color="background">
+       <ion-row>
+         <ion-col>
+           <h2>60″ LED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 71 Watts</p>
+         </ion-col>
+         <ion-col>
+           <h2>60″ OLED</h2>
+           <p><ion-icon name="flash" class="flash"></ion-icon> 107 Watts</p>
+         </ion-col>
+       </ion-row>
+     </ion-item>
+   </ion-list>
+
+   <ion-list *ngSwitchCase="'washing'">
+     <ion-item color="background">
+       <h2>Desktop</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 30-160 Watts</p>
+     </ion-item>
+   </ion-list>
+ </div>
+</ion-content>

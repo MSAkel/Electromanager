@@ -32,6 +32,7 @@ export class SummaryPage implements OnInit{
   consumptionTotal = 0;
   totalBill: number;
   check = 0;
+  displayPower: number;
 
   // listAdjust: Adjust[];
   // adjusting:number;
@@ -134,6 +135,7 @@ export class SummaryPage implements OnInit{
       this.totalPower = this.totalPower + this.multi;
       //console.log("Power",this.totalPower);
     }
+    this.displayPower = +(this.totalPower/1000).toFixed(2);
     return this.totalPower;
   }
 
@@ -141,18 +143,18 @@ export class SummaryPage implements OnInit{
     let rateValue: number;
     let total = 0;
     this.consumptionTotal = 0;
-    this.totalPower = this.totalPower/1000;
+    let totalPowerPrice = this.totalPower/1000;
       for(let index in this.listRates) {
         //console.log("starting Total Power", this.totalPower);
-        if(this.listRates[index].rateRange <= this.totalPower) {
+        if(this.listRates[index].rateRange <= totalPowerPrice) {
           rateValue = this.listRates[index].rateRange * this.listRates[index].rateCost;
-          this.totalPower -= this.listRates[index].rateRange;
+          totalPowerPrice -= this.listRates[index].rateRange;
           total += rateValue;
           //console.log("Rate <= Total: ", total);
-        } else if(this.listRates[index].rateRange > this.totalPower && this.totalPower >= 0) {
-          rateValue = this.totalPower * this.listRates[index].rateCost;
+        } else if(this.listRates[index].rateRange > totalPowerPrice && totalPowerPrice >= 0) {
+          rateValue = totalPowerPrice * this.listRates[index].rateCost;
 
-          this.totalPower -= this.listRates[index].rateRange;
+          totalPowerPrice -= this.listRates[index].rateRange;
           total += rateValue;
           //console.log("Rate > Total: ", total);
         }

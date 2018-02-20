@@ -29,7 +29,6 @@
         <ion-item (click)="onLoadCategory(category, i)" color="background">
           <ion-icon name="book" item-left></ion-icon>
           <h2>{{ category.name | uppercase }}</h2>
-          <!-- <p>{{ category.name.length }} Devices</p> -->
         </ion-item>
         <ion-item-options side="{{slide}}">
           <button ion-button color="primary" (click)="onEdit(category, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
@@ -37,39 +36,15 @@
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
-    <!-- BUTTONS -->
     <ion-grid>
         <ion-row>
           <ion-col>
             <button ion-button full (click)="onAddItem()" color="secondary">{{ 'ADD.ADDDEVICE' | translate }}</button>
           </ion-col>
-          <!-- <ion-col>
-            <button ion-button full (click)="onAddToCategory()" color="secondary">{{ 'ADD.ADDTOCAT' | translate }}</button>
-          </ion-col> -->
         </ion-row>
     </ion-grid>
-  </ion-content>
 
-    <!-- <ion-card>
-    <ion-card-header color="primary">
-      Categories
-      <button ion-button icon-only clear (click)="onAddCategory()"><ion-icon name="add"></ion-icon></button>
-    </ion-card-header>
-    <ion-list>
-      <button ion-item *ngFor="let CatGroup of deviceCat"
-        [navPush]="displayCatPage" [navParams]="CatGroup">
-        <ion-icon [name]="CatGroup.icon" item-left></ion-icon>
-        <h2>{{ CatGroup.category | uppercase }}</h2>
-        <p>{{ CatGroup.devices.length }} Devices</p>
-      </button>
-      <ion-item *ngFor="let category of listCategories; let i = index" (click)="onLoadCategory(category, i)" text-wrap>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <p class="text-colour">{{ category.name }}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-    </ion-list>
-  </ion-card> -->
+    <ion-fab  bottom [attr.left]="arabic ? '' : null" [attr.right]="!arabic ? '' : null">
+      <button ion-fab mini color="secondary" (click)="onViewCatalogue()"><ion-icon name="bookmarks"></ion-icon></button>
+    </ion-fab>
+  </ion-content>

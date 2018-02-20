@@ -14,9 +14,18 @@
 <ion-card>
   <ion-grid padding>
     <ion-list-header no-lines>
-        <h2>{{ 'SUMMARY.CALCULATION' | translate }}</h2>
-        <!-- <button ion-button icon-only clear item-end (click)="onAddBill()"><ion-icon name="add"></ion-icon></button> -->
-      </ion-list-header>
+      <h2 text-center text-uppercase>{{ 'SUMMARY.CALCULATION' | translate }}</h2>
+    </ion-list-header>
+    <ion-item>
+      <ion-row class="col-top">
+        <ion-col>
+          <p>{{ 'SUMMARY.CALC_0' | translate }}</p>
+        </ion-col>
+        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+            <p class="num">{{ displayPower | number : '1.2-2' }} KW</p>
+        </ion-col>
+      </ion-row>
+    </ion-item>
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
@@ -57,16 +66,6 @@
         </ion-col>
       </ion-row>
       </ion-item>
-      <!-- <ion-item>
-      <ion-row class="col-top">
-        <ion-col>
-          <p>{{ 'SUMMARY.ADJUSTPARA' | translate}}</p>
-        </ion-col>
-        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
-          <p class="num">{{ adjusting | number : '1.2-2' }}</p>
-        </ion-col>
-      </ion-row>
-    </ion-item> -->
   </ion-grid>
 </ion-card>
 </ion-content>

@@ -22,6 +22,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { DeviceListService } from "../services/devices-list";
 import { SettingsService } from "../services/settings";
 import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
+import { CataloguePage } from "../pages/add-device/catalogue/catalogue";
 import { TutorialPage } from "../pages/tutorial/tutorial";
 import { HelpPage } from '../pages/help/help';
 import { SortPipe } from '../pipes/sort/sort';
@@ -43,6 +44,7 @@ export function createTranslateLoader(http: HttpClient) {
     ReportsPage,
     SettingsPage,
     AddCategoryPage,
+    CataloguePage,
     TutorialPage,
     HelpPage,
     SortPipe,
@@ -74,6 +76,7 @@ export function createTranslateLoader(http: HttpClient) {
     ReportsPage,
     SettingsPage,
     AddCategoryPage,
+    CataloguePage,
     TutorialPage,
     HelpPage,
     TabsPage

@@ -23,7 +23,8 @@ export class ReportsPage implements OnInit{
   @ViewChild('barChartItems') barChartItems;
   @ViewChild('monthlyCostChart') monthlyCostChart;
   @ViewChild('barChartItemsCost') barChartItemsCost;
-  @ViewChild('applianceDetails') applianceDetails;
+  //@ViewChild('pieChartCategories') pieChartCategories;
+  //@ViewChild('applianceDetails') applianceDetails;
 
   listDevices: Device[];
   device: Device;
@@ -35,7 +36,8 @@ export class ReportsPage implements OnInit{
   public barChartItemsEl: any;
   public monthlyCostEl: any;
   public itemsCostEl: any;
-  public applianceDetailsEl: any;
+  //public CategoriesEl: any;
+  //public applianceDetailsEl: any;
 
   listMonths: Month[];
 
@@ -98,6 +100,7 @@ export class ReportsPage implements OnInit{
     this.createBarChartItems();
     this.createChartMonthlyCost();
     this.createBarChartItemsCost();
+    //this.createPieChartCategories();
   }
 
   calculate(){
@@ -120,18 +123,18 @@ export class ReportsPage implements OnInit{
       let power = this.listDevices[index].power;
       let deviceTotalPower = +((totalHours * this.listDevices[index].daysUsed * power ) * this.listDevices[index].compressor).toFixed(2);
       let daily = +((totalHours * power) * this.listDevices[index].compressor).toFixed(2); //CONSUMPTION
-      let yearly = (deviceTotalPower * 12).toFixed(2);
+      let yearly = +((deviceTotalPower/1000) * 12).toFixed(2);
 
       let dailyCost = +((daily/1000) * this.listRates[0].rateCost).toFixed(2);
-      let monthlyCost = +(dailyCost * 30).toFixed(2);
-      let yearlyCost = +(dailyCost * 365).toFixed(2);
+      let monthlyCost = +(dailyCost * this.listDevices[index].daysUsed).toFixed(2);
+      let yearlyCost = +(dailyCost * (this.listDevices[index].daysUsed * 12)).toFixed(2);
       //console.log('Multi: ',multi);
       //console.log('Device: ',this.listDevices[index].name);
       totalPower = totalPower + deviceTotalPower;
 
       //console.log('total ',total);
-      this.dailyPowerItem.push(daily);
-      this.monthlyPowerItem.push(deviceTotalPower);
+      this.dailyPowerItem.push(daily/1000);
+      this.monthlyPowerItem.push(deviceTotalPower/1000);
       this.yearlyPowerItem.push(yearly);
 
       this.dailyItemCost.push(dailyCost);
@@ -166,13 +169,13 @@ export class ReportsPage implements OnInit{
           if(this.monthName[count] == thisMonth) {
               this.dlService.updateMonth(count, this.listMonths[count].monthName, totalPower, totalCost);
               this.listMonths = this.dlService.getMonths();
-              this.monthlyPower.push(this.listMonths[count].monthlyPower);
+              this.monthlyPower.push(this.listMonths[count].monthlyPower/1000);
               this.monthlyCost.push(this.listMonths[count].monthlyCost);
               //console.log('cost' ,this.listMonths[count].monthlyCost);
             } else {
                 this.dlService.updateMonth(count, this.listMonths[count].monthName, this.listMonths[count].monthlyPower, this.listMonths[count].monthlyCost);
                 //this.monthName.push[this.listMonths[count].monthName];
-                this.monthlyPower.push(this.listMonths[count].monthlyPower);
+                this.monthlyPower.push(this.listMonths[count].monthlyPower/1000);
                 this.monthlyCost.push(this.listMonths[count].monthlyCost);
               }
       }
@@ -196,7 +199,7 @@ export class ReportsPage implements OnInit{
         data: {
            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
            datasets: [{
-              label                 : 'Monthly Watts Usage',
+              label                 : 'Monthly KWh Usage',
               data                  : this.monthlyPower,
               duration              : 2000,
               easing                : 'easeInQuart',
@@ -383,6 +386,39 @@ export class ReportsPage implements OnInit{
      this.items = [];
    }
 
+
+  // createPieChartCategories() {
+  //   this.CategoriesEl 			= new Chart(this.pieChartCategories.nativeElement,
+  //    {
+  //       type: 'pie',
+  //       data: {
+  //           labels: ,
+  //           datasets: [{
+  //               label                 : 'Daily Technology usage',
+  //               data                  : ,
+  //               duration              : 2000,
+  //               easing                : 'easeInQuart',
+  //               backgroundColor       : ,
+  //               hoverBackgroundColor  :
+  //           }]
+  //       },
+  //       options : {
+  //          maintainAspectRatio: false,
+  //          layout: {
+  //             padding: {
+  //                left     : 50,
+  //                right    : 0,
+  //                top      : 0,
+  //                bottom   : 0
+  //             }
+  //          },
+  //          animation: {
+  //             duration : 5000
+  //          }
+  //       }
+  //    });
+  //    this.chartLoading = this.pieChartEl.generateLegend();
+  // }
 
 // selectedAppliance(appliance: Device, index: number) {
 //    this.selected = appliance.power;

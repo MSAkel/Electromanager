@@ -33,6 +33,7 @@ export class CreatePage implements OnInit {
 
   days = [];
   check = false;
+  annualCheck = false;
 
   constructor (
     private viewCtrl: ViewController,
@@ -168,14 +169,13 @@ export class CreatePage implements OnInit {
 
   private initializeForm() {
     let name = null;
-    let quantity = 1;
+    let quantity = null;
     let power = null;
+    let annualPower = false;
     let hours = null;
-    let daysUsed = 30;
-    let category = 'Others';
+    let daysUsed = null;
+    let category = null;
     let compressor = 1;
-    // let AddToList = null;
-    // let AddToCategory = false;
 
     if(this.mode == 'Edit'){
       name = this.device.name;
@@ -211,12 +211,11 @@ export class CreatePage implements OnInit {
       'name': new FormControl(name, Validators.required),
       'quantity': new FormControl(quantity, Validators.required),
       'power': new FormControl(power, Validators.required),
-      'hours': new FormControl(hours, Validators.required),
+      'annualPower': new FormControl(annualPower),
+      'hours': new FormControl(hours),
       'daysUsed': new FormControl(daysUsed),
       'category': new FormControl(category, Validators.required),
       'compressor': new FormControl(compressor)
-      // 'AddToList': new FormControl(AddToList),
-      // 'AddToCategory': new FormControl(AddToCategory)
     });
   }
 }

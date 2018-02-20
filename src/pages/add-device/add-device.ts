@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AddCategoryPage } from "./add-category/add-category";
 import { CreatePage } from "../add-device/create/create";
 import { DisplayCatPage } from "./display-cat/display-cat";
+import { CataloguePage } from "./catalogue/catalogue";
 
 import { Category } from "../../models/category";
 import { DeviceCategory } from "../../models/device-category";
@@ -75,7 +76,6 @@ export class AddDevicePage implements OnInit{
     modal.present();
   }
 
-  //TODO: Fix this
   onDelete(index: number) {
     for (let deviceIndex = 0; deviceIndex < this.listCategoryDevices.length; deviceIndex++) {
       try {
@@ -120,7 +120,6 @@ export class AddDevicePage implements OnInit{
   }
 
   onAddItem() {
-    //this.navCtrl.push(CreatePage, {mode: 'New'});
     const modal = this.modalCtrl.create(CreatePage, {mode: 'New'});
     modal.present();
     modal.onDidDismiss(() => {
@@ -129,9 +128,7 @@ export class AddDevicePage implements OnInit{
     });
   }
 
-  // onAddToCategory(){
-  //   //this.navCtrl.push(CreatePage, {mode: 'Add'});
-  //   const modal = this.modalCtrl.create(CreatePage, {mode: 'Add'});
-  //   modal.present();
-  // }
+  onViewCatalogue() {
+    this.navCtrl.push(CataloguePage);
+  }
 }

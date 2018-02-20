@@ -1,0 +1,11 @@
+page-catalogue {
+  .segment-wrap {
+    display: flex;
+    flex-wrap: wrap;
+
+    .segment-button {
+      flex: 1 0 25%;
+      width: 100%;
+    }
+  }
+}

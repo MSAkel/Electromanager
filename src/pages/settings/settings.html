@@ -9,7 +9,7 @@
 
 
 <ion-content dir="{{rtl}}">
-  <ion-list-header color="secondary">
+  <ion-list-header color="secondary" text-uppercase>
     Language
   </ion-list-header>
 
@@ -24,7 +24,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list-header color="secondary">
+    <ion-list-header color="secondary" text-uppercase>
       Consumption Tariff
     </ion-list-header>
 
@@ -61,21 +61,21 @@
   </ion-col>
   </ion-list>
     <!-- <button ion-button clear item-end (click)="onClear()">Clear All</button> -->
-  <ion-list-header color="secondary">
+  <ion-list-header color="secondary" text-uppercase>
     Tax and Flat Rate
   </ion-list-header>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <ion-item-group>
       <ion-grid>
         <ion-row>
-          <ion-item no-lines color="background">
+          <ion-item no-lines color="background" text-uppercase>
             <ion-label color="primary" fixed>{{ 'SETTINGS.TAX' | translate}}</ion-label>
             <ion-input type="number" formControlName="tax"></ion-input>
           </ion-item>
         </ion-row>
 
         <ion-row>
-          <ion-item no-lines color="background">
+          <ion-item no-lines color="background" text-uppercase>
             <ion-label color="primary" fixed>{{ 'SETTINGS.FLATRATE' | translate}}</ion-label>
             <ion-input type="number" formControlName="flatRate"></ion-input>
           </ion-item>
