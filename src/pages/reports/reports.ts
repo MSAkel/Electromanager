@@ -24,7 +24,7 @@ export class ReportsPage implements OnInit{
   @ViewChild('monthlyCostChart') monthlyCostChart;
   @ViewChild('barChartItemsCost') barChartItemsCost;
   //@ViewChild('pieChartCategories') pieChartCategories;
-  //@ViewChild('applianceDetails') applianceDetails;
+  @ViewChild('applianceDetails') applianceDetails;
 
   listDevices: Device[];
   device: Device;
@@ -37,7 +37,7 @@ export class ReportsPage implements OnInit{
   public monthlyCostEl: any;
   public itemsCostEl: any;
   //public CategoriesEl: any;
-  //public applianceDetailsEl: any;
+  public applianceDetailsEl: any;
 
   listMonths: Month[];
 
@@ -64,6 +64,7 @@ export class ReportsPage implements OnInit{
   public selected: any;
   public hours: any = [];
   public costPerHour: any = [];
+  public kwPerHour: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -91,8 +92,8 @@ export class ReportsPage implements OnInit{
   ionViewWillEnter() {
     this.setLanguage();
     this.settingsService.getSettings();
-    this.listDevices = this.dlService.getDevices();
     this.listRates = this.settingsService.getRates();
+    this.listDevices = this.dlService.getDevices();
     this.listMonths = this.dlService.getMonths();
 
     this.calculate();
@@ -141,7 +142,7 @@ export class ReportsPage implements OnInit{
       this.monthlyItemCost.push(monthlyCost);
       this.yearlyItemCost.push(yearlyCost);
       //this.monthlyCost.push(totalCost);
-      this.items.push(this.listDevices[index].name.slice(0,7));
+      this.items.push(this.listDevices[index].name.slice(0,8));
     }
     //totalCost = +((totalPower/1000) * this.settingsService.getCost).toFixed(2);
     //console.log('cost',totalCost);
@@ -169,17 +170,19 @@ export class ReportsPage implements OnInit{
           if(this.monthName[count] == thisMonth) {
               this.dlService.updateMonth(count, this.listMonths[count].monthName, totalPower, totalCost);
               this.listMonths = this.dlService.getMonths();
-              this.monthlyPower.push(this.listMonths[count].monthlyPower/1000);
+              this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(2));
               this.monthlyCost.push(this.listMonths[count].monthlyCost);
               //console.log('cost' ,this.listMonths[count].monthlyCost);
             } else {
                 this.dlService.updateMonth(count, this.listMonths[count].monthName, this.listMonths[count].monthlyPower, this.listMonths[count].monthlyCost);
+                this.listMonths = this.dlService.getMonths();
                 //this.monthName.push[this.listMonths[count].monthName];
-                this.monthlyPower.push(this.listMonths[count].monthlyPower/1000);
+                this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(2));
                 this.monthlyCost.push(this.listMonths[count].monthlyCost);
               }
       }
        this.listMonths = this.dlService.getMonths();
+       console.log(this.listMonths);
        //console.log(this.monthlyPower);
     }
 
@@ -199,7 +202,7 @@ export class ReportsPage implements OnInit{
         data: {
            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
            datasets: [{
-              label                 : 'Monthly KWh Usage',
+              label                 : 'KWh',
               data                  : this.monthlyPower,
               duration              : 2000,
               easing                : 'easeInQuart',
@@ -224,7 +227,9 @@ export class ReportsPage implements OnInit{
               }],
               xAxes: [{
                  ticks: {
-                    autoSkip: false
+                   autoskip: false,
+                   minRotation: 0,
+                   maxRotation: 0
                  }
               }]
            }
@@ -264,7 +269,9 @@ export class ReportsPage implements OnInit{
               }],
               xAxes: [{
                  ticks: {
-                    autoSkip: false
+                   autoskip: false,
+                   minRotation: 0,
+                   maxRotation: 0
                  }
               }]
            }
@@ -318,6 +325,8 @@ export class ReportsPage implements OnInit{
               xAxes: [{
                  ticks: {
                    autoskip: false,
+                   minRotation: 90,
+                   maxRotation: 90
                  }
               }]
            }
@@ -373,7 +382,9 @@ export class ReportsPage implements OnInit{
               }],
               xAxes: [{
                  ticks: {
-                    autoSkip: false
+                   autoskip: false,
+                   minRotation: 90,
+                   maxRotation: 90
                  }
               }]
            }
@@ -420,52 +431,60 @@ export class ReportsPage implements OnInit{
   //    this.chartLoading = this.pieChartEl.generateLegend();
   // }
 
-// selectedAppliance(appliance: Device, index: number) {
-//    this.selected = appliance.power;
-//    for(let rate in this.listRates) {
-//      for(let i = 1; i < 24; i++) {
-//        this.hours.push(i);
-//        this.costPerHour.push(i * (appliance.power/1000) * this.listRates[rate].rateCost);
-//      }
-//    }
-//   this.createChartApplianceDetails();
-// }
-//    createChartApplianceDetails() {
-//       this.applianceDetailsEl = new Chart(this.applianceDetails.nativeElement, {
-//          type: 'line',
-//          data: {
-//             labels: this.hours,
-//             datasets: [{
-//                label                 : this.listRates,
-//                data                  : this.costPerHour,
-//                duration              : 2000,
-//                easing                : 'easeInQuart',
-//                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
-//                hoverBackgroundColor  : "#6384FF",
-//                fill 				          : false
-//             }
-//           ]
-//          },
-//          options : {
-//             legend         : {
-//                display     : true,
-//                boxWidth    : 80,
-//                fontSize    : 15,
-//                padding     : 0
-//             },
-//             scales: {
-//                yAxes: [{
-//                   ticks: {
-//                      beginAtZero:true,
-//                   }
-//                }],
-//                xAxes: [{
-//                   ticks: {
-//                      autoSkip: true,
-//                   }
-//                }]
-//             }
-//          }
-//       });
-//    }
+selectedAppliance(appliance: Device, index: number) {
+   this.selected = appliance.power;
+     for(let i = 1; i <= 24; i++) {
+       this.hours.push(i);
+       this.costPerHour.push(i * (appliance.power/1000) * this.listRates[0].rateCost);
+       this.kwPerHour.push(i *(appliance.power/1000));
+     }
+
+  this.createChartApplianceDetails();
+}
+   createChartApplianceDetails() {
+      this.applianceDetailsEl = new Chart(this.applianceDetails.nativeElement, {
+         type: 'line',
+         data: {
+            labels: this.hours,
+            datasets: [{
+               label                 : 'Cost Per Hour',
+               data                  : this.costPerHour,
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
+               hoverBackgroundColor  : "#6384FF",
+               fill 				          : false
+            }, {
+               label                 : 'KWh',
+               data                  : this.kwPerHour,
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+               hoverBackgroundColor  : "#FF6384",
+               fill 				          : false
+            },
+          ]
+         },
+         options : {
+            legend         : {
+               display     : true,
+               boxWidth    : 80,
+               fontSize    : 15,
+               padding     : 0
+            },
+            scales: {
+               yAxes: [{
+                  ticks: {
+                     beginAtZero:true,
+                  }
+               }],
+               xAxes: [{
+                  ticks: {
+                     autoSkip: true,
+                  }
+               }]
+            }
+         }
+      });
+   }
 }

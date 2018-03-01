@@ -1,9 +1,9 @@
 <ion-header dir="{{rtl}}">
-  <ion-navbar color="secondary">
+  <ion-navbar color="navbar">
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>Reports</ion-title>
+    <ion-title>{{ 'REPORTS.TITLE' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,14 +11,14 @@
       <ion-slides pager="true">
         <ion-slide>
             <ion-card>
-              <h2 text-center>Monthly KWh Consumption</h2>
+              <h2 text-center>{{ 'REPORTS.MONTHLYKWh' | translate}}</h2>
               <canvas #barChart></canvas>
             </ion-card>
           <br>
         </ion-slide>
         <ion-slide>
           <ion-card>
-            <h2 text-center>Monthly Readings (Expenses)</h2>
+            <h2 text-center>{{ 'REPORTS.MONTHLYEXPENSES' | translate}}</h2>
             <canvas #monthlyCostChart></canvas>
           </ion-card>
           <br>
@@ -28,15 +28,15 @@
   <ion-slides pager="true">
     <ion-slide>
       <ion-card>
-        <h2 text-center>Power Consumption Per Appliance</h2>
-        <canvas #barChartItems></canvas>
+        <h2 text-center>{{ 'REPORTS.APPLIANCEPOWER' | translate}}</h2>
+        <canvas #barChartItems height="175"></canvas>
       </ion-card>
       <br>
     </ion-slide>
     <ion-slide>
         <ion-card>
-          <h2 text-center>Cost Per Appliance</h2>
-          <canvas #barChartItemsCost></canvas>
+          <h2 text-center>{{ 'REPORTS.APPLIANCECOST' | translate}}</h2>
+          <canvas #barChartItemsCost height="175"></canvas>
         </ion-card>
       <br>
     </ion-slide>
@@ -46,13 +46,7 @@
     <h2 text-center>Power Consumption Per Appliance</h2>
     <canvas #pieChartCategories></canvas>
   </ion-card> -->
-
-  <!-- <ion-card>
-    <h2 text-center>Appliance Details</h2>
-    <canvas #applianceDetails></canvas>
-  </ion-card>
-
-  <ion-searchbar [(ngModel)]="terms" placeholder="Search For Appliance"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="terms" placeholder="Appliance Readings"></ion-searchbar>
   <ion-list [hidden]="!terms">
     <div *ngFor="let device of listDevices | search : terms; let i = index">
       <ion-item (click)="selectedAppliance(device)" color="background">
@@ -60,8 +54,12 @@
         <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
       </ion-item>
     </div>
-  </ion-list> -->
+  </ion-list>
 
+  <ion-card [hidden]="!terms">
+    <h2 text-center>Appliance Details</h2>
+    <canvas #applianceDetails></canvas>
+  </ion-card>
   <!-- <ion-grid class="list-top">
     <ion-row>
       <ion-col>

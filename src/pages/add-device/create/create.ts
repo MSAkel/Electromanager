@@ -87,6 +87,15 @@ export class CreatePage implements OnInit {
     }
   }
 
+  annual() {
+    if(this.annualCheck == false){
+      this.annualCheck = true;
+    } else {
+      this.annualCheck = false;
+    }
+    console.log(this.annualCheck);
+  }
+
   setLanguage() {
     this.language = this.translateService.currentLang;
     if(this.language == 'ar')
@@ -136,6 +145,16 @@ export class CreatePage implements OnInit {
       // if(value.AddToCategory == true) {
       //
       // }
+      if(value.annualPower == true) {
+        value.power /= 12;
+        value.power /= 30.4;
+        value.power /= 24;
+        value.power = (value.power * 1000).toFixed(2);
+        console.log(value.power);
+
+        // value.hours = '23:59';
+        value.daysUsed = 30.41;
+      }
       this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
       this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
       const toast = this.toastCtrl.create({
@@ -154,15 +173,15 @@ export class CreatePage implements OnInit {
     //     });
     //     toast.present();
     // }
-    else  if (this.mode == 'Add') {
-        this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
-        const toast = this.toastCtrl.create({
-          message: 'Item Added Successfully',
-          duration: 2000,
-          position: 'bottom'
-        });
-        toast.present();
-    }
+    // else  if (this.mode == 'Add') {
+    //     this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
+    //     const toast = this.toastCtrl.create({
+    //       message: 'Item Added Successfully',
+    //       duration: 2000,
+    //       position: 'bottom'
+    //     });
+    //     toast.present();
+    // }
     this.deviceForm.reset();
     this.viewCtrl.dismiss();
   }
@@ -173,7 +192,7 @@ export class CreatePage implements OnInit {
     let power = null;
     let annualPower = false;
     let hours = null;
-    let daysUsed = null;
+    let daysUsed = 31;
     let category = null;
     let compressor = 1;
 
@@ -197,22 +216,22 @@ export class CreatePage implements OnInit {
       compressor = this.device.compressor;
     }
 
-    if(this.mode == 'Add') {
-      name = this.categoryDevice.name;
-      quantity = this.categoryDevice.quantity;
-      power = this.categoryDevice.power;
-      hours = this.categoryDevice.hours;
-      daysUsed = this.categoryDevice.daysUsed;
-      category = this.categoryDevice.category;
-      compressor = this.categoryDevice.compressor;
-    }
+    // if(this.mode == 'Add') {
+    //   name = this.categoryDevice.name;
+    //   quantity = this.categoryDevice.quantity;
+    //   power = this.categoryDevice.power;
+    //   hours = this.categoryDevice.hours;
+    //   daysUsed = this.categoryDevice.daysUsed;
+    //   category = this.categoryDevice.category;
+    //   compressor = this.categoryDevice.compressor;
+    // }
 
     this.deviceForm = new FormGroup({
       'name': new FormControl(name, Validators.required),
       'quantity': new FormControl(quantity, Validators.required),
-      'power': new FormControl(power, Validators.required),
       'annualPower': new FormControl(annualPower),
-      'hours': new FormControl(hours),
+      'power': new FormControl(power, Validators.required),
+      'hours': new FormControl(hours, Validators.required),
       'daysUsed': new FormControl(daysUsed),
       'category': new FormControl(category, Validators.required),
       'compressor': new FormControl(compressor)

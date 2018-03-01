@@ -165,8 +165,8 @@ export class SettingsPage implements OnInit{
 
   presentToast() {
     let toast = this.toastCtrl.create({
-      message: '{{ SETTINGS.TOAST }}',
-      duration: 2500
+      message:" {{ 'SETTINGS.TOAST' | translate }}",
+      duration: 1000
     });
     toast.present();
   }

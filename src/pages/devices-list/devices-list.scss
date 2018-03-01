@@ -12,8 +12,12 @@ page-devices-list {
     	text-align: center;
   }
 
+  .item {
+    margin-top: 1.5%;
+  }
+
   .list-top {
-    color: #488aff;
-    background-color: white;
+    color: white;
+    background-color: color($colors, secondary);
   }
 }

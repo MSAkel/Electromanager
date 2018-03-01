@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, ToastController } from 'ionic-angular';
 
 import { DeviceListService } from "../../../services/devices-list";
-import { Device } from "../../../models/device";
-//import { AddModalPage } from "./add-modal/add-modal";
+import { SettingsService } from "../../../services/settings";
+import { TranslateService } from '@ngx-translate/core';
+
 import { CreatePage } from "../create/create";
 import { CatDevice } from "../../../data/device-cat.interface";
 import { DeviceCategory } from "../../../models/device-category";
 import { Category } from "../../../models/category";
-//import { CreatePage } from "../create/create";
-//import {DeviceListService} from '../../../services/devices-list';
 
 @IonicPage()
 @Component({
@@ -19,35 +18,52 @@ import { Category } from "../../../models/category";
 export class DisplayCatPage implements OnInit{
   deviceGroup: {category: string, devices: CatDevice[], icon: string};
   listDevicesCategory: DeviceCategory[];
-  deviceCategory: DeviceCategory;
+  //categoryDevice: DeviceCategory;
   category: Category;
   index: number;
 
   mode:string;
 
+  language: string;
+  rtl: string;
+  arabic = false;
 
   constructor(
     private dlService: DeviceListService,
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
-     //private alertCtrl: AlertController,
-     //private dlService: DeviceListService,
-    private modalCtrl: ModalController) {
-  }
+    private modalCtrl: ModalController,
+    private settingsService: SettingsService,
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit() {
+    this.settingsService.getLanguage();
     this.mode = this.navParams.get('mode');
 
-      this.category = this.navParams.get('category');
+    this.category = this.navParams.get('category');
+    this.deviceGroup = this.navParams.data;
 
-      this.deviceGroup = this.navParams.data;
-
-    //console.log(this.mode);
     this.dlService.fetchDevicesCategory()
     .then(
       (devices: DeviceCategory[]) => this.listDevicesCategory = devices
     );
+  }
+
+  ionViewWillEnter() {
+    this.setLanguage();
+    this.listDevicesCategory = this.dlService.getDevicesCategory();
+  }
+
+  setLanguage() {
+    this.language = this.translateService.currentLang;
+    if(this.language == 'ar')
+    {
+      this.rtl = 'rtl';
+      this.arabic = true;
+    }
+    return this.rtl;
   }
 
   onDelete(index: number) {
@@ -70,43 +86,26 @@ export class DisplayCatPage implements OnInit{
     });
   }
 
-  ionViewWillEnter() {
-    this.listDevicesCategory = this.dlService.getDevicesCategory();
-  }
-
   onAddDevice(deviceCategory: DeviceCategory, index: number) {
-    const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
-    modal.present();
+    // const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
+    // modal.present();
+    //this.categoryDevice = deviceCategory;
+    this.dlService.addDevice(
+      deviceCategory.name.toUpperCase(),
+      deviceCategory.quantity,
+      deviceCategory.power,
+      deviceCategory.hours,
+      deviceCategory.daysUsed,
+      deviceCategory.category,
+      deviceCategory.compressor);
+
+    const toast = this.toastCtrl.create({
+      message: 'Item Added Successfully',
+      duration: 1250,
+      position: 'bottom'
+    });
+    toast.present();
+    //console.log(deviceCategory.name);
+    //console.log(this.categoryDevice.name);
   }
-
-  // onAddDevice(selectedDevice: CatDevice) {
-  //   console.log('test');
-  //   const modal = this.modalCtrl.create(AddModalPage, selectedDevice);
-  //   modal.present();
-
-    // const alert = this.alertCtrl.create({
-    //   title: 'Add Device',
-    //   //subTitle: 'Are you sure?',
-    //   message: 'Add item to your list?',
-    //   buttons: [
-    //     {
-    //       text: "Confirm",
-    //       handler: () => {
-    //         //this.navCtrl.push(CreatePage, {mode: 'Edit', device: this.deviceCat, index: this.index});
-    //         this.dlService.addDevice(selectedDevice.name, selectedDevice.quantity, selectedDevice.power, selectedDevice.hours, selectedDevice.daysUsed);
-    //       }
-    //     },
-    //     {
-    //       text: "Cancel",
-    //       role: 'cancel',
-    //       handler: () => {
-    //         console.log('Cancelled');
-    //       }
-    //     }
-    //   ]
-    // });
-    //
-    // alert.present();
-  //}
-
 }

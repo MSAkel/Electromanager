@@ -10,7 +10,7 @@
 
 <ion-content dir="{{rtl}}">
   <ion-list-header color="secondary" text-uppercase>
-    Language
+    {{ 'SETTINGS.LANGUAGE' | translate }}
   </ion-list-header>
 
     <ion-list radio-group [(ngModel)]="relationship">
@@ -25,7 +25,7 @@
     </ion-list>
 
     <ion-list-header color="secondary" text-uppercase>
-      Consumption Tariff
+      {{ 'SETTINGS.CONSUMPTIONTARRIF' | translate }}
     </ion-list-header>
 
   <form [formGroup]="rateForm" (ngSubmit)="onSubmitRate()">
@@ -35,13 +35,13 @@
           <ion-col>
             <ion-item no-lines color="background">
               <!-- <ion-label color="primary" floating>Range</ion-label> -->
-               <ion-input type="number" placeholder="KW:1000" formControlName="range"></ion-input>
+               <ion-input type="number" placeholder="{{ 'SETTINGS.KWH' | translate }}" formControlName="range"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item no-lines color="background">
               <!-- <ion-label color="primary" floating>{{ 'SETTINGS.COST' | translate}}</ion-label> -->
-              <ion-input type="number" placeholder="Cost kwh" formControlName="cost"></ion-input>
+              <ion-input type="number" placeholder="{{ 'SETTINGS.COSTKWH' | translate }}" formControlName="cost"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
@@ -55,14 +55,14 @@
 
   <ion-list padding>
     <ion-col *ngFor="let rate of listRates; let i = index; let first = first; let last = last">
-      <span *ngIf="first">1 - {{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }}  -</span>
+      <span *ngIf="first">1 -  {{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
       <span *ngIf="!first && !last">{{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
       <span *ngIf="last && !first">{{rate.rateRange}}({{rate.rateCost}})</span>
   </ion-col>
   </ion-list>
     <!-- <button ion-button clear item-end (click)="onClear()">Clear All</button> -->
   <ion-list-header color="secondary" text-uppercase>
-    Tax and Flat Rate
+    {{ 'SETTINGS.TAXFLATTITLE' | translate }}
   </ion-list-header>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <ion-item-group>

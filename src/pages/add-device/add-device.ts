@@ -72,8 +72,24 @@ export class AddDevicePage implements OnInit{
   }
 
   onAddDevice(deviceCategory: DeviceCategory, index: number) {
-    const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
-    modal.present();
+    // const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
+    // modal.present();
+
+    this.dlService.addDevice(
+      deviceCategory.name.toUpperCase(),
+      deviceCategory.quantity,
+      deviceCategory.power,
+      deviceCategory.hours,
+      deviceCategory.daysUsed,
+      deviceCategory.category,
+      deviceCategory.compressor);
+
+    const toast = this.toastCtrl.create({
+      message: 'Item Added Successfully',
+      duration: 1250,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   onDelete(index: number) {
