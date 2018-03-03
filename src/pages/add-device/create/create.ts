@@ -109,8 +109,16 @@ export class CreatePage implements OnInit {
   onSubmit() {
     const value = this.deviceForm.value;
 
-    if(value.daysUsed < 10) {
+    if(value.daysUsed.length  < 2) {
       value.daysUsed = 0 + value.daysUsed;
+    }
+
+    if(value.quantity.length < 2) {
+      value.quantity = 0 + value.quantity;
+    }
+
+    if(value.power.length < 2) {
+      value.power = 0 + value.power;
     }
 
     // let getDays = parse('0000-00-' + value.daysUsed + 'T00:00:00');

@@ -61,10 +61,14 @@ export class ReportsPage implements OnInit{
   slide: string;
   select = false;
 
-  public selected: any;
   public hours: any = [];
   public costPerHour: any = [];
   public kwPerHour: any = [];
+
+  public hoursRange = 0;
+  public wattsRange = 0;
+  public daysRange = 0;
+  public tariffRange: number;
 
   constructor(
     public navCtrl: NavController,
@@ -101,6 +105,7 @@ export class ReportsPage implements OnInit{
     this.createBarChartItems();
     this.createChartMonthlyCost();
     this.createBarChartItemsCost();
+    this.createChartApplianceDetails();
     //this.createPieChartCategories();
   }
 
@@ -208,11 +213,13 @@ export class ReportsPage implements OnInit{
               easing                : 'easeInQuart',
               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
               hoverBackgroundColor  : "#FF6384",
-              fill 				          : false
+              fill 				          : false,
+              lineTension           : 0
            }
          ]
         },
         options : {
+
            legend         : {
               display     : true,
               boxWidth    : 80,
@@ -229,7 +236,8 @@ export class ReportsPage implements OnInit{
                  ticks: {
                    autoskip: false,
                    minRotation: 0,
-                   maxRotation: 0
+                   maxRotation: 0,
+
                  }
               }]
            }
@@ -250,7 +258,8 @@ export class ReportsPage implements OnInit{
               easing                : 'easeInQuart',
               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
               hoverBackgroundColor  : "#6384FF",
-              fill 				          : false
+              fill 				          : false,
+              lineTension           : 0
            }
          ]
         },
@@ -286,21 +295,14 @@ export class ReportsPage implements OnInit{
         data: {
            labels: this.items,
            datasets: [{
-              label                 : 'Daily',
-              data                  : this.dailyPowerItem,
-              duration              : 2000,
-              easing                : 'easeInQuart',
-              backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-              hoverBackgroundColor  : "#FF6384"
-             },{
-               label                 : 'Monthly',
+               label                 : 'Monthly KWh',
                data                  : this.monthlyPowerItem,
                duration              : 2000,
                easing                : 'easeInQuart',
-               backgroundColor       : 'rgba(132, 255, 99, 0.2)',
-               hoverBackgroundColor  : "#84FF63"
+               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+               hoverBackgroundColor  : "#FF6384"
              },{
-               label                 : 'Yearly',
+               label                 : 'Yearly KWh',
                data                  : this.yearlyPowerItem,
                duration              : 2000,
                easing                : 'easeInQuart',
@@ -344,19 +346,12 @@ export class ReportsPage implements OnInit{
         data: {
            labels: this.items,
            datasets: [{
-              label                 : 'Daily',
-              data                  : this.dailyItemCost,
-              duration              : 2000,
-              easing                : 'easeInQuart',
-              backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-              hoverBackgroundColor  : "#FF6384"
-             },{
                label                 : 'Monthly',
                data                  : this.monthlyItemCost,
                duration              : 2000,
                easing                : 'easeInQuart',
-               backgroundColor       : 'rgba(132, 255, 99, 0.2)',
-               hoverBackgroundColor  : "#84FF63"
+               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+               hoverBackgroundColor  : "#FF6384"
              },{
                label                 : 'Yearly',
                data                  : this.yearlyItemCost,
@@ -432,35 +427,68 @@ export class ReportsPage implements OnInit{
   // }
 
 selectedAppliance(appliance: Device, index: number) {
-   this.selected = appliance.power;
-     for(let i = 1; i <= 24; i++) {
-       this.hours.push(i);
-       this.costPerHour.push(i * (appliance.power/1000) * this.listRates[0].rateCost);
-       this.kwPerHour.push(i *(appliance.power/1000));
-     }
+  let selected: number;
+  // console.log(appliance.power);
+  // console.log(appliance.hours);
+  // console.log(appliance.daysUsed);
+  if(appliance != null){
+  let getTime = parse('0000-00-00T' + appliance.hours + '00');
+  let mins = getMinutes(new Date(getTime));
+  let hours = getHours(new Date(getTime));
+  mins = +(mins/60).toFixed(0);
+  var time = mins + hours;
 
+  this.hoursRange = time;
+  this.wattsRange = appliance.power;
+  this.daysRange = appliance.daysUsed;
+  this.tariffRange = this.listRates[0].rateCost;
+}
+
+   selected = ((this.wattsRange * this.hoursRange * this.daysRange)/1000);
+
+   console.log(this.hoursRange);
+    // console.log(selected);
+     // for(let i = 1; i <= 24; i++) {
+     //   this.hours.push(i);
+     //   this.costPerHour.push(i * (appliance.power/1000) * this.listRates[0].rateCost);
+     //   this.kwPerHour.push(i *(appliance.power/1000));
+     // }
+
+    this.costPerHour.push((selected) * this.tariffRange);
+    this.kwPerHour.push((selected).toFixed(2));
   this.createChartApplianceDetails();
 }
+
    createChartApplianceDetails() {
+     if(this.applianceDetailsEl != null) {
+     this.applianceDetailsEl.destroy();}
       this.applianceDetailsEl = new Chart(this.applianceDetails.nativeElement, {
-         type: 'line',
+         type: 'bar',
          data: {
-            labels: this.hours,
+            labels: ['Cost', 'KWh'],
             datasets: [{
-               label                 : 'Cost Per Hour',
-               data                  : this.costPerHour,
-               duration              : 2000,
-               easing                : 'easeInQuart',
-               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
-               hoverBackgroundColor  : "#6384FF",
-               fill 				          : false
-            }, {
-               label                 : 'KWh',
-               data                  : this.kwPerHour,
+               label                 : 'Hour',
+               data                  : [this.costPerHour / (30.4 * 24), this.kwPerHour / (30.4 * 24)],
                duration              : 2000,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(255, 99, 132, 0.2)',
                hoverBackgroundColor  : "#FF6384",
+               fill 				          : false
+            }, {
+               label                 : 'Day',
+               data                  : [this.costPerHour / 30.4, this.kwPerHour / 30.4],
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(132, 255, 99, 0.2)',
+               hoverBackgroundColor  : "#84FF63",
+               fill 				          : false
+            }, {
+               label                 : 'Month',
+               data                  : [this.costPerHour, this.kwPerHour],
+               duration              : 2000,
+               easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
+               hoverBackgroundColor  : "#6384FF",
                fill 				          : false
             },
           ]
@@ -486,5 +514,8 @@ selectedAppliance(appliance: Device, index: number) {
             }
          }
       });
+
+      this.costPerHour = [];
+      this.kwPerHour = [];
    }
 }

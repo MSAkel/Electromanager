@@ -13,12 +13,14 @@
         <ion-segment-button value="kitchen">
           Kitchen
         </ion-segment-button>
-
         <ion-segment-button value="lighting">
           Lighting
         </ion-segment-button>
         <ion-segment-button value="others">
          Others
+        </ion-segment-button>
+        <ion-segment-button value="pc">
+         PC
         </ion-segment-button>
         <ion-segment-button value="tvs">
           TVs
@@ -33,55 +35,53 @@
    <ion-list *ngSwitchCase="'airCons'">
      <ion-item color="background">
        <h2>Central Air Conditioner (2.5 tons)</h2>
-       <ion-col>
+
          <p><ion-icon name="flash" class="flash"></ion-icon> 3500 Watts</p>
-       </ion-col>
+
      </ion-item>
 
      <ion-item color="background">
        <h2>Window Unit (Large)</h2>
-       <ion-col>
+
         <p><ion-icon name="flash" class="flash"></ion-icon> 1440 Watts</p>
-       </ion-col>
+
      </ion-item>
 
      <ion-item color="background">
        <h2>Window Unit (Medium)</h2>
-       <ion-col>
+
         <p><ion-icon name="flash" class="flash"></ion-icon> 900 Watts</p>
-       </ion-col>
+
      </ion-item>
    </ion-list>
 
     <!-- KITCHEN -->
    <ion-list *ngSwitchCase="'kitchen'">
-      <ion-list-header color="secondary" text-uppercase no-lines>
-        18-19 Cubic-Foot Refrigerators
-      </ion-list-header>
-        <ion-item color="background" no-lines>
-           <p><ion-icon name="flash" class="flash"></ion-icon> 438 (average) kWh/year (Top-Freezer)</p>
+        <ion-item color="background">
+          <h2>18-19 Cubic-Foot Refrigerators</h2>
           <ion-col>
-           <p><ion-icon name="flash" class="flash"></ion-icon> 470 (average) kWh/year (Bottom-Freezer)</p>
+           <p><b>Top-Freezer:</b> 438 kWh/year | 50 Watts (average)</p>
+         </ion-col>
+          <ion-col>
+           <p><b>Bottom-Freezer:</b> 470 kWh/year | 53 Watts (average)</p>
           </ion-col>
         </ion-item>
 
-      <ion-list-header color="secondary" text-uppercase no-lines>
-        20-21 Cubic-Foot Refrigerator
-      </ion-list-header>
-        <ion-item color="background" no-lines>
-            <p><ion-icon name="flash" class="flash"></ion-icon> 471 kWh/year (top-freezer)</p>
+        <ion-item color="background">
+          <h2>20-21 Cubic-Foot Refrigerator</h2>
           <ion-col>
-            <p><ion-icon name="flash" class="flash"></ion-icon> 539 kWh/year (bottom-freezer)</p>
+            <p><b>Top-Freezer:</b> 471 kWh/year (average)</p>
           </ion-col>
           <ion-col>
-            <p><ion-icon name="flash" class="flash"></ion-icon> 637 kWh/year (side-by-side)</p>
+            <p><b>Bottom-Freezer:</b> 539 kWh/year (average)</p>
+          </ion-col>
+          <ion-col>
+            <p><b>side-by-side:</b> 637 kWh/year (average)</p>
           </ion-col>
         </ion-item>
 
-      <ion-list-header color="secondary" text-uppercase no-lines>
-        22-24 Cubic-Foot Refrigerator
-      </ion-list-header>
-      <ion-item color="background" no-lines>
+      <ion-item color="background">
+        <h2>22-24 Cubic-Foot Refrigerator</h2>
        <ion-col>
          <p><ion-icon name="flash" class="flash"></ion-icon> 500 kWh/year (top-freezer)</p>
        </ion-col>
@@ -102,9 +102,22 @@
      </ion-item>
 
      <ion-item color="background">
+       <h2>Food Processor (Mid-Range)</h2>
+       <ion-col>
+         <p><ion-icon name="flash" class="flash"></ion-icon> 500 Watts (average)</p>
+       </ion-col>
+     </ion-item>
+     <ion-item color="background">
+       <h2>Food Processor (Top-of-the-Line)</h2>
+       <ion-col>
+         <p><ion-icon name="flash" class="flash"></ion-icon> 1000 Watts (average)</p>
+       </ion-col>
+     </ion-item>
+
+     <ion-item color="background">
        <h2>Microwave</h2>
        <ion-col>
-         <p><ion-icon name="flash" class="flash"></ion-icon>1100 (average) Watts</p>
+         <p><ion-icon name="flash" class="flash"></ion-icon>1050 (average) Watts</p>
        </ion-col>
      </ion-item>
 
@@ -115,7 +128,7 @@
        </ion-col>
      </ion-item>
 
-     <ion-item color="background" no-lines>
+     <ion-item color="background">
        <h2>Kettle</h2>
        <ion-col>
          <p><ion-icon name="flash" class="flash"></ion-icon>1600 (average) Watts</p>
@@ -132,11 +145,11 @@
 
   <!-- LIGHTING -->
    <ion-list *ngSwitchCase="'lighting'">
-     <ion-item color="background" no-lines>
+     <ion-item color="background">
        <h2>Incandescent Bulb</h2>
        <p><ion-icon name="flash" class="flash"></ion-icon> 40/60/100 Watts</p>
      </ion-item>
-     <ion-item color="background" no-lines>
+     <ion-item color="background">
        <h2>Compact Fluorescent Lamps (CFL)</h2>
        <p><ion-icon name="flash" class="flash"></ion-icon> 15/23/40/65 Watts</p>
      </ion-item>
@@ -211,46 +224,50 @@
      </ion-item>
    </ion-list>
 
+  <!-- COMPUTERS -->
+  <ion-list *ngSwitchCase="'pc'">
+    <ion-item color="background">
+      <h2>Desktop (Low-End)</h2>
+      <p><ion-icon name="flash" class="flash"></ion-icon> 90 Watts (average)</p>
+      <ion-note>
+        Including Monitor: 120 Watts
+      </ion-note>
+    </ion-item>
+    <ion-item color="background">
+      <h2>Desktop (Medium-End)</h2>
+      <p><ion-icon name="flash" class="flash"></ion-icon> 190 Watts (average)</p>
+      <ion-note>
+        Including Monitor: 220 Watts
+      </ion-note>
+    </ion-item>
+    <ion-item color="background">
+      <h2>Desktop (High-End)</h2>
+      <p><ion-icon name="flash" class="flash"></ion-icon> 390 Watts (average)</p>
+      <ion-note>
+        Including Monitor: 420 Watts
+      </ion-note>
+    </ion-item>
+    <ion-item color="background">
+      <h2>Laptop 14-15 Inch</h2>
+      <p><ion-icon name="flash" class="flash"></ion-icon> 35 Watts (average)</p>
+      <ion-note>
+       Note: Do not add in unplugged hours
+     </ion-note>
+    </ion-item>
+    <ion-item color="background">
+      <h2>Laptop 17 Inch</h2>
+      <p><ion-icon name="flash" class="flash"></ion-icon> 70 Watts (average)</p>
+      <ion-note>
+       Note: Do not add in unplugged hours
+     </ion-note>
+    </ion-item>
+  </ion-list>
+
   <!-- OTHERS -->
    <ion-list *ngSwitchCase="'others'">
      <ion-item color="background">
-       <h2>Desktop (Low-End)</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 90 Watts (average)</p>
-       <ion-note>
-         Including Monitor: 120 Watts
-       </ion-note>
-     </ion-item>
-     <ion-item color="background">
-       <h2>Desktop (Medium-End)</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 190 Watts (average)</p>
-       <ion-note>
-         Including Monitor: 220 Watts
-       </ion-note>
-     </ion-item>
-     <ion-item color="background">
-       <h2>Desktop (High-End)</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 390 Watts (average)</p>
-       <ion-note>
-         Including Monitor: 420 Watts
-       </ion-note>
-     </ion-item>
-     <ion-item color="background">
-       <h2>Laptop 14-15 Inch</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 35 Watts (average)</p>
-       <ion-note>
-        Note: Do not add in unplugged hours
-      </ion-note>
-     </ion-item>
-     <ion-item color="background">
-       <h2>Laptop 17 Inch</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 70 Watts (average)</p>
-       <ion-note>
-        Note: Do not add in unplugged hours
-      </ion-note>
-     </ion-item>
-     <ion-item color="background">
-       <h2>Vacuum Cleaner</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 1175 (average) Watts</p>
+       <h2>Ceiling Fan</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 75 Watts (average)</p>
      </ion-item>
      <ion-item color="background">
        <h2>Clothes Iron</h2>
@@ -258,10 +275,19 @@
      </ion-item>
      <ion-item color="background" no-lines>
        <h2>Room Heaters (Electric)</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 500 - 1500 Watts (Most common, based on your settings)</p>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 500/750/1500 Watts</p>
+       <ion-note>Consumption depends on your options, low, medium or high temprature</ion-note>
+     </ion-item>
+     <ion-item color="background" no-lines>
+       <h2>Router</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 6 Watts (average)</p>
+     </ion-item>
+     <ion-item color="background">
+       <h2>Vacuum Cleaner</h2>
+       <p><ion-icon name="flash" class="flash"></ion-icon> 1175 (average) Watts</p>
      </ion-item>
    </ion-list>
-
+  <!-- WASHING -->
    <ion-list *ngSwitchCase="'washing'">
      <ion-item color="background">
        <h2>Clothes Dryer (Electric)</h2>
