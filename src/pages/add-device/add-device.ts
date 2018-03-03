@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AddCategoryPage } from "./add-category/add-category";
 import { CreatePage } from "../add-device/create/create";
 import { DisplayCatPage } from "./display-cat/display-cat";
+import { CataloguePage } from "./catalogue/catalogue";
 
 import { Category } from "../../models/category";
 import { DeviceCategory } from "../../models/device-category";
@@ -71,11 +72,26 @@ export class AddDevicePage implements OnInit{
   }
 
   onAddDevice(deviceCategory: DeviceCategory, index: number) {
-    const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
-    modal.present();
+    // const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
+    // modal.present();
+
+    this.dlService.addDevice(
+      deviceCategory.name.toUpperCase(),
+      deviceCategory.quantity,
+      deviceCategory.power,
+      deviceCategory.hours,
+      deviceCategory.daysUsed,
+      deviceCategory.category,
+      deviceCategory.compressor);
+
+    const toast = this.toastCtrl.create({
+      message: 'Item Added Successfully',
+      duration: 1250,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
-  //TODO: Fix this
   onDelete(index: number) {
     for (let deviceIndex = 0; deviceIndex < this.listCategoryDevices.length; deviceIndex++) {
       try {
@@ -120,7 +136,6 @@ export class AddDevicePage implements OnInit{
   }
 
   onAddItem() {
-    //this.navCtrl.push(CreatePage, {mode: 'New'});
     const modal = this.modalCtrl.create(CreatePage, {mode: 'New'});
     modal.present();
     modal.onDidDismiss(() => {
@@ -129,9 +144,7 @@ export class AddDevicePage implements OnInit{
     });
   }
 
-  // onAddToCategory(){
-  //   //this.navCtrl.push(CreatePage, {mode: 'Add'});
-  //   const modal = this.modalCtrl.create(CreatePage, {mode: 'Add'});
-  //   modal.present();
-  // }
+  onViewCatalogue() {
+    this.navCtrl.push(CataloguePage);
+  }
 }

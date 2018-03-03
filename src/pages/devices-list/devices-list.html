@@ -28,20 +28,24 @@
     </ion-row>
   </ion-grid>
   <ion-list class="list">
-    <ion-item-sliding *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index">
+    <!-- <ion-list-header color="background">
+      <p>{{ category.name }}</p>
+    </ion-list-header>
+   <div > -->
+    <ion-item-sliding *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index" class="item">
       <ion-item (click)="onEdit(device, i)" text-wrap class="no-padding">
         <ion-grid>
           <ion-row>
-            <ion-col>
-              <p>{{ device.name }}</p>
+            <ion-col text-justified>
+              <p>{{ device.name}}</p>
             </ion-col>
-            <ion-col>
+            <ion-col text-center>
               <p>{{ device.quantity }}</p>
             </ion-col>
-            <ion-col>
-              <p><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }}</p>
+            <ion-col text-left>
+              <p ><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }}</p>
             </ion-col>
-            <ion-col>
+            <ion-col text-left>
               <p><ion-icon name="time" class="clock"></ion-icon> {{ device.hours }}</p>
             </ion-col>
             <ion-col>
@@ -55,6 +59,7 @@
         <button ion-button color="danger" expandable (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
       </ion-item-options>
     </ion-item-sliding>
+  <!-- </div> -->
   </ion-list>
   <ion-fab  bottom [attr.left]="arabic ? '' : null" [attr.right]="!arabic ? '' : null">
     <button ion-fab mini color="secondary" (click)="onAddDevice()"><ion-icon name="add"></ion-icon></button>

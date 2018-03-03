@@ -1,39 +1,46 @@
 {
   "TABS": {
-    "LIST": "Appliance List",
-    "SUMMARY": "Summary"
+    "LIST": "APPLIANCE LIST",
+    "REPORTS": "REPORTS",
+    "SUMMARY": "SUMMARY"
   },
   "SETTINGS": {
-    "TITLE": "Settings",
+    "TITLE": "SETTINGS",
     "LANGUAGE": "Language",
+    "CONSUMPTIONTARRIF": "consumption tariff",
+    "KWH": "kwh:1000",
+    "COSTKWH": "Cost kwh",
+    "TAXFLATTITLE": "tax and flat rate",
     "COST": "Cost",
     "TAX": "Tax Rate",
     "PREFS": "Prefs",
     "FLATRATE": "Flat Rate",
-    "SAVE": "Save Settings"
+    "SAVE": "Save Settings",
+    "TOAST": "Settings Saved"
   },
   "HELP": {
     "TITLE": "Help",
     "TAXTITLE": "Tax Rate",
     "TAX": "",
     "FLATRATETITLE": "Flat Rate",
-    "FLATRATE": "",
+    "FLATRATE": "A constant monthly amount based on the capacity of breakers. Each month, the company charges this amount due to meter reading, meter maintenance and bill preparation. You can check your fee from the official website of your electrcity company or from your bill",
     "COSTTITLE": "Cost Per Kilowatt hour (kWh)",
-    "COST": "",
+    "COST": "The amount at which you are charged per KWh consumed in your country.",
     "CONSUMPTIONTITLE": "Total kWh Consumed",
     "CONSUMPTION": "",
-    "THERMOSTATTITLE": "Thermostat",
-    "THERMOSTAT": ""
+    "THERMOSTATTITLE": "Compressor Cycles",
+    "THERMOSTAT": "Some appliances, such as a Refrigerator aren't always operating at their maximum wattage Consumption, thus, they end up consuming a lower ammount of wattage than what is displayed on their sticker.The compressor cycles option while adding an appliance can be enabled to take those calculations into account.Compressor cycle durations can be effected by multiple factors, which can cause the displayed result to be slightly inaccurate."
   },
   "SUMMARY": {
     "MENU": "Menu",
-    "TITLE": "Summary",
+    "TITLE": "SUMMARY",
     "DETAILS": "Your Estimated bill details",
     "TOTAL": "Total power consumed in 30 days",
     "TOTALCONSUMED": "Total Consumed:",
     "ESTIMATEDTOTAL": "Estimated Total:",
     "CALCULATION": "Total bill calculation",
-    "CALC_1": "Consumption Total",
+    "CALC_0": "Consumption Total",
+    "CALC_1": "Consumption Cost",
     "CALC_2": "Capacity of breaker",
     "CALC_3": "Tax",
     "CALC_4": "Total",
@@ -53,7 +60,7 @@
     "SEGMENTCOST": "Cost"
   },
   "DEVICELIST": {
-    "TITLE": "Appliances",
+    "TITLE": "APPLIANCES LIST",
     "NAME": "Name",
     "COUNT": "Count",
     "CONSUMPTION": "Consumption",
@@ -63,24 +70,50 @@
     "DELETE": "Delete",
     "EDIT": "Edit"
   },
+  "REPORTS":{
+    "TITLE": "REPORTS",
+    "MONTHLYKWh": "Monthly KWh Consumption",
+    "MONTHLYEXPENSES": "Monthly Expenses",
+    "APPLIANCEPOWER": "Power Consumption Per Appliance",
+    "APPLIANCECOST": "Cost Per Appliance"
+  },
   "ADD": {
-    "TITLE": "Add Appliance",
+    "TITLE": "ADD APPLIANCE",
+    "SEARCH": "Search Categories Appliance",
     "CATEGORIES": "Categories",
     "ADDDEVICE": "Add Device",
     "ADDTOCAT": "Add To Category"
+  },
+  "ADDCAT": {
+    "ADDTITLE": "ADD CATEGORY",
+    "EDITTITLE": "EDIT CATEGORY",
+    "NAME": "Category Name",
+    "BUTTON": "CONFIRM"
   },
   "CREATE": {
     "TITLE": "Appliance",
     "CLOSE": "Back",
     "NAME": "Name",
     "QUANTITY": "Quantity",
-    "POWER": "Power",
+    "POWER": "KWh",
+    "ANNUAL": "Annual KWh",
     "HOURS": "Hours",
     "MINUTES": "Minutes",
     "DAYS": "Days",
     "CATEGORY": "Category",
     "ADDTOAPPLIANCE": "Add To Appliance List",
     "ADDTOCATEGORY": "Add To Category",
+    "COMPRESSOR": "Enable Compressor Cycles",
+    "TYPE": "Appliance Type",
+    "AIRCON_1": "Air Conditioner (Average Cycle)",
+    "AIRCON_2": "Air Conditioner (Long Cycle)",
+    "AIRCON_3": "Air Conditioner (Full Cycle)",
+    "DISHWASHER": "Dishwasher",
+    "DRYER": "Electric Dryer",
+    "FREEZER": "Freezer (upright)",
+    "REF": "Refrigerator",
+    "COOLER": "Water Cooler",
+    "WM": "Washing Machine (Cold Water)",
     "CONFIRM": "Confirm"
   }
 }

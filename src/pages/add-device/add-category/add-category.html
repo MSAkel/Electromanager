@@ -1,29 +1,34 @@
-<ion-header>
+<ion-header dir="{{rtl}}">
   <ion-navbar color="navbar">
     <ion-buttons left>
 			<button ion-button icon-only navPop>
 				<ion-icon name="arrow-back"></ion-icon>
 			</button>
 		</ion-buttons>
-    <ion-title>{{ mode }} Category</ion-title>
+    <div *ngIf="mode == 'Add'">
+      <ion-title>{{ 'ADDCAT.ADDTITLE' | translate }}</ion-title>
+    </div>
+    <div *ngIf="mode == 'Edit'">
+      <ion-title>{{ 'ADDCAT.EDITTITLE' | translate }}</ion-title>
+    </div>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content>
+<ion-content dir="{{rtl}}">
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <ion-list>
       <ion-grid>
         <ion-row>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>Category Name</ion-label>
+              <ion-label floating>{{ 'ADDCAT.NAME' | translate }}</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-list>
-    <button ion-button color="secondary" type="submit" block [disabled]="!categoryForm.valid">{{ mode }} Category</button>
+    <button ion-button color="secondary" type="submit" block [disabled]="!categoryForm.valid">{{ 'ADDCAT.BUTTON' | translate }}</button>
   </form>
 </ion-content>

@@ -2,7 +2,7 @@
   <ion-navbar color="navbar">
     <ion-buttons left>
 			<button ion-button icon-only navPop>
-				<!-- {{ 'CREATE.CLOSE' | translate }} --><ion-icon name="arrow-back"></ion-icon>
+        <ion-icon name="arrow-back"></ion-icon>
 			</button>
 		</ion-buttons>
     <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title>
@@ -20,18 +20,24 @@
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
           </ion-col>
+          <ion-col>
+            <ion-item no-lines color="background">
+              <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label>
+              <ion-input type="number" formControlName="quantity" clearOnEdit></ion-input>
+            </ion-item>
+          </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label>
-              <ion-input type="number" formControlName="quantity"></ion-input>
+              <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label>
+              <ion-input type="number" formControlName="power"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label>
-              <ion-input type="number" formControlName="power"></ion-input>
+            <ion-item color="background" no-lines>
+              <ion-label>{{ 'CREATE.ANNUAL' | translate }}</ion-label>
+              <ion-checkbox (click)="annual()" formControlName="annualPower"></ion-checkbox>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -40,14 +46,10 @@
           <ion-col>
             <ion-item color="background">
               <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
-              <!-- <ion-input type="number" formControlName="hours"></ion-input> -->
-                <!-- <ion-select formControlName="hours" interface="popover">
-                  <ion-option *ngFor="let listHours of hours" value="{{listHours.hours}}">{{listHours.hours}}</ion-option>
-                </ion-select> -->
                 <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col [hidden]="annualCheck">
             <ion-item color="background">
               <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
               <ion-select formControlName="daysUsed" interface="popover">
@@ -57,62 +59,37 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <!-- <ion-col>
-            <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
-              <ion-select formControlName="daysUsed" interface="popover">
-                <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-col> -->
           <ion-col>
             <ion-item color="background">
               <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
               <ion-select formControlName="category">
-                <ion-option value="Lights">Lights</ion-option>
-                <ion-option value="Living Room">Living Room</ion-option>
-                <ion-option value="Kitchen">Kitchen</ion-option>
-                <ion-option value="Laundry">Laundry</ion-option>
-                <ion-option value="Others">Others</ion-option>
                 <ion-option *ngFor="let category of listCategory" value="{{ category.name }}">{{ category.name }}</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>
         </ion-row>
-        <!-- <ion-row *ngIf="mode == 'New'">
-          <ion-col>
-            <ion-item>
-               <ion-label>{{ 'CREATE.ADDTOAPPLIANCE' | translate }}</ion-label>
-               <ion-checkbox formControlName="AddToList"></ion-checkbox>
-             </ion-item>
-             <ion-item>
-               <ion-label>{{ 'CREATE.ADDTOCATEGORY' | translate }}</ion-label>
-               <ion-checkbox formControlName="AddToCategory"></ion-checkbox>
-             </ion-item>
-          </ion-col>
-        </ion-row> -->
-        <ion-row>
+        <ion-row [hidden]="annualCheck">
           <ion-col>
             <ion-item color="background" no-lines>
-              <ion-label>Enable compressor cycles</ion-label>
+              <ion-label>{{ 'CREATE.COMPRESSOR' | translate }}</ion-label>
               <ion-checkbox (click)="checked()"></ion-checkbox>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row [hidden]="!check">
-          <!-- <ion-col>
-            <ion-item no-lines color="background">
-              <ion-label floating>Manual Input</ion-label>
-              <ion-input type="number" formControlName="compressor" ></ion-input>
-            </ion-item>
-          </ion-col> -->
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>Predefined List</ion-label>
+              <ion-label floating>{{ 'CREATE.TYPE' | translate }}</ion-label>
               <ion-select formControlName="compressor">
-                <ion-option value="0.6">Fridge 1987-2000</ion-option>
-                <ion-option value="0.4">Fridge 2001-2010</ion-option>
-                <ion-option value="0.2">Fridge 2011-2017</ion-option>
+                <ion-option value="0.65">{{ 'CREATE.AIRCON_1' | translate }}</ion-option>
+                <ion-option value="0.84">{{ 'CREATE.AIRCON_2' | translate }}</ion-option>
+                <ion-option value="1">{{ 'CREATE.AIRCON_3' | translate }}</ion-option>
+                <ion-option value="0.55">{{ 'CREATE.DISHWASHER' | translate }}</ion-option>
+                <ion-option value="0.87">{{ 'CREATE.DRYER' | translate }}</ion-option>
+                <ion-option value="0.18">{{ 'CREATE.FREEZER' | translate }}</ion-option>
+                <ion-option value="0.23">{{ 'CREATE.REF' | translate }}</ion-option>
+                <ion-option value="0.20">{{ 'CREATE.COOOLER' | translate }}</ion-option>
+                <ion-option value="0.28">{{ 'CREATE.WM' | translate }}</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>

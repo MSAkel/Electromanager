@@ -7,8 +7,10 @@ import { SettingsService } from "../../services/settings";
 import { TranslateService } from '@ngx-translate/core';
 
 import { Device } from "../../models/device";
+import { Rate } from "../../models/rate";
+//import { Category } from "../../models/category";
 import { AddDevicePage } from "../add-device/add-device";
-import { SelectPage } from "../add-device/select/select";
+//import { SelectPage } from "../add-device/select/select";
 import { CreatePage } from "../add-device/create/create";
 
 @Component({
@@ -20,6 +22,10 @@ export class DevicesListPage implements OnInit{
   device: Device;
   index: number;
 
+  listRates: Rate[];
+
+  //listCategories: Category[];
+
   language: string;
   rtl: string;
   arabic = false;
@@ -28,7 +34,6 @@ export class DevicesListPage implements OnInit{
   descending: boolean = false;
   order: number;
   column: string;
-
 
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
@@ -54,11 +59,20 @@ export class DevicesListPage implements OnInit{
     .then(
       (devices: Device[]) => this.listDevices = devices
     );
+    this.settingsService.fetchRates()
+      .then(
+        (rates: Rate[]) => this.listRates = rates
+      );
+      // this.dlService.fetchCategories()
+      //   .then(
+      //     (categories: Category[]) => this.listCategories = categories
+      //   );
   }
 
   ionViewWillEnter() {
     //this.setLanguage();
     this.listDevices = this.dlService.getDevices();
+    //this.listCategories = this.dlService.getCategories();
     console.log(this.listDevices);
   }
 

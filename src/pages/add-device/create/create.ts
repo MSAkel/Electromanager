@@ -31,10 +31,9 @@ export class CreatePage implements OnInit {
   rtl: string;
   arabic = false;
 
-  // hours = [];
-  // minutes = [];
-     days = [];
-     check = false;
+  days = [];
+  check = false;
+  annualCheck = false;
 
   constructor (
     private viewCtrl: ViewController,
@@ -73,16 +72,6 @@ export class CreatePage implements OnInit {
     this.countDays();
   }
 
-  // countHours() {
-  //   for(let i = 0; i <= 24; i++) {
-  //     this.hours.push({hours: i});
-  //   }
-  // }
-  // countMinutes() {
-  //   for(let i = 0; i < 60; i++) {
-  //     this.minutes.push({minutes: i});
-  //   }
-  // }
   countDays() {
     for(let i = 1; i <= 31; i++) {
       this.days.push({days: i});
@@ -98,13 +87,14 @@ export class CreatePage implements OnInit {
     }
   }
 
-  // asd() {
-  //   const value = this.deviceForm.value;
-  //   let result = parse('2018-05-' + value.daysUsed);
-  //   let days = getDate(new Date(2012, 1, value.daysUsed));
-  //   console.log(result);
-  //   console.log(days);
-  // }
+  annual() {
+    if(this.annualCheck == false){
+      this.annualCheck = true;
+    } else {
+      this.annualCheck = false;
+    }
+    console.log(this.annualCheck);
+  }
 
   setLanguage() {
     this.language = this.translateService.currentLang;
@@ -116,27 +106,20 @@ export class CreatePage implements OnInit {
     return this.rtl;
   }
 
-  // count() {
-  //   const value = this.deviceForm.value;
-  //   if(value.daysUsed < 10) {
-  //     value.daysUsed = 0 + value.daysUsed;
-  //   }
-  //
-  //   console.log(value.daysUsed);
-  // }
-
   onSubmit() {
     const value = this.deviceForm.value;
 
-    if(value.daysUsed < 10) {
+    if(value.daysUsed.length  < 2) {
       value.daysUsed = 0 + value.daysUsed;
     }
 
-    // let result = parse('0000-00-00T' + value.hours + '00');
-    // let mins = getMinutes(new Date(result));
-    // let hours = getHours(new Date(result));
-    // mins = +(mins/60).toFixed(2);
-    // value.hours = mins + hours;
+    if(value.quantity.length < 2) {
+      value.quantity = 0 + value.quantity;
+    }
+
+    if(value.power.length < 2) {
+      value.power = 0 + value.power;
+    }
 
     // let getDays = parse('0000-00-' + value.daysUsed + 'T00:00:00');
     // value.daysUsed = getDate(new Date(getDays));
@@ -170,6 +153,16 @@ export class CreatePage implements OnInit {
       // if(value.AddToCategory == true) {
       //
       // }
+      if(value.annualPower == true) {
+        value.power /= 12;
+        value.power /= 30.4;
+        value.power /= 24;
+        value.power = (value.power * 1000).toFixed(2);
+        console.log(value.power);
+
+        // value.hours = '23:59';
+        value.daysUsed = 30.41;
+      }
       this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
       this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
       const toast = this.toastCtrl.create({
@@ -188,29 +181,28 @@ export class CreatePage implements OnInit {
     //     });
     //     toast.present();
     // }
-    else  if (this.mode == 'Add') {
-        this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
-        const toast = this.toastCtrl.create({
-          message: 'Item Added Successfully',
-          duration: 2000,
-          position: 'bottom'
-        });
-        toast.present();
-    }
+    // else  if (this.mode == 'Add') {
+    //     this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
+    //     const toast = this.toastCtrl.create({
+    //       message: 'Item Added Successfully',
+    //       duration: 2000,
+    //       position: 'bottom'
+    //     });
+    //     toast.present();
+    // }
     this.deviceForm.reset();
     this.viewCtrl.dismiss();
   }
 
   private initializeForm() {
     let name = null;
-    let quantity = 1;
+    let quantity = null;
     let power = null;
+    let annualPower = false;
     let hours = null;
-    let daysUsed = 30;
-    let category = 'Others';
+    let daysUsed = 31;
+    let category = null;
     let compressor = 1;
-    // let AddToList = null;
-    // let AddToCategory = false;
 
     if(this.mode == 'Edit'){
       name = this.device.name;
@@ -232,26 +224,25 @@ export class CreatePage implements OnInit {
       compressor = this.device.compressor;
     }
 
-    if(this.mode == 'Add') {
-      name = this.categoryDevice.name;
-      quantity = this.categoryDevice.quantity;
-      power = this.categoryDevice.power;
-      hours = this.categoryDevice.hours;
-      daysUsed = this.categoryDevice.daysUsed;
-      category = this.categoryDevice.category;
-      compressor = this.categoryDevice.compressor;
-    }
+    // if(this.mode == 'Add') {
+    //   name = this.categoryDevice.name;
+    //   quantity = this.categoryDevice.quantity;
+    //   power = this.categoryDevice.power;
+    //   hours = this.categoryDevice.hours;
+    //   daysUsed = this.categoryDevice.daysUsed;
+    //   category = this.categoryDevice.category;
+    //   compressor = this.categoryDevice.compressor;
+    // }
 
     this.deviceForm = new FormGroup({
       'name': new FormControl(name, Validators.required),
       'quantity': new FormControl(quantity, Validators.required),
+      'annualPower': new FormControl(annualPower),
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
       'daysUsed': new FormControl(daysUsed),
       'category': new FormControl(category, Validators.required),
       'compressor': new FormControl(compressor)
-      // 'AddToList': new FormControl(AddToList),
-      // 'AddToCategory': new FormControl(AddToCategory)
     });
   }
 }

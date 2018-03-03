@@ -1,6 +1,7 @@
+
 <ion-tabs tabsPlacement="bottom" color="secondary">
-  <ion-tab [root]="dlPage" tabIcon="flash" tabTitle="Appliance List"></ion-tab>
-  <ion-tab [root]="reportsPage" tabIcon="bookmarks" tabTitle="Reports"></ion-tab>
-  <ion-tab [root]="summaryPage" tabIcon="information-circle" tabTitle="Summary"></ion-tab>
-  <!-- <ion-tab [root]="adPage" tabIcon="add" tabTitle="Add Device"></ion-tab> -->
+    <ion-tab [root]="dlPage" tabIcon="flash" tabTitle=" {{ 'TABS.LIST' | translate }}"></ion-tab>
+    <ion-tab [root]="reportsPage" tabIcon="stats" tabTitle=" {{ 'TABS.REPORTS' | translate }}"></ion-tab>
+    <ion-tab [root]="summaryPage" tabIcon="information-circle" tabTitle=" {{ 'TABS.SUMMARY' | translate }}">
+    </ion-tab>
 </ion-tabs>

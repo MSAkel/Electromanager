@@ -13,6 +13,7 @@ import { DeviceCategory } from "../../../models/device-category";
 })
 export class AddCategoryPage implements OnInit{
   mode = 'New';
+  asd = 'a';
   category: Category;
   listCategory: Category[];
   listDeviceCategory: DeviceCategory[];
