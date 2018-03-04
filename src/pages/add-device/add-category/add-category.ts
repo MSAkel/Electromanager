@@ -58,7 +58,7 @@ export class AddCategoryPage implements OnInit{
             this.listDeviceCategory[index].power,
             this.listDeviceCategory[index].hours,
             this.listDeviceCategory[index].daysUsed,
-            this.listDeviceCategory[index].category,
+            this.listDeviceCategory[index].category.toUpperCase(),
             this.listDeviceCategory[index].compressor
           )
 
@@ -68,12 +68,12 @@ export class AddCategoryPage implements OnInit{
             this.listDeviceCategory[index].power,
             this.listDeviceCategory[index].hours,
             this.listDeviceCategory[index].daysUsed,
-            this.listDeviceCategory[index].category,
+            this.listDeviceCategory[index].category.toUpperCase(),
             this.listDeviceCategory[index].compressor
           )
         }
       }
-      this.dlService.updateCategory(this.index, value.name);
+      this.dlService.updateCategory(this.index, value.name.toUpperCase());
 
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
@@ -82,7 +82,7 @@ export class AddCategoryPage implements OnInit{
       });
       toast.present();
     } else if (this.mode == "Add") {
-        this.dlService.addCategory(value.name);
+        this.dlService.addCategory(value.name.toUpperCase());
         this.categoryForm.reset();
         const toast = this.toastCtrl.create({
           message: 'Category Added Successfully',
