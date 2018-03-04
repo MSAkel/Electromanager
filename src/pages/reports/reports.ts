@@ -11,6 +11,7 @@ import { Device } from "../../models/device";
 import { Rate } from "../../models/rate";
 import { Month } from "../../models/month";
 import { Chart } from 'chart.js';
+import 'chartjs-plugin-datalabels';
 
 @IonicPage()
 @Component({
@@ -68,7 +69,10 @@ export class ReportsPage implements OnInit{
   public hoursRange = 0;
   public wattsRange = 0;
   public daysRange = 0;
-  public tariffRange: number;
+  public tariffRange= 0;
+  public selectedItem = "Custom Input";
+
+  terms = null;
 
   constructor(
     public navCtrl: NavController,
@@ -106,6 +110,7 @@ export class ReportsPage implements OnInit{
     this.createChartMonthlyCost();
     this.createBarChartItemsCost();
     this.createChartApplianceDetails();
+
     //this.createPieChartCategories();
   }
 
@@ -216,17 +221,23 @@ export class ReportsPage implements OnInit{
               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
               hoverBackgroundColor  : "#FF6384",
               fill 				          : false,
-              lineTension           : 0
+              lineTension           : 0,
+              radius: 5,
+              datalabels: {
+                    align: 'end',
+                    color:'#000',
+                    }
            }
          ]
         },
         options : {
-
+          anchor: 'end',
            legend         : {
               display     : true,
-              boxWidth    : 80,
-              fontSize    : 15,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -263,16 +274,22 @@ export class ReportsPage implements OnInit{
               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
               hoverBackgroundColor  : "#6384FF",
               fill 				          : false,
-              lineTension           : 0
+              lineTension           : 0,
+              radius: 5,
+              datalabels: {
+                    align: 'end',
+                    color:'#000',
+                    }
            }
          ]
         },
         options : {
            legend         : {
               display     : true,
-              boxWidth    : 80,
-              fontSize    : 15,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -306,7 +323,11 @@ export class ReportsPage implements OnInit{
                duration              : 2000,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-               hoverBackgroundColor  : "#FF6384"
+               hoverBackgroundColor  : "#FF6384",
+               datalabels: {
+                     align: 'end',
+                     color:'#000',
+                     }
              },{
                label                 : 'Yearly KWh',
                data                  : this.yearlyPowerItem,
@@ -314,16 +335,20 @@ export class ReportsPage implements OnInit{
                hidden                : true,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
-               hoverBackgroundColor  : "#6384FF"
+               hoverBackgroundColor  : "#6384FF",
+               datalabels: {
+                     color:'#000',
+                     }
              }
          ]
         },
         options : {
            legend         : {
               display     : true,
-              boxWidth    : 50,
-              fontSize    : 12,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -360,7 +385,10 @@ export class ReportsPage implements OnInit{
                duration              : 2000,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-               hoverBackgroundColor  : "#FF6384"
+               hoverBackgroundColor  : "#FF6384",
+               datalabels: {
+                     color:'#000',
+                     }
              },{
                label                 : 'Yearly',
                data                  : this.yearlyItemCost,
@@ -368,16 +396,20 @@ export class ReportsPage implements OnInit{
                hidden                : true,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
-               hoverBackgroundColor  : "#6384FF"
+               hoverBackgroundColor  : "#6384FF",
+               datalabels: {
+                     color:'#000',
+                     }
              }
          ]
         },
         options : {
            legend         : {
               display     : true,
-              boxWidth    : 50,
-              fontSize    : 12,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -445,15 +477,17 @@ selectedAppliance(appliance: Device, index: number) {
   mins = +(mins/60).toFixed(0);
   var time = mins + hours;
 
+  this.selectedItem = appliance.name;
   this.hoursRange = time;
   this.wattsRange = appliance.power;
   this.daysRange = appliance.daysUsed;
   this.tariffRange = this.listRates[0].rateCost;
 }
 
+   this.terms = null;
    selected = ((this.wattsRange * this.hoursRange * this.daysRange)/1000);
 
-   console.log(this.hoursRange);
+   //console.log(this.hoursRange);
     // console.log(selected);
      // for(let i = 1; i <= 24; i++) {
      //   this.hours.push(i);
@@ -464,6 +498,15 @@ selectedAppliance(appliance: Device, index: number) {
     this.costPerHour.push(((selected) * this.tariffRange).toFixed(1));
     this.kwPerHour.push((selected).toFixed(1));
   this.createChartApplianceDetails();
+}
+
+onClearSelected() {
+  this.selectedItem = "Custom Input"
+  this.hoursRange = 0;
+  this.wattsRange = 0;
+  this.daysRange = 0;
+  this.tariffRange = 0;
+
 }
 
    createChartApplianceDetails() {
@@ -500,24 +543,31 @@ selectedAppliance(appliance: Device, index: number) {
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(255, 99, 132, 0.2)',
                hoverBackgroundColor  : "#FF6384",
+               datalabels: {
+                     color:'#000',
+                     }
             },
             {
                label                 : 'Year',
-               data                  : [this.costPerHour * 12, this.kwPerHour * 12],
+               data                  : [((this.costPerHour * 12).toFixed(1)), ((this.kwPerHour * 12).toFixed(1))],
                duration              : 2000,
                hidden                : true,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
                hoverBackgroundColor  : "#6384FF",
+               datalabels: {
+                     color:'#000',
+                     }
             },
           ]
          },
          options : {
             legend         : {
                display     : true,
-               boxWidth    : 80,
-               fontSize    : 15,
-               padding     : 0
+               labels: {
+                 boxWidth    : 30,
+                 fontSize    : 14,
+               }
             },
             scales: {
                yAxes: [{

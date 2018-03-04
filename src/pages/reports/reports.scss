@@ -1,13 +1,13 @@
 page-reports {
- ion-slides {
-   height: auto;
- }
+   ion-slides {
+     height: auto;
+   }
 
- ion-input {
-   border-bottom: 1px solid #969696;
- }
+   ion-label {
+     margin: 0 !important;
+   }
 
- .item-md.item-input.input-has-focus .item-inner {
-    box-shadow: none;
-}
+   ion-item {
+     box-shadow: none !important;
+   }
 }

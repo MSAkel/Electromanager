@@ -12,14 +12,14 @@
         <ion-slide>
             <ion-card>
               <h2 text-center>{{ 'REPORTS.MONTHLYKWh' | translate}}</h2>
-              <canvas #barChart></canvas>
+              <canvas #barChart height="175"></canvas>
             </ion-card>
           <br>
         </ion-slide>
         <ion-slide>
           <ion-card>
             <h2 text-center>{{ 'REPORTS.MONTHLYEXPENSES' | translate}}</h2>
-            <canvas #monthlyCostChart></canvas>
+            <canvas #monthlyCostChart height="175"></canvas>
           </ion-card>
           <br>
         </ion-slide>
@@ -29,14 +29,14 @@
     <ion-slide>
       <ion-card>
         <h2 text-center>{{ 'REPORTS.APPLIANCEPOWER' | translate}}</h2>
-        <canvas #barChartItems height="175"></canvas>
+        <canvas #barChartItems height="200"></canvas>
       </ion-card>
       <br>
     </ion-slide>
     <ion-slide>
         <ion-card>
           <h2 text-center>{{ 'REPORTS.APPLIANCECOST' | translate}}</h2>
-          <canvas #barChartItemsCost height="175"></canvas>
+          <canvas #barChartItemsCost height="200"></canvas>
         </ion-card>
       <br>
     </ion-slide>
@@ -57,24 +57,39 @@
     <ion-searchbar [(ngModel)]="terms" placeholder="Search Appliance"></ion-searchbar>
     <ion-list [hidden]="!terms">
       <div *ngFor="let device of listDevices | search : terms; let i = index">
-        <ion-item (click)="selectedAppliance(device)" color="background">
+        <ion-item (click)="selectedAppliance(device)">
           <p>{{ device.name }}</p>
           <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
         </ion-item>
       </div>
     </ion-list>
 
-    <h2 text-center>Custom Input</h2>
+    <h2 text-center>Kilo-Reader</h2>
     <canvas #applianceDetails></canvas>
 
     <ion-list>
-      <ion-item-divider>
-
+      <ion-item-divider no-margin no-padding>
+        <ion-item text-center no-margin no-padding>
+          {{selectedItem}} <button color="danger" ion-button icon-only clear item-end (click)="onClearSelected()"><ion-icon name="close"></ion-icon></button>
+        </ion-item>
       </ion-item-divider>
-      <ion-item>
-        <ion-label color="secondary">Cost/KWh</ion-label>
-        <ion-input type="number" clearOnEdit="true" placeholder="1" (ionChange)="selectedAppliance()" [(ngModel)]="tariffRange"></ion-input>
-      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="secondary">Cost/KWh</ion-label>
+              <ion-input type="number" clearOnEdit="true" placeholder="1" (ionChange)="selectedAppliance()" [(ngModel)]="tariffRange"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label color="secondary">KWh</ion-label>
+              <ion-input type="number" clearOnEdit="true" placeholder="1000" (ionChange)="selectedAppliance()" [(ngModel)]="wattsRange"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -100,13 +115,12 @@
       Watts
         <ion-badge item-end></ion-badge>
       </ion-list-header> -->
-      <ion-item>
+      <!-- <ion-item>
        <ion-range (ionChange)="selectedAppliance()" max="3000" pin="true" [(ngModel)]="wattsRange">
          <ion-icon small range-left name="flash"></ion-icon>
          <ion-label range-right>{{wattsRange}}</ion-label>
        </ion-range>
-      </ion-item>
-
+      </ion-item> -->
     </ion-list>
   </ion-card>
 </ion-content>
