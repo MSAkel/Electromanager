@@ -2,7 +2,7 @@ page-catalogue {
   .segment-wrap {
     display: flex;
     flex-wrap: wrap;
-    background-color: color($colors, secondary);
+    background-color: color($colors, navbar);
 
     .segment-button {
       color: white;
@@ -12,7 +12,7 @@ page-catalogue {
   }
 
   h2 {
-    color: green;
+    color: color($colors, secondary);
   }
 
 }
