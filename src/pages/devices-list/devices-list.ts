@@ -162,11 +162,11 @@ export class DevicesListPage implements OnInit{
   }
 
   onDeleteCategory(index: number) {
-    for (let deviceIndex = 0; deviceIndex < this.listCategoryDevices.length; deviceIndex++) {
+    for (let deviceIndex = 0; deviceIndex < this.listDevices.length; deviceIndex++) {
       try {
         while(this.listDevices[deviceIndex].category === this.listCategories[index].name) {
               this.dlService.removeDevice(deviceIndex);
-              this.listCategoryDevices = this.dlService.getDevices();
+              this.listDevices = this.dlService.getDevices();
         }
       }
       catch(err) {
@@ -174,8 +174,8 @@ export class DevicesListPage implements OnInit{
       }
     }
     this.dlService.removeCategory(index);
-    this.listCategories = this.dlService.getCategories();
     this.listDevices = this.dlService.getDevices();
+    this.listCategories = this.dlService.getCategories();
 
     const toast = this.toastCtrl.create({
       message: 'Category Deleted',
