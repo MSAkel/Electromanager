@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AddCategoryPage } from "../add-device/add-category/add-category";
 import { Device } from "../../models/device";
+import { Month } from "../../models/month";
 import { Rate } from "../../models/rate";
 import { Category } from "../../models/category";
 import { CataloguePage } from "../add-device/catalogue/catalogue";
@@ -28,6 +29,7 @@ export class DevicesListPage implements OnInit{
   categoryForm: FormGroup;
   categoryEditForm: FormGroup;
   listRates: Rate[];
+  listMonths: Month[];
 
   listCategories: Category[];
   category: Category;
@@ -81,6 +83,11 @@ export class DevicesListPage implements OnInit{
           .then(
             (devices: DeviceCategory[]) => this.listCategoryDevices = devices
           );
+
+          this.dlService.fetchMonths()
+            .then(
+              (months: Month[]) => this.listMonths = months
+            );
 
     this.initializeForm();
   }

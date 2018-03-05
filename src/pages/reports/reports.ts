@@ -173,8 +173,8 @@ export class ReportsPage implements OnInit{
 
     for(count in this.monthName) {
       while(this.listMonths.length < 12) {
-        this.dlService.addMonth(this.monthName, 0, 0);
-        //console.log('length',this.listMonths.length);
+        this.dlService.addMonth(this.monthName[count], 0, 0);
+        console.log('length',this.listMonths.length);
         this.listMonths = this.dlService.getMonths();
       }
           if(this.monthName[count] == thisMonth) {
@@ -183,6 +183,7 @@ export class ReportsPage implements OnInit{
               this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(1));
               this.monthlyCost.push(this.listMonths[count].monthlyCost.toFixed(1));
               //console.log('cost' ,this.listMonths[count].monthlyCost);
+
             } else {
                 this.dlService.updateMonth(count, this.listMonths[count].monthName, this.listMonths[count].monthlyPower, this.listMonths[count].monthlyCost);
                 this.listMonths = this.dlService.getMonths();
@@ -190,10 +191,11 @@ export class ReportsPage implements OnInit{
                 this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(1));
                 this.monthlyCost.push(this.listMonths[count].monthlyCost.toFixed(1));
               }
+        //console.log(this.monthName[count], ": ", this.listMonths[count].monthlyPower);
       }
        this.listMonths = this.dlService.getMonths();
-       console.log(this.listMonths);
-       //console.log(this.monthlyPower);
+       //console.log(this.listMonths);
+
     }
 
   setLanguage() {
