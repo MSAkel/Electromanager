@@ -74,20 +74,19 @@ export class DevicesListPage implements OnInit{
     this.settingsService.fetchRates()
       .then(
         (rates: Rate[]) => this.listRates = rates
-      );
-      this.dlService.fetchCategories()
-        .then(
-          (categories: Category[]) => this.listCategories = categories
-        );
-        this.dlService.fetchDevicesCategory()
-          .then(
-            (devices: DeviceCategory[]) => this.listCategoryDevices = devices
-          );
-
-          this.dlService.fetchMonths()
-            .then(
-              (months: Month[]) => this.listMonths = months
-            );
+    );
+    this.dlService.fetchCategories()
+      .then(
+        (categories: Category[]) => this.listCategories = categories
+    );
+    this.dlService.fetchDevicesCategory()
+      .then(
+        (devices: DeviceCategory[]) => this.listCategoryDevices = devices
+    );
+    this.dlService.fetchMonths()
+      .then(
+        (months: Month[]) => this.listMonths = months
+    );
 
     this.initializeForm();
   }
@@ -109,9 +108,24 @@ export class DevicesListPage implements OnInit{
     this.order = this.descending ? 1 : -1;
   }
 
-  // onLoadDevice(device: Device, index: number) {
-  //   this.navCtrl.push(SelectPage, {device: device, index: index});
-  // }
+
+  onAddAppliance(category: Category) {
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'New', category: category});
+    modal.present();
+    modal.onDidDismiss(() => {
+      this.listCategories = this.dlService.getCategories();
+      this.listCategoryDevices = this.dlService.getDevicesCategory();
+      this.listDevices = this.dlService.getDevices();
+    });
+  }
+
+  onEdit(device: Device, index: number) {
+    const modal = this.modalCtrl.create(CreatePage, {mode: 'Edit', device: device, index: index});
+    modal.present();
+    modal.onDidDismiss(() => {
+      this.listDevices = this.dlService.getDevices();
+    });
+  }
 
   onDelete(index: number) {
     this.dlService.removeDevice(index);
@@ -123,24 +137,6 @@ export class DevicesListPage implements OnInit{
       position: 'bottom'
     });
     toast.present();
-  }
-
-  onEdit(device: Device, index: number) {
-    const modal = this.modalCtrl.create(CreatePage, {mode: 'Edit', device: device, index: index});
-    modal.present();
-    modal.onDidDismiss(() => {
-      this.listDevices = this.dlService.getDevices();
-    });
-  }
-
-  onAddAppliance(category: Category) {
-    const modal = this.modalCtrl.create(CreatePage, {mode: 'New', category: category});
-    modal.present();
-    modal.onDidDismiss(() => {
-      this.listCategories = this.dlService.getCategories();
-      this.listCategoryDevices = this.dlService.getDevicesCategory();
-      this.listDevices = this.dlService.getDevices();
-    });
   }
 
   onAddCategory() {

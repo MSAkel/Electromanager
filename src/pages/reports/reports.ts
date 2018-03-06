@@ -66,10 +66,10 @@ export class ReportsPage implements OnInit{
   public costPerHour: any = [];
   public kwPerHour: any = [];
 
-  public hoursRange = 0;
-  public wattsRange = 0;
-  public daysRange = 0;
-  public tariffRange= 0;
+  public hoursRange = 1;
+  public wattsRange = null;
+  public daysRange = 1;
+  public tariffRange= null;
   public selectedItem = "Custom Input";
 
   terms = null;
@@ -339,6 +339,7 @@ export class ReportsPage implements OnInit{
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
                hoverBackgroundColor  : "#6384FF",
                datalabels: {
+                     align: 'end',
                      color:'#000',
                      }
              }
@@ -390,6 +391,7 @@ export class ReportsPage implements OnInit{
                hoverBackgroundColor  : "#FF6384",
                datalabels: {
                      color:'#000',
+                     align: 'end'
                      }
              },{
                label                 : 'Yearly',
@@ -401,6 +403,7 @@ export class ReportsPage implements OnInit{
                hoverBackgroundColor  : "#6384FF",
                datalabels: {
                      color:'#000',
+                     align: 'end'
                      }
              }
          ]
@@ -504,10 +507,10 @@ selectedAppliance(appliance: Device, index: number) {
 
 onClearSelected() {
   this.selectedItem = "Custom Input"
-  this.hoursRange = 0;
-  this.wattsRange = 0;
-  this.daysRange = 0;
-  this.tariffRange = 0;
+  this.hoursRange = 1;
+  this.wattsRange = null;
+  this.daysRange = 1;
+  this.tariffRange = null;
 
 }
 
@@ -547,18 +550,19 @@ onClearSelected() {
                hoverBackgroundColor  : "#FF6384",
                datalabels: {
                      color:'#000',
+                     align: 'end'
                      }
             },
             {
                label                 : 'Year',
                data                  : [((this.costPerHour * 12).toFixed(1)), ((this.kwPerHour * 12).toFixed(1))],
                duration              : 2000,
-               hidden                : true,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
                hoverBackgroundColor  : "#6384FF",
                datalabels: {
                      color:'#000',
+                     align: 'end'
                      }
             },
           ]

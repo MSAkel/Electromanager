@@ -78,7 +78,7 @@
       </ion-item-options>
     </ion-item-sliding>
 
-   <div *ngFor="let device of listDevices | sort: {property: column, order: order}; let i = index" class="item">
+   <div *ngFor="let device of listDevices; let i = index" class="item">
     <ion-item-sliding *ngIf="device.category == category.name">
       <ion-item (click)="onEdit(device, i)" text-wrap class="no-padding" color="background">
         <ion-grid>

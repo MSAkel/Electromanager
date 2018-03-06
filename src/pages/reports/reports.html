@@ -58,9 +58,24 @@
     <ion-list [hidden]="!terms">
       <div *ngFor="let device of listDevices | search : terms; let i = index">
         <ion-item (click)="selectedAppliance(device)">
-          <p>{{ device.name }}</p>
-          <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} Watts</p>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4 text-justified>
+                <p>{{ device.name}} ({{ device.quantity }})</p>
+              </ion-col>
+              <ion-col text-left>
+                <p ><ion-icon name="flash"></ion-icon> {{ device.power }}</p>
+              </ion-col>
+              <ion-col text-left>
+                <p><ion-icon name="time"></ion-icon> {{ device.hours }}</p>
+              </ion-col>
+              <ion-col>
+                <p><ion-icon name="calendar"></ion-icon> {{ device.daysUsed }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-item>
+        <hr>
       </div>
     </ion-list>
 
@@ -94,7 +109,7 @@
         <ion-row>
           <ion-col>
             <ion-item no-padding>
-             <ion-range (ionChange)="selectedAppliance()" max="24" pin="true" [(ngModel)]="hoursRange">
+             <ion-range (ionChange)="selectedAppliance()" min="1" max="24" pin="true" [(ngModel)]="hoursRange">
                <ion-icon small range-left name="clock"></ion-icon>
                <ion-label range-right>{{hoursRange}}</ion-label>
              </ion-range>
@@ -102,7 +117,7 @@
           </ion-col>
           <ion-col>
             <ion-item no-padding>
-             <ion-range (ionChange)="selectedAppliance()" max="31" pin="true" [(ngModel)]="daysRange">
+             <ion-range (ionChange)="selectedAppliance()" min="1" max="31" pin="true" [(ngModel)]="daysRange">
                <ion-icon small range-left name="calendar"></ion-icon>
                <ion-label range-right>{{daysRange}}</ion-label>
              </ion-range>

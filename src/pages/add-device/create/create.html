@@ -5,7 +5,13 @@
         <ion-icon name="arrow-back"></ion-icon>
 			</button>
 		</ion-buttons>
-    <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title>
+    <!-- <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title> -->
+    <div *ngIf="mode == 'New'">
+      <ion-title>{{ 'CREATE.ADDTITLE' | translate }}</ion-title>
+    </div>
+    <div *ngIf="mode == 'Edit' || mode == 'Category Edit'">
+      <ion-title>{{ 'CREATE.EDITTITLE' | translate }}</ion-title>
+    </div>
   </ion-navbar>
 </ion-header>
 

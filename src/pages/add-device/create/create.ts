@@ -36,6 +36,8 @@ export class CreatePage implements OnInit {
   check = false;
   annualCheck = false;
 
+  terms = null;
+
   constructor (
     private viewCtrl: ViewController,
     private navParams: NavParams,
@@ -61,12 +63,13 @@ export class CreatePage implements OnInit {
       this.device = this.navParams.get('device');
       this.index = this.navParams.get('index');
     } else if (this.mode == 'Category Edit') {
-      this.device = this.navParams.get('device');
-      this.index = this.navParams.get('index');
-    }else if (this.mode == 'Add') {
-      this.categoryDevice = this.navParams.get('deviceCategory');
+      this.categoryDevice = this.navParams.get('device');
       this.index = this.navParams.get('index');
     }
+    // else if (this.mode == 'Add') {
+    //   this.categoryDevice = this.navParams.get('deviceCategory');
+    //   this.index = this.navParams.get('index');
+    // }
     this.initializeForm();
   }
 
@@ -80,6 +83,7 @@ export class CreatePage implements OnInit {
 
   onAutoFill(deviceCategory: DeviceCategory, index: number) {
     const value = this.deviceForm.value;
+    this.terms = null;
 
     let name = deviceCategory.name;
     let quantity = deviceCategory.quantity;
@@ -138,51 +142,34 @@ export class CreatePage implements OnInit {
 
   onSubmit() {
     const value = this.deviceForm.value;
-
-    // if(value.daysUsed.length  < 2) {
-    //   value.daysUsed = 0 + value.daysUsed;
-    // }
-
-    // if(value.quantity.length < 2) {
-    //   value.quantity = 0 + value.quantity;
-    // }
-    //
-    // if(value.power.length < 2) {
-    //   value.power = 0 + value.power;
-    // }
-
     // let getDays = parse('0000-00-' + value.daysUsed + 'T00:00:00');
     // value.daysUsed = getDate(new Date(getDays));
 
     if (this.mode == 'Edit') {
+      console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       this.dlService.updateDevice(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listDevices[this.index].category, value.compressor);
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
-        duration: 2000,
+        duration: 1000,
         position: 'bottom'
       });
       toast.present();
     } else if (this.mode == 'Category Edit') {
-      for(let index = 0; index < this.listDevices.length; index++) {
-        if(this.listDevices[index].name === this.device.name) {
-          console.log("Device: ", this.listDevices[index].name);
-          this.dlService.updateDevice(index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listDevices[this.index].category, value.compressor)
-        }
-      }
+      console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
+      // for(let index = 0; index < this.listDevices.length; index++) {
+      //   if(this.listDevices[index].name === this.device.name) {
+      //     console.log("Device: ", this.listDevices[index].name);
+      //     this.dlService.updateDevice(index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listDevices[this.index].category, value.compressor)
+      //   }
+      // }
       this.dlService.updateDeviceCategory(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
-        duration: 2000,
+        duration: 1000,
         position: 'bottom'
       });
       toast.present();
     } else if (this.mode == 'New') {
-      // if(value.AddToList == true) {
-      //
-      // }
-      // if(value.AddToCategory == true) {
-      //
-      // }
       if(value.annualPower == true) {
         value.power /= 12;
         value.power /= 30.4;
@@ -191,35 +178,42 @@ export class CreatePage implements OnInit {
         console.log(value.power);
 
         // value.hours = '23:59';
-        value.daysUsed = 30.41;
+        //value.daysUsed = 30.41;
       }
       this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.category.name.toUpperCase(), value.compressor);
-      this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.category.name.toUpperCase(), value.compressor);
+      for(let index = 0; index < this.listCategoryDevices.length; index++) {
+        if(value.name.toUpperCase() == this.listCategoryDevices[index].name &&
+           value.quantity == this.listCategoryDevices[index].quantity &&
+           value.power == this.listCategoryDevices[index].power &&
+           value.hours == this.listCategoryDevices[index].hours &&
+           value.daysUsed == this.listCategoryDevices[index].daysUsed &&
+           this.category.name.toUpperCase() == this.listCategoryDevices[index].category &&
+           value.compressor == this.listCategoryDevices[index].compressor) {
+             console.log("Item already exists");
+
+           } else if (index == this.listCategoryDevices.length - 1 &&(
+                value.name.toUpperCase() != this.listCategoryDevices[index].name ||
+                value.quantity != this.listCategoryDevices[index].quantity ||
+                value.power != this.listCategoryDevices[index].power ||
+                value.hours != this.listCategoryDevices[index].hours ||
+                value.daysUsed != this.listCategoryDevices[index].daysUsed ||
+                this.category.name.toUpperCase() != this.listCategoryDevices[index].category ||
+                value.compressor != this.listCategoryDevices[index].compressor)) {
+             this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.category.name.toUpperCase(), value.compressor);
+            console.log("Item added");
+            break;
+           }
+           console.log("length", this.listCategoryDevices.length);
+           console.log("Index", index);
+      }
       const toast = this.toastCtrl.create({
         message: 'Item Added Successfully',
-        duration: 2000,
+        duration: 1000,
         position: 'bottom'
       });
       toast.present();
     }
-    // else if (this.mode == 'Add') {
-    //     this.dlService.addDeviceCategory(value.name, value.quantity, value.power, value.hours, value.daysUsed, value.category);
-    //     const toast = this.toastCtrl.create({
-    //       message: 'Item Added Successfully',
-    //       duration: 2000,
-    //       position: 'bottom'
-    //     });
-    //     toast.present();
-    // }
-    // else  if (this.mode == 'Add') {
-    //     this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, value.category, value.compressor);
-    //     const toast = this.toastCtrl.create({
-    //       message: 'Item Added Successfully',
-    //       duration: 2000,
-    //       position: 'bottom'
-    //     });
-    //     toast.present();
-    // }
+
     this.deviceForm.reset();
     this.viewCtrl.dismiss();
   }
@@ -249,13 +243,13 @@ export class CreatePage implements OnInit {
     }
 
     if(this.mode == 'Category Edit'){
-      name = this.device.name;
-      quantity = this.device.quantity;
-      power = this.device.power;
-      hours = this.device.hours;
-      daysUsed = this.device.daysUsed;
+      name = this.categoryDevice.name;
+      quantity = this.categoryDevice.quantity;
+      power = this.categoryDevice.power;
+      hours = this.categoryDevice.hours;
+      daysUsed = this.categoryDevice.daysUsed;
       //category = this.device.category;
-      compressor = this.device.compressor;
+      compressor = this.categoryDevice.compressor;
     }
 
     // if(this.mode == 'Add') {
