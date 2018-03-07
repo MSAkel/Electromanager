@@ -1,33 +1,17 @@
-<ion-header dir="{{rtl}}">
+<ion-header>
   <ion-navbar color="navbar">
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>{{ 'SETTINGS.TITLE' | translate }}</ion-title>
+    <ion-title>SETTINGS</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content dir="{{rtl}}">
-  <ion-list-header color="secondary" text-uppercase>
-    {{ 'SETTINGS.LANGUAGE' | translate }}
-  </ion-list-header>
-
-    <ion-list radio-group [(ngModel)]="relationship">
-      <ion-item color="background">
-        <ion-label>English</ion-label>
-        <ion-radio value="en" (ionSelect)="selected('en')" [checked]="english"></ion-radio>
-      </ion-item>
-      <ion-item color="background">
-        <ion-label>عربى</ion-label>
-        <ion-radio value="ar" (ionSelect)="selected('ar')" [checked]="arabic"></ion-radio>
-      </ion-item>
-    </ion-list>
-
-    <ion-list-header color="secondary" text-uppercase>
-      {{ 'SETTINGS.CONSUMPTIONTARRIF' | translate }}
-    </ion-list-header>
-
+<ion-content>
+  <ion-item-divider color="secondary">
+    CONSUMPTION TARIFF
+  </ion-item-divider>
   <form [formGroup]="rateForm" (ngSubmit)="onSubmitRate()">
     <ion-grid>
       <ion-list>
@@ -35,13 +19,13 @@
           <ion-col>
             <ion-item no-lines color="background">
               <!-- <ion-label color="primary" floating>Range</ion-label> -->
-               <ion-input type="number" placeholder="{{ 'SETTINGS.KWH' | translate }}" formControlName="range"></ion-input>
+               <ion-input type="number" placeholder="KWh" formControlName="range"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item no-lines color="background">
               <!-- <ion-label color="primary" floating>{{ 'SETTINGS.COST' | translate}}</ion-label> -->
-              <ion-input type="number" placeholder="{{ 'SETTINGS.COSTKWH' | translate }}" formControlName="cost"></ion-input>
+              <ion-input type="number" placeholder="Cost" formControlName="cost"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
@@ -61,22 +45,22 @@
   </ion-col>
   </ion-list>
     <!-- <button ion-button clear item-end (click)="onClear()">Clear All</button> -->
-  <ion-list-header color="secondary" text-uppercase>
-    {{ 'SETTINGS.TAXFLATTITLE' | translate }}
-  </ion-list-header>
+  <ion-item-divider color="secondary">
+    TAX AND FLAT RATE
+  </ion-item-divider>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <ion-item-group>
       <ion-grid>
         <ion-row>
           <ion-item no-lines color="background" text-uppercase>
-            <ion-label color="secondary" fixed>{{ 'SETTINGS.TAX' | translate}}</ion-label>
+            <ion-label color="secondary" fixed>Tax Rate</ion-label>
             <ion-input type="number" formControlName="tax"></ion-input>
           </ion-item>
         </ion-row>
 
         <ion-row>
           <ion-item no-lines color="background" text-uppercase>
-            <ion-label color="secondary" fixed>{{ 'SETTINGS.FLATRATE' | translate}}</ion-label>
+            <ion-label color="secondary" fixed>Flat Rate</ion-label>
             <ion-input type="number" formControlName="flatRate"></ion-input>
           </ion-item>
         </ion-row>
@@ -84,7 +68,7 @@
       </ion-grid>
     </ion-item-group>
     <ion-item color="background">
-      <button default ion-button type="submit" item-end color="secondary" (click)='presentToast()'>{{ 'SETTINGS.SAVE' | translate }}</button>
+      <button default ion-button type="submit" item-end color="secondary" (click)='presentToast()'>Save Settings</button>
     </ion-item>
   </form>
 </ion-content>

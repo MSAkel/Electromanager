@@ -5,9 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
-import { TranslateService } from '@ngx-translate/core';
 
-import { AddCategoryPage } from "../add-device/add-category/add-category";
 import { Device } from "../../models/device";
 import { Month } from "../../models/month";
 import { Rate } from "../../models/rate";
@@ -15,7 +13,6 @@ import { Category } from "../../models/category";
 import { CataloguePage } from "../add-device/catalogue/catalogue";
 
 import { DeviceCategory } from "../../models/device-category";
-import { AddDevicePage } from "../add-device/add-device";
 import { CreatePage } from "../add-device/create/create";
 
 @Component({
@@ -38,35 +35,15 @@ export class DevicesListPage implements OnInit{
   edit = false;
   name: string;
 
-  language: string;
-  rtl: string;
-  arabic = false;
-  slide: string;
-
-  descending: boolean = false;
-  order: number;
-  column: string;
-
   constructor(private dlService: DeviceListService,
      private navCtrl: NavController,
      private modalCtrl: ModalController,
      public toastCtrl: ToastController,
-    // private alertCtrl: AlertController,
      public navParams: NavParams,
      public storage: Storage,
-     private settingsService: SettingsService,
-     private translateService: TranslateService) {
-  }
+     private settingsService: SettingsService) {}
 
   ngOnInit() {
-    this.settingsService.getLanguage()
-      .then(() =>{
-        if(this.translateService.currentLang === "ar"){
-          this.rtl = "rtl";
-          this.slide = 'left';
-          this.arabic = true;
-        }
-    });
     this.dlService.fetchDevices()
     .then(
       (devices: Device[]) => this.listDevices = devices
@@ -92,7 +69,6 @@ export class DevicesListPage implements OnInit{
   }
 
   ionViewWillEnter() {
-    //this.setLanguage();
     this.listDevices = this.dlService.getDevices();
     this.listCategories = this.dlService.getCategories();
     console.log(this.listDevices);
@@ -100,14 +76,6 @@ export class DevicesListPage implements OnInit{
     this.edit = false;
     this.name = null;
   }
-
-  sortBy(sort){
-    this.column = sort;
-    console.log();
-    this.descending = !this.descending;
-    this.order = this.descending ? 1 : -1;
-  }
-
 
   onAddAppliance(category: Category) {
     const modal = this.modalCtrl.create(CreatePage, {mode: 'New', category: category});
@@ -140,11 +108,6 @@ export class DevicesListPage implements OnInit{
   }
 
   onAddCategory() {
-    // const modal = this.modalCtrl.create(AddCategoryPage, {mode: 'Add'})
-    // modal.present();
-    // modal.onDidDismiss(() => {
-    //   this.listCategories = this.dlService.getCategories();
-    // });
     const value = this.categoryForm.value;
     this.dlService.addCategory(value.name.toUpperCase());
     this.categoryForm.reset();
@@ -203,22 +166,7 @@ export class DevicesListPage implements OnInit{
     const value = this.categoryEditForm.value;
 
       for(var index = 0; index < this.listDevices.length; index++) {
-        // console.log('old Value name: ' + this.category.name);
-        // console.log('New Value name: ' + value.name);
-        if (this.listDevices[index].category == this.category.name)
-        {
-          //console.log('Device Category: ' + this.listCategoryDevices[index].category +' Device Name: ' + this.listCategoryDevices[index].name);
-          //this.listCategoryDevices[index].category = value.name;
-          // this.dlService.updateDeviceCategory(index,
-          //   this.listCategoryDevices[index].name,
-          //   this.listCategoryDevices[index].quantity,
-          //   this.listCategoryDevices[index].power,
-          //   this.listCategoryDevices[index].hours,
-          //   this.listCategoryDevices[index].daysUsed,
-          //   this.listCategoryDevices[index].category.toUpperCase(),
-          //   this.listCategoryDevices[index].compressor
-          // )
-
+        if (this.listDevices[index].category == this.category.name) {
           this.dlService.updateDevice(index,
             this.listDevices[index].name,
             this.listDevices[index].quantity,
@@ -245,10 +193,6 @@ export class DevicesListPage implements OnInit{
 
   private initializeForm() {
     let name = null;
-
-    // if(this.mode == 'Edit') {
-    //   name = this.category.name;
-    // }
 
     this.categoryForm = new FormGroup({
       'name': new FormControl(name),

@@ -3,8 +3,6 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
-import { TranslateService } from '@ngx-translate/core';
-
 import {format, parse, getMinutes, getHours} from 'date-fns'
 
 import { Device } from "../../models/device";
@@ -24,7 +22,6 @@ export class ReportsPage implements OnInit{
   @ViewChild('barChartItems') barChartItems;
   @ViewChild('monthlyCostChart') monthlyCostChart;
   @ViewChild('barChartItemsCost') barChartItemsCost;
-  //@ViewChild('pieChartCategories') pieChartCategories;
   @ViewChild('applianceDetails') applianceDetails;
 
   listDevices: Device[];
@@ -37,7 +34,6 @@ export class ReportsPage implements OnInit{
   public barChartItemsEl: any;
   public monthlyCostEl: any;
   public itemsCostEl: any;
-  //public CategoriesEl: any;
   public applianceDetailsEl: any;
 
   listMonths: Month[];
@@ -56,10 +52,6 @@ export class ReportsPage implements OnInit{
 
   public items: any = [];
 
-  language: string;
-  rtl: string;
-  arabic = false;
-  slide: string;
   select = false;
 
   public hours: any = [];
@@ -77,12 +69,9 @@ export class ReportsPage implements OnInit{
   constructor(
     public navCtrl: NavController,
     private dlService: DeviceListService,
-    private settingsService: SettingsService,
-    private translateService: TranslateService
-  ) {}
+    private settingsService: SettingsService) {}
 
   ngOnInit() {
-    this.settingsService.getLanguage();
     this.dlService.fetchDevices()
       .then(
         (devices: Device[]) => this.listDevices = devices
@@ -98,7 +87,6 @@ export class ReportsPage implements OnInit{
     }
 
   ionViewWillEnter() {
-    this.setLanguage();
     this.settingsService.getSettings();
     this.listRates = this.settingsService.getRates();
     this.listDevices = this.dlService.getDevices();
@@ -110,8 +98,6 @@ export class ReportsPage implements OnInit{
     this.createChartMonthlyCost();
     this.createBarChartItemsCost();
     this.createChartApplianceDetails();
-
-    //this.createPieChartCategories();
   }
 
   calculate(){
@@ -195,18 +181,7 @@ export class ReportsPage implements OnInit{
       }
        this.listMonths = this.dlService.getMonths();
        //console.log(this.listMonths);
-
     }
-
-  setLanguage() {
-    this.language = this.translateService.currentLang;
-    if(this.language == 'ar')
-    {
-      this.rtl = 'rtl';
-      this.slide = 'left';
-      this.arabic = true;
-    }
-  }
 
   createBarChart() {
     if(this.barChartEl != null) {
@@ -457,40 +432,6 @@ export class ReportsPage implements OnInit{
      this.items = [];
    }
 
-  // createPieChartCategories() {
-  //   this.CategoriesEl 			= new Chart(this.pieChartCategories.nativeElement,
-  //    {
-  //       type: 'pie',
-  //       data: {
-  //           labels: ,
-  //           datasets: [{
-  //               label                 : 'Daily Technology usage',
-  //               data                  : ,
-  //               duration              : 2000,
-  //               easing                : 'easeInQuart',
-  //               backgroundColor       : ,
-  //               hoverBackgroundColor  :
-  //           }]
-  //       },
-  //       options : {
-  //          maintainAspectRatio: false,
-  //          layout: {
-  //             padding: {
-  //                left     : 50,
-  //                right    : 0,
-  //                top      : 0,
-  //                bottom   : 0
-  //             }
-  //          },
-  //          animation: {
-  //             duration : 5000
-  //          }
-  //       }
-  //    });
-  //    this.chartLoading = this.pieChartEl.generateLegend();
-  // }
-
-
 selectedAppliance(appliance: Device, index: number) {
   let selected: number;
   if(appliance != null){
@@ -509,14 +450,6 @@ selectedAppliance(appliance: Device, index: number) {
 
    this.terms = null;
    selected = ((this.wattsRange * this.hoursRange * this.daysRange)/1000);
-
-   //console.log(this.hoursRange);
-    // console.log(selected);
-     // for(let i = 1; i <= 24; i++) {
-     //   this.hours.push(i);
-     //   this.costPerHour.push(i * (appliance.power/1000) * this.listRates[0].rateCost);
-     //   this.kwPerHour.push(i *(appliance.power/1000));
-     // }
 
     this.costPerHour.push(((selected) * this.tariffRange).toFixed(1));
     this.kwPerHour.push((selected).toFixed(1));
@@ -540,25 +473,6 @@ onClearSelected() {
          data: {
             labels: ['Cost', 'KWh'],
             datasets: [
-            //   {
-            //    label                 : 'Hour',
-            //    data                  : [this.costPerHour / (30.4 * 24), this.kwPerHour / (30.4 * 24)],
-            //    duration              : 2000,
-            //    easing                : 'easeInQuart',
-            //    backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-            //    hoverBackgroundColor  : "#FF6384",
-            //    fill 				          : false
-            // },
-            // {
-            //    label                 : 'Day',
-            //    data                  : [this.costPerHour / 30.4, this.kwPerHour / 30.4],
-            //    duration              : 2000,
-            //    easing                : 'easeInQuart',
-            //    hidden                : true,
-            //    backgroundColor       : 'rgba(132, 255, 99, 0.2)',
-            //    hoverBackgroundColor  : "#84FF63",
-            //    fill 				          : false
-            // },
             {
                label                 : 'Month',
                data                  : [this.costPerHour, this.kwPerHour],

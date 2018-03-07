@@ -5,19 +5,17 @@
         <ion-icon name="arrow-back"></ion-icon>
 			</button>
 		</ion-buttons>
-    <!-- <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title> -->
     <div *ngIf="mode == 'New'">
-      <ion-title>{{ 'CREATE.ADDTITLE' | translate }}</ion-title>
+      <ion-title>ADD APPLIANCE</ion-title>
     </div>
     <div *ngIf="mode == 'Edit' || mode == 'Category Edit'">
-      <ion-title>{{ 'CREATE.EDITTITLE' | translate }}</ion-title>
+      <ion-title>EDIT APPLIANCE</ion-title>
     </div>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-
-  <ion-searchbar [(ngModel)]="terms" placeholder="{{ 'ADD.SEARCH' | translate }}"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="terms" placeholder="Search Appliance"></ion-searchbar>
   <ion-list [hidden]="!terms">
     <div *ngFor="let device of listCategoryDevices | search : terms; let i = index">
       <ion-item (click)="onAutoFill(device)" color="background">
@@ -31,13 +29,13 @@
         <ion-row>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.NAME' | translate }}</ion-label>
+              <ion-label floating>Appliance Name</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.QUANTITY' | translate }}</ion-label>
+              <ion-label floating>Quantity</ion-label>
               <ion-input type="number" formControlName="quantity" clearOnEdit></ion-input>
             </ion-item>
           </ion-col>
@@ -45,13 +43,13 @@
         <ion-row>
           <ion-col>
             <ion-item no-lines color="background">
-              <ion-label floating>{{ 'CREATE.POWER' | translate }}</ion-label>
+              <ion-label floating>KWh</ion-label>
               <ion-input type="number" formControlName="power"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item color="background" no-lines>
-              <ion-label>{{ 'CREATE.ANNUAL' | translate }}</ion-label>
+              <ion-label>Annual KWh</ion-label>
               <ion-checkbox (click)="annual()" formControlName="annualPower"></ion-checkbox>
             </ion-item>
           </ion-col>
@@ -60,33 +58,23 @@
         <ion-row>
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.HOURS' | translate }}</ion-label>
-                <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
+              <ion-label floating>Hours Per Day</ion-label>
+              <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
+              <ion-label floating>Days Used Per Month</ion-label>
               <ion-select formControlName="daysUsed" interface="popover">
                 <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>
         </ion-row>
-        <!-- <ion-row>
-          <ion-col>
-            <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
-              <ion-select formControlName="category">
-                <ion-option *ngFor="let category of listCategory" value="{{ category.name }}">{{ category.name }}</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-        </ion-row> -->
         <ion-row [hidden]="annualCheck">
           <ion-col>
             <ion-item color="background" no-lines>
-              <ion-label>{{ 'CREATE.COMPRESSOR' | translate }}</ion-label>
+              <ion-label>Enable Compressor Cycles</ion-label>
               <ion-checkbox (click)="checked()"></ion-checkbox>
             </ion-item>
           </ion-col>
@@ -94,23 +82,23 @@
         <ion-row [hidden]="!check">
           <ion-col>
             <ion-item color="background">
-              <ion-label floating>{{ 'CREATE.TYPE' | translate }}</ion-label>
+              <ion-label floating>Appliance Type</ion-label>
               <ion-select formControlName="compressor">
-                <ion-option value="0.65">{{ 'CREATE.AIRCON_1' | translate }}</ion-option>
-                <ion-option value="0.84">{{ 'CREATE.AIRCON_2' | translate }}</ion-option>
-                <ion-option value="1">{{ 'CREATE.AIRCON_3' | translate }}</ion-option>
-                <ion-option value="0.55">{{ 'CREATE.DISHWASHER' | translate }}</ion-option>
-                <ion-option value="0.87">{{ 'CREATE.DRYER' | translate }}</ion-option>
-                <ion-option value="0.18">{{ 'CREATE.FREEZER' | translate }}</ion-option>
-                <ion-option value="0.23">{{ 'CREATE.REF' | translate }}</ion-option>
-                <ion-option value="0.20">{{ 'CREATE.COOOLER' | translate }}</ion-option>
-                <ion-option value="0.28">{{ 'CREATE.WM' | translate }}</ion-option>
+                <ion-option value="0.65">Air Conditioner (Average Cycle)</ion-option>
+                <ion-option value="0.84">Air Conditioner (Long Cycle)</ion-option>
+                <ion-option value="1">Air Conditioner (Full Cycle)</ion-option>
+                <ion-option value="0.55">Dishwasher</ion-option>
+                <ion-option value="0.87">Electric Dryer</ion-option>
+                <ion-option value="0.18">Freezer (upright)</ion-option>
+                <ion-option value="0.23">Refrigerator}</ion-option>
+                <ion-option value="0.20">Water Cooler</ion-option>
+                <ion-option value="0.28">Washing Machine (Cold Water)</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-list>
-    <button ion-button color="secondary" type="submit" block [disabled]="!deviceForm.valid">{{ 'CREATE.CONFIRM' | translate }}</button>
+    <button ion-button color="secondary" type="submit" block [disabled]="!deviceForm.valid">Confirm</button>
   </form>
 </ion-content>

@@ -1,27 +1,24 @@
-<ion-header dir="{{rtl}}">
+<ion-header>
   <ion-navbar color="navbar">
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>{{ 'SUMMARY.TITLE' | translate }}</ion-title>
+    <ion-title>SUMMARY</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content dir="{{rtl}}">
-  <!-- <div text-center padding>
-    <h2>{{ 'SUMMARY.DETAILS' | translate }}</h2>
-  </div> -->
+<ion-content>
 <ion-card>
   <ion-grid padding>
     <ion-list-header no-lines>
-      <h2 text-center text-uppercase>{{ 'SUMMARY.CALCULATION' | translate }}</h2>
+      <h2 text-center text-uppercase>Total bill calculation</h2>
     </ion-list-header>
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p>{{ 'SUMMARY.CALC_0' | translate }}</p>
+          <p>Consumption Total</p>
         </ion-col>
-        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+        <ion-col>
             <p class="num">{{ displayPower | number : '1.2-2' }} KW</p>
         </ion-col>
       </ion-row>
@@ -29,9 +26,9 @@
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p>{{ 'SUMMARY.CALC_1' | translate }}</p>
+          <p>Consumption Cost</p>
         </ion-col>
-        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+        <ion-col>
             <p class="num">{{ consumptionTotal | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
@@ -39,9 +36,9 @@
     <ion-item >
       <ion-row class="col-top" >
         <ion-col>
-          <p>{{ 'SUMMARY.CALC_2' | translate }}</p>
+          <p>Capacity of breaker</p>
         </ion-col>
-        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+        <ion-col>
           <p class="num">{{ capacity }}</p>
         </ion-col>
       </ion-row>
@@ -49,9 +46,9 @@
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p>{{ 'SUMMARY.CALC_3' | translate }}</p>
+          <p>Tax</p>
         </ion-col>
-        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+        <ion-col>
           <p class="num">{{ vat | number : '1.2-2'}}</p>
         </ion-col>
       </ion-row>
@@ -59,9 +56,9 @@
     <ion-item>
       <ion-row class="col-top">
         <ion-col>
-          <p>{{ 'SUMMARY.CALC_4' | translate }}</p>
+          <p>Total</p>
         </ion-col>
-        <ion-col [attr.text-left]="arabic ? '' : null" [attr.text-right]="!arabic ? '' : null">
+        <ion-col>
           <p class="num">{{ totalBill | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>

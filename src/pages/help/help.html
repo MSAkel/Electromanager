@@ -1,54 +1,57 @@
-<ion-header dir="{{rtl}}">
+<ion-header>
   <ion-navbar color="navbar">
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>{{ 'HELP.TITLE' | translate }}</ion-title>
+    <ion-title>HELP</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content dir="{{rtl}}">
+<ion-content>
   <ion-list>
-    <ion-item-divider color="secondary">{{ 'HELP.TAXTITLE' | translate }}</ion-item-divider>
+    <ion-item-divider color="secondary">Tax Rate</ion-item-divider>
     <ion-item text-wrap no-lines color="background">
-      {{ 'HELP.TAX' | translate }}
+      ...
     </ion-item>
 
     <ion-item-divider color="secondary">
-      {{ 'HELP.FLATRATETITLE' | translate }}
+      Flat Rate
     </ion-item-divider>
     <ion-item text-wrap no-lines color="background">
-      {{ 'HELP.FLATRATE' | translate }}
+      A constant monthly amount based on the capacity of breakers.
+      Each month, the company charges this amount due to meter reading,
+      meter maintenance and bill preparation.
+      You can check your fee from the official website of your electrcity company or from your bill
     </ion-item>
 
     <ion-item-divider color="secondary">
-      {{ 'HELP.COSTTITLE' | translate }}
+      Cost Per Kilowatt hour (kWh)
     </ion-item-divider>
     <ion-item text-wrap no-lines color="background">
-      {{ 'HELP.COST' | translate }}
+      The amount at which you are charged per KWh consumed in your country.
     </ion-item>
 
     <ion-item-divider color="secondary">
-      {{ 'HELP.CONSUMPTIONTITLE' | translate }}
+      Total kWh Consumed
     </ion-item-divider>
     <ion-item text-wrap no-lines color="background">
-      {{ 'HELP.CONSUMPTION' | translate }}
+     ...
     </ion-item>
 
     <ion-item-divider color="secondary">
-      {{ 'HELP.THERMOSTATTITLE' | translate }}
+      Compressor Cycles
     </ion-item-divider>
     <ion-item text-wrap no-lines color="background">
-      {{ 'HELP.THERMOSTAT' | translate }}
+      Some appliances, such as a Refrigerator aren't always operating at their maximum wattage Consumption,
+      thus, they end up consuming a lower ammount of wattage than what is displayed on their sticker.
+      The compressor cycles option while adding an appliance can be enabled to take those calculations into account.
+      Compressor cycle durations can be effected by multiple factors, which can cause the displayed result to be slightly inaccurate.
     </ion-item>
 
     <ion-item-divider color="secondary">
-      {{ 'HELP.OLDAPPLIANCESTITLE' | translate }}
+      OLD APPLIANCES
     </ion-item-divider>
     <ion-item text-wrap no-lines color="background">
-      {{ 'HELP.OLDAPPLIANCES' | translate }}
     </ion-item>
-
   </ion-list>
-
 </ion-content>

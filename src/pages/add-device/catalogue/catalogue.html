@@ -1,6 +1,6 @@
-<ion-header dir="{{rtl}}">
+<ion-header>
   <ion-navbar color="navbar">
-    <ion-title>{{ 'CATALOGUE.TITLE' | translate }}</ion-title>
+    <ion-title>Catalogue</ion-title>
   </ion-navbar>
    <ion-segment [(ngModel)]="appliance" class="segment-wrap">
          <ion-segment-button value="airCons">
@@ -28,9 +28,7 @@
 </ion-header>
 
 
-<ion-content  dir="{{rtl}}">
-
-
+<ion-content>
  <div [ngSwitch]="appliance">
    <!-- AIR CONDITIONERS -->
    <ion-list *ngSwitchCase="'airCons'">
@@ -99,12 +97,6 @@
            <p><ion-icon name="flash" class="flash"></ion-icon> 1000 Watts (Top-of-the-Line)</p>
          </ion-col>
      </ion-item>
-     <!-- <ion-item color="background">
-       <h2>Food Processor (Top-of-the-Line)</h2>
-       <ion-col>
-         <p><ion-icon name="flash" class="flash"></ion-icon> 1000 Watts (average)</p>
-       </ion-col>
-     </ion-item> -->
 
      <ion-item color="background">
        <h2>Microwave</h2>

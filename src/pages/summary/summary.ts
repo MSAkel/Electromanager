@@ -1,14 +1,12 @@
 import { Component, OnInit} from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
-import { TranslateService } from '@ngx-translate/core';
 
 import { Device } from "../../models/device";
 import { Rate } from "../../models/rate";
-
-import {parse, getMinutes, getHours, getDate } from 'date-fns';
+import { parse, getMinutes, getHours } from 'date-fns';
 
 @IonicPage()
 @Component({
@@ -31,20 +29,13 @@ export class SummaryPage implements OnInit{
   check = 0;
   displayPower: number;
 
-  language: string;
-  rtl: string;
-  arabic = false;
-
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private modalCtrl: ModalController,
      private dlService: DeviceListService,
-     private settingsService: SettingsService,
-     private translateService: TranslateService
-     ) {}
+     private settingsService: SettingsService) {}
 
   ngOnInit() {
-    this.settingsService.getLanguage();
     this.dlService.fetchDevices()
       .then(
         (devices: Device[]) => this.listDevices = devices
@@ -56,7 +47,6 @@ export class SummaryPage implements OnInit{
     }
 
   ionViewWillEnter() {
-    this.setLanguage();
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
     this.listRates = this.settingsService.getRates();
@@ -67,15 +57,6 @@ export class SummaryPage implements OnInit{
     this.vatFunction();
     this.totalBillFunction();
   }
-
-  setLanguage() {
-       this.language = this.translateService.currentLang;
-       if(this.language == 'ar')
-       {
-         this.rtl = 'rtl';
-         this.arabic = true;
-       }
-     }
 
   calculate(){
     this.totalPower = 0;

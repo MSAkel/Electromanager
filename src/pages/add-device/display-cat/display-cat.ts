@@ -3,10 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController, 
 
 import { DeviceListService } from "../../../services/devices-list";
 import { SettingsService } from "../../../services/settings";
-import { TranslateService } from '@ngx-translate/core';
 
 import { CreatePage } from "../create/create";
-import { CatDevice } from "../../../data/device-cat.interface";
 import { DeviceCategory } from "../../../models/device-category";
 import { Category } from "../../../models/category";
 
@@ -16,18 +14,9 @@ import { Category } from "../../../models/category";
   templateUrl: 'display-cat.html',
 })
 export class DisplayCatPage implements OnInit{
-  //deviceGroup: {category: string, devices: CatDevice[], icon: string};
   listDevicesCategory: DeviceCategory[];
-  //listCategories: Category[];
   categoryDevice: DeviceCategory;
-  //category: Category;
   index: number;
-
-  //mode:string;
-
-  language: string;
-  rtl: string;
-  arabic = false;
 
   constructor(
     private dlService: DeviceListService,
@@ -35,17 +24,9 @@ export class DisplayCatPage implements OnInit{
     public navParams: NavParams,
     public toastCtrl: ToastController,
     private modalCtrl: ModalController,
-    private settingsService: SettingsService,
-    private translateService: TranslateService
-  ) {}
+    private settingsService: SettingsService) {}
 
   ngOnInit() {
-    this.settingsService.getLanguage();
-    // this.dlService.fetchCategories()
-    //   .then(
-    //     (categories: Category[]) => this.listCategories = categories
-    //   );
-
     this.dlService.fetchDevicesCategory()
     .then(
       (devices: DeviceCategory[]) => this.listDevicesCategory = devices
@@ -53,19 +34,8 @@ export class DisplayCatPage implements OnInit{
   }
 
   ionViewWillEnter() {
-    this.setLanguage();
     this.listDevicesCategory = this.dlService.getDevicesCategory();
     console.log(this.listDevicesCategory);
-  }
-
-  setLanguage() {
-    this.language = this.translateService.currentLang;
-    if(this.language == 'ar')
-    {
-      this.rtl = 'rtl';
-      this.arabic = true;
-    }
-    return this.rtl;
   }
 
   onDelete(index: number) {
