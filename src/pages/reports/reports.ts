@@ -228,7 +228,10 @@ export class ReportsPage implements OnInit{
               datalabels: {
                     align: 'end',
                     color:'#000',
+                    display: function(context) {
+                      return context.dataset.data[context.dataIndex] >= 0.1;
                     }
+              }
            }
          ]
         },
@@ -281,7 +284,10 @@ export class ReportsPage implements OnInit{
               datalabels: {
                     align: 'end',
                     color:'#000',
+                    display: function(context) {
+                      return context.dataset.data[context.dataIndex] >= 0.1;
                     }
+                  }
            }
          ]
         },
@@ -329,6 +335,9 @@ export class ReportsPage implements OnInit{
                datalabels: {
                      align: 'end',
                      color:'#000',
+                     display: function(context) {
+                       return context.dataset.data[context.dataIndex] >= 0.1;
+                     }
                      }
              },{
                label                 : 'Yearly KWh',
@@ -341,6 +350,9 @@ export class ReportsPage implements OnInit{
                datalabels: {
                      align: 'end',
                      color:'#000',
+                     display: function(context) {
+                       return context.dataset.data[context.dataIndex] >= 0.1;
+                     }
                      }
              }
          ]
@@ -391,7 +403,10 @@ export class ReportsPage implements OnInit{
                hoverBackgroundColor  : "#FF6384",
                datalabels: {
                      color:'#000',
-                     align: 'end'
+                     align: 'end',
+                     display: function(context) {
+                       return context.dataset.data[context.dataIndex] >= 0.1;
+                     }
                      }
              },{
                label                 : 'Yearly',
@@ -403,7 +418,10 @@ export class ReportsPage implements OnInit{
                hoverBackgroundColor  : "#6384FF",
                datalabels: {
                      color:'#000',
-                     align: 'end'
+                     align: 'end',
+                     display: function(context) {
+                       return context.dataset.data[context.dataIndex] >= 0.1;
+                     }
                      }
              }
          ]
@@ -550,7 +568,10 @@ onClearSelected() {
                hoverBackgroundColor  : "#FF6384",
                datalabels: {
                      color:'#000',
-                     align: 'end'
+                     align: 'end',
+                     display: function(context) {
+                       return context.dataset.data[context.dataIndex] >= 0.1;
+                     }
                      }
             },
             {
@@ -562,7 +583,10 @@ onClearSelected() {
                hoverBackgroundColor  : "#6384FF",
                datalabels: {
                      color:'#000',
-                     align: 'end'
+                     align: 'end',
+                     display: function(context) {
+                       return context.dataset.data[context.dataIndex] >= 0.1;
+                     }
                      }
             },
           ]
