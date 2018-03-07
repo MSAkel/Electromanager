@@ -8,6 +8,7 @@ import { NavController, MenuController } from 'ionic-angular';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { HelpPage } from '../pages/help/help';
+import { DisplayCatPage } from '../pages/add-device/display-cat/display-cat';
 import { SettingsService } from "../services/settings";
 
 @Component({
@@ -18,6 +19,7 @@ export class MyApp {
   tabsPage = TabsPage;
   settingsPage = SettingsPage;
   helpPage = HelpPage;
+  displayCatPage = DisplayCatPage;
   @ViewChild('nav') nav: NavController;
 
   constructor(private settingsService: SettingsService,translate: TranslateService, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {

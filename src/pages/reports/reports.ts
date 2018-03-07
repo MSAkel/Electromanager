@@ -11,6 +11,7 @@ import { Device } from "../../models/device";
 import { Rate } from "../../models/rate";
 import { Month } from "../../models/month";
 import { Chart } from 'chart.js';
+import 'chartjs-plugin-datalabels';
 
 @IonicPage()
 @Component({
@@ -65,10 +66,13 @@ export class ReportsPage implements OnInit{
   public costPerHour: any = [];
   public kwPerHour: any = [];
 
-  public hoursRange = 0;
-  public wattsRange = 0;
-  public daysRange = 0;
-  public tariffRange: number;
+  public hoursRange = 1;
+  public wattsRange = null;
+  public daysRange = 1;
+  public tariffRange= null;
+  public selectedItem = "Custom Input";
+
+  terms = null;
 
   constructor(
     public navCtrl: NavController,
@@ -106,6 +110,7 @@ export class ReportsPage implements OnInit{
     this.createChartMonthlyCost();
     this.createBarChartItemsCost();
     this.createChartApplianceDetails();
+
     //this.createPieChartCategories();
   }
 
@@ -139,13 +144,13 @@ export class ReportsPage implements OnInit{
       totalPower = totalPower + deviceTotalPower;
 
       //console.log('total ',total);
-      this.dailyPowerItem.push(daily/1000);
-      this.monthlyPowerItem.push(deviceTotalPower/1000);
-      this.yearlyPowerItem.push(yearly);
+      this.dailyPowerItem.push((daily/1000).toFixed(1));
+      this.monthlyPowerItem.push((deviceTotalPower/1000).toFixed(1));
+      this.yearlyPowerItem.push(yearly.toFixed(1));
 
-      this.dailyItemCost.push(dailyCost);
-      this.monthlyItemCost.push(monthlyCost);
-      this.yearlyItemCost.push(yearlyCost);
+      this.dailyItemCost.push(dailyCost.toFixed(1));
+      this.monthlyItemCost.push(monthlyCost.toFixed(1));
+      this.yearlyItemCost.push(yearlyCost.toFixed(1));
       //this.monthlyCost.push(totalCost);
       this.items.push(this.listDevices[index].name.slice(0,8));
     }
@@ -168,27 +173,29 @@ export class ReportsPage implements OnInit{
 
     for(count in this.monthName) {
       while(this.listMonths.length < 12) {
-        this.dlService.addMonth(this.monthName, 0, 0);
-        //console.log('length',this.listMonths.length);
+        this.dlService.addMonth(this.monthName[count], 0, 0);
+        console.log('length',this.listMonths.length);
         this.listMonths = this.dlService.getMonths();
       }
           if(this.monthName[count] == thisMonth) {
               this.dlService.updateMonth(count, this.listMonths[count].monthName, totalPower, totalCost);
               this.listMonths = this.dlService.getMonths();
-              this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(2));
-              this.monthlyCost.push(this.listMonths[count].monthlyCost);
+              this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(1));
+              this.monthlyCost.push(this.listMonths[count].monthlyCost.toFixed(1));
               //console.log('cost' ,this.listMonths[count].monthlyCost);
+
             } else {
                 this.dlService.updateMonth(count, this.listMonths[count].monthName, this.listMonths[count].monthlyPower, this.listMonths[count].monthlyCost);
                 this.listMonths = this.dlService.getMonths();
                 //this.monthName.push[this.listMonths[count].monthName];
-                this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(2));
-                this.monthlyCost.push(this.listMonths[count].monthlyCost);
+                this.monthlyPower.push((this.listMonths[count].monthlyPower/1000).toFixed(1));
+                this.monthlyCost.push(this.listMonths[count].monthlyCost.toFixed(1));
               }
+        //console.log(this.monthName[count], ": ", this.listMonths[count].monthlyPower);
       }
        this.listMonths = this.dlService.getMonths();
-       console.log(this.listMonths);
-       //console.log(this.monthlyPower);
+       //console.log(this.listMonths);
+
     }
 
   setLanguage() {
@@ -202,6 +209,8 @@ export class ReportsPage implements OnInit{
   }
 
   createBarChart() {
+    if(this.barChartEl != null) {
+    this.barChartEl.destroy();}
      this.barChartEl = new Chart(this.barChart.nativeElement, {
         type: 'line',
         data: {
@@ -214,17 +223,23 @@ export class ReportsPage implements OnInit{
               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
               hoverBackgroundColor  : "#FF6384",
               fill 				          : false,
-              lineTension           : 0
+              lineTension           : 0,
+              radius: 5,
+              datalabels: {
+                    align: 'end',
+                    color:'#000',
+                    }
            }
          ]
         },
         options : {
-
+          anchor: 'end',
            legend         : {
               display     : true,
-              boxWidth    : 80,
-              fontSize    : 15,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -247,6 +262,8 @@ export class ReportsPage implements OnInit{
   }
 
   createChartMonthlyCost() {
+    if(this.monthlyCostEl != null) {
+    this.monthlyCostEl.destroy();}
      this.monthlyCostEl = new Chart(this.monthlyCostChart.nativeElement, {
         type: 'line',
         data: {
@@ -259,16 +276,22 @@ export class ReportsPage implements OnInit{
               backgroundColor       : 'rgba(99, 132, 255, 0.2)',
               hoverBackgroundColor  : "#6384FF",
               fill 				          : false,
-              lineTension           : 0
+              lineTension           : 0,
+              radius: 5,
+              datalabels: {
+                    align: 'end',
+                    color:'#000',
+                    }
            }
          ]
         },
         options : {
            legend         : {
               display     : true,
-              boxWidth    : 80,
-              fontSize    : 15,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -290,6 +313,8 @@ export class ReportsPage implements OnInit{
   }
 
   createBarChartItems() {
+    if(this.barChartItemsEl != null) {
+    this.barChartItemsEl.destroy();}
      this.barChartItemsEl = new Chart(this.barChartItems.nativeElement, {
         type: 'bar',
         data: {
@@ -300,23 +325,33 @@ export class ReportsPage implements OnInit{
                duration              : 2000,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-               hoverBackgroundColor  : "#FF6384"
+               hoverBackgroundColor  : "#FF6384",
+               datalabels: {
+                     align: 'end',
+                     color:'#000',
+                     }
              },{
                label                 : 'Yearly KWh',
                data                  : this.yearlyPowerItem,
                duration              : 2000,
+               hidden                : true,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
-               hoverBackgroundColor  : "#6384FF"
+               hoverBackgroundColor  : "#6384FF",
+               datalabels: {
+                     align: 'end',
+                     color:'#000',
+                     }
              }
          ]
         },
         options : {
            legend         : {
               display     : true,
-              boxWidth    : 50,
-              fontSize    : 12,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -341,6 +376,8 @@ export class ReportsPage implements OnInit{
   }
 
   createBarChartItemsCost() {
+    if(this.itemsCostEl != null) {
+    this.itemsCostEl.destroy();}
      this.itemsCostEl = new Chart(this.barChartItemsCost.nativeElement, {
         type: 'bar',
         data: {
@@ -351,23 +388,33 @@ export class ReportsPage implements OnInit{
                duration              : 2000,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-               hoverBackgroundColor  : "#FF6384"
+               hoverBackgroundColor  : "#FF6384",
+               datalabels: {
+                     color:'#000',
+                     align: 'end'
+                     }
              },{
                label                 : 'Yearly',
                data                  : this.yearlyItemCost,
                duration              : 2000,
+               hidden                : true,
                easing                : 'easeInQuart',
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
-               hoverBackgroundColor  : "#6384FF"
+               hoverBackgroundColor  : "#6384FF",
+               datalabels: {
+                     color:'#000',
+                     align: 'end'
+                     }
              }
          ]
         },
         options : {
            legend         : {
               display     : true,
-              boxWidth    : 50,
-              fontSize    : 12,
-              padding     : 0
+              labels: {
+                boxWidth    : 30,
+                fontSize    : 14,
+              }
            },
            scales: {
               yAxes: [{
@@ -391,7 +438,6 @@ export class ReportsPage implements OnInit{
      this.yearlyItemCost = [];
      this.items = [];
    }
-
 
   // createPieChartCategories() {
   //   this.CategoriesEl 			= new Chart(this.pieChartCategories.nativeElement,
@@ -426,11 +472,9 @@ export class ReportsPage implements OnInit{
   //    this.chartLoading = this.pieChartEl.generateLegend();
   // }
 
+
 selectedAppliance(appliance: Device, index: number) {
   let selected: number;
-  // console.log(appliance.power);
-  // console.log(appliance.hours);
-  // console.log(appliance.daysUsed);
   if(appliance != null){
   let getTime = parse('0000-00-00T' + appliance.hours + '00');
   let mins = getMinutes(new Date(getTime));
@@ -438,15 +482,17 @@ selectedAppliance(appliance: Device, index: number) {
   mins = +(mins/60).toFixed(0);
   var time = mins + hours;
 
+  this.selectedItem = appliance.name;
   this.hoursRange = time;
   this.wattsRange = appliance.power;
   this.daysRange = appliance.daysUsed;
   this.tariffRange = this.listRates[0].rateCost;
 }
 
+   this.terms = null;
    selected = ((this.wattsRange * this.hoursRange * this.daysRange)/1000);
 
-   console.log(this.hoursRange);
+   //console.log(this.hoursRange);
     // console.log(selected);
      // for(let i = 1; i <= 24; i++) {
      //   this.hours.push(i);
@@ -454,9 +500,18 @@ selectedAppliance(appliance: Device, index: number) {
      //   this.kwPerHour.push(i *(appliance.power/1000));
      // }
 
-    this.costPerHour.push((selected) * this.tariffRange);
-    this.kwPerHour.push((selected).toFixed(2));
+    this.costPerHour.push(((selected) * this.tariffRange).toFixed(1));
+    this.kwPerHour.push((selected).toFixed(1));
   this.createChartApplianceDetails();
+}
+
+onClearSelected() {
+  this.selectedItem = "Custom Input"
+  this.hoursRange = 1;
+  this.wattsRange = null;
+  this.daysRange = 1;
+  this.tariffRange = null;
+
 }
 
    createChartApplianceDetails() {
@@ -466,39 +521,59 @@ selectedAppliance(appliance: Device, index: number) {
          type: 'bar',
          data: {
             labels: ['Cost', 'KWh'],
-            datasets: [{
-               label                 : 'Hour',
-               data                  : [this.costPerHour / (30.4 * 24), this.kwPerHour / (30.4 * 24)],
-               duration              : 2000,
-               easing                : 'easeInQuart',
-               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
-               hoverBackgroundColor  : "#FF6384",
-               fill 				          : false
-            }, {
-               label                 : 'Day',
-               data                  : [this.costPerHour / 30.4, this.kwPerHour / 30.4],
-               duration              : 2000,
-               easing                : 'easeInQuart',
-               backgroundColor       : 'rgba(132, 255, 99, 0.2)',
-               hoverBackgroundColor  : "#84FF63",
-               fill 				          : false
-            }, {
+            datasets: [
+            //   {
+            //    label                 : 'Hour',
+            //    data                  : [this.costPerHour / (30.4 * 24), this.kwPerHour / (30.4 * 24)],
+            //    duration              : 2000,
+            //    easing                : 'easeInQuart',
+            //    backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+            //    hoverBackgroundColor  : "#FF6384",
+            //    fill 				          : false
+            // },
+            // {
+            //    label                 : 'Day',
+            //    data                  : [this.costPerHour / 30.4, this.kwPerHour / 30.4],
+            //    duration              : 2000,
+            //    easing                : 'easeInQuart',
+            //    hidden                : true,
+            //    backgroundColor       : 'rgba(132, 255, 99, 0.2)',
+            //    hoverBackgroundColor  : "#84FF63",
+            //    fill 				          : false
+            // },
+            {
                label                 : 'Month',
                data                  : [this.costPerHour, this.kwPerHour],
                duration              : 2000,
                easing                : 'easeInQuart',
+               backgroundColor       : 'rgba(255, 99, 132, 0.2)',
+               hoverBackgroundColor  : "#FF6384",
+               datalabels: {
+                     color:'#000',
+                     align: 'end'
+                     }
+            },
+            {
+               label                 : 'Year',
+               data                  : [((this.costPerHour * 12).toFixed(1)), ((this.kwPerHour * 12).toFixed(1))],
+               duration              : 2000,
+               easing                : 'easeInQuart',
                backgroundColor       : 'rgba(99, 132, 255, 0.2)',
                hoverBackgroundColor  : "#6384FF",
-               fill 				          : false
+               datalabels: {
+                     color:'#000',
+                     align: 'end'
+                     }
             },
           ]
          },
          options : {
             legend         : {
                display     : true,
-               boxWidth    : 80,
-               fontSize    : 15,
-               padding     : 0
+               labels: {
+                 boxWidth    : 30,
+                 fontSize    : 14,
+               }
             },
             scales: {
                yAxes: [{

@@ -1,28 +1,38 @@
 <ion-header dir="{{rtl}}">
   <ion-navbar color="navbar">
-    <div *ngIf="mode != 'Custom'">
-        <ion-title>{{ deviceGroup.category  | uppercase }}</ion-title>
-    </div>
-    <div *ngIf="mode == 'Custom'">
-        <ion-title>{{ category.name  | uppercase }}</ion-title>
-    </div>
+    <ion-buttons end>
+      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    </ion-buttons>
+      <ion-title>Manage Saved Appliances</ion-title>
   </ion-navbar>
 </ion-header>
 
-
-<ion-content padding dir="{{rtl}}">
-  <ion-list>
-    <div *ngFor="let device of listDevicesCategory; let i = index">
-    <ion-item-sliding *ngIf="device.category == deviceGroup.category || device.category == category.name">
-      <ion-item (click)="onAddDevice(device)" color="background">
-        <p>{{ device.name }} ({{ device.quantity}})</p>
-        <p class="power"><ion-icon name="flash" class="flash"></ion-icon> {{ device.power }} {{ 'DEVICELIST.WATTS' | translate }}</p>
-      </ion-item>
-      <ion-item-options side="{{slide}}">
-        <button ion-button color="primary" (click)="onEdit(device, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button>
-        <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
-      </ion-item-options>
-    </ion-item-sliding>
-    </div>
-  </ion-list>
+<ion-content dir="{{rtl}}">
+    <ion-list>
+      <div *ngFor="let device of listDevicesCategory; let i = index">
+      <ion-item-sliding>
+        <ion-item (click)="onEdit(device, i)" color="background">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4 text-justified>
+                <p>{{ device.name}} ({{ device.quantity }})</p>
+              </ion-col>
+              <ion-col text-left>
+                <p ><ion-icon name="flash"></ion-icon> {{ device.power }}</p>
+              </ion-col>
+              <ion-col text-left>
+                <p><ion-icon name="time"></ion-icon> {{ device.hours }}</p>
+              </ion-col>
+              <ion-col>
+                <p><ion-icon name="calendar"></ion-icon> {{ device.daysUsed }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
+          <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+        </ion-item-options>
+      </ion-item-sliding>
+      </div>
+    </ion-list>
 </ion-content>

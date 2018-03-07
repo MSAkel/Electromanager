@@ -4,20 +4,29 @@ page-devices-list {
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
     //border: 0.5px solid green;
     //background-color: color($colors, secondary);
+  }
 
+  #edit {
+    color: color($colors, light);
+    background-color: color($colors, secondary);
+  }
+
+  ion-item {
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  ion-label {
+    margin: 0 !important;
   }
 
   .no-padding {
     padding: 0px !important;
-    	text-align: center;
-  }
-
-  .item {
-    margin-top: 1.5%;
   }
 
   .list-top {
     color: white;
     background-color: color($colors, secondary);
   }
+
 }

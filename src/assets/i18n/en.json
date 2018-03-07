@@ -91,7 +91,8 @@
     "BUTTON": "CONFIRM"
   },
   "CREATE": {
-    "TITLE": "Appliance",
+    "ADDTITLE": "ADD APPLIANCE",
+    "EDITTITLE": "EDIT APPLIANCE",
     "CLOSE": "Back",
     "NAME": "Name",
     "QUANTITY": "Quantity",

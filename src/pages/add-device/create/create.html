@@ -5,11 +5,26 @@
         <ion-icon name="arrow-back"></ion-icon>
 			</button>
 		</ion-buttons>
-    <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title>
+    <!-- <ion-title>{{ mode }} {{ 'CREATE.TITLE' | translate }}</ion-title> -->
+    <div *ngIf="mode == 'New'">
+      <ion-title>{{ 'CREATE.ADDTITLE' | translate }}</ion-title>
+    </div>
+    <div *ngIf="mode == 'Edit' || mode == 'Category Edit'">
+      <ion-title>{{ 'CREATE.EDITTITLE' | translate }}</ion-title>
+    </div>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-searchbar [(ngModel)]="terms" placeholder="{{ 'ADD.SEARCH' | translate }}"></ion-searchbar>
+  <ion-list [hidden]="!terms">
+    <div *ngFor="let device of listCategoryDevices | search : terms; let i = index">
+      <ion-item (click)="onAutoFill(device)" color="background">
+        <p>{{ device.name }}</p>
+      </ion-item>
+    </div>
+  </ion-list>
   <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
     <ion-list>
       <ion-grid>
@@ -49,7 +64,7 @@
                 <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
-          <ion-col [hidden]="annualCheck">
+          <ion-col>
             <ion-item color="background">
               <ion-label floating>{{ 'CREATE.DAYS' | translate }}</ion-label>
               <ion-select formControlName="daysUsed" interface="popover">
@@ -58,7 +73,7 @@
             </ion-item>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <!-- <ion-row>
           <ion-col>
             <ion-item color="background">
               <ion-label floating>{{ 'CREATE.CATEGORY' | translate }}</ion-label>
@@ -67,7 +82,7 @@
               </ion-select>
             </ion-item>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
         <ion-row [hidden]="annualCheck">
           <ion-col>
             <ion-item color="background" no-lines>

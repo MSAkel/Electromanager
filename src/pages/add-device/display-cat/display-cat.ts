@@ -16,13 +16,14 @@ import { Category } from "../../../models/category";
   templateUrl: 'display-cat.html',
 })
 export class DisplayCatPage implements OnInit{
-  deviceGroup: {category: string, devices: CatDevice[], icon: string};
+  //deviceGroup: {category: string, devices: CatDevice[], icon: string};
   listDevicesCategory: DeviceCategory[];
-  //categoryDevice: DeviceCategory;
-  category: Category;
+  //listCategories: Category[];
+  categoryDevice: DeviceCategory;
+  //category: Category;
   index: number;
 
-  mode:string;
+  //mode:string;
 
   language: string;
   rtl: string;
@@ -40,10 +41,10 @@ export class DisplayCatPage implements OnInit{
 
   ngOnInit() {
     this.settingsService.getLanguage();
-    this.mode = this.navParams.get('mode');
-
-    this.category = this.navParams.get('category');
-    this.deviceGroup = this.navParams.data;
+    // this.dlService.fetchCategories()
+    //   .then(
+    //     (categories: Category[]) => this.listCategories = categories
+    //   );
 
     this.dlService.fetchDevicesCategory()
     .then(
@@ -54,6 +55,7 @@ export class DisplayCatPage implements OnInit{
   ionViewWillEnter() {
     this.setLanguage();
     this.listDevicesCategory = this.dlService.getDevicesCategory();
+    console.log(this.listDevicesCategory);
   }
 
   setLanguage() {
@@ -72,7 +74,7 @@ export class DisplayCatPage implements OnInit{
 
     const toast = this.toastCtrl.create({
       message: 'Item Delete',
-      duration: 1500,
+      duration: 1000,
       position: 'bottom'
     });
     toast.present();
@@ -84,28 +86,5 @@ export class DisplayCatPage implements OnInit{
     modal.onDidDismiss(() => {
       this.listDevicesCategory = this.dlService.getDevicesCategory();
     });
-  }
-
-  onAddDevice(deviceCategory: DeviceCategory, index: number) {
-    // const modal = this.modalCtrl.create(CreatePage, {mode: 'Add', deviceCategory: deviceCategory, index: index});
-    // modal.present();
-    //this.categoryDevice = deviceCategory;
-    this.dlService.addDevice(
-      deviceCategory.name.toUpperCase(),
-      deviceCategory.quantity,
-      deviceCategory.power,
-      deviceCategory.hours,
-      deviceCategory.daysUsed,
-      deviceCategory.category,
-      deviceCategory.compressor);
-
-    const toast = this.toastCtrl.create({
-      message: 'Item Added Successfully',
-      duration: 1250,
-      position: 'bottom'
-    });
-    toast.present();
-    //console.log(deviceCategory.name);
-    //console.log(this.categoryDevice.name);
   }
 }
