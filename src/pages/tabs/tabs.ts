@@ -31,12 +31,20 @@ export class TabsPage {
   ) {}
 
   ngOnInit() {
-    this.settingsService.getLanguage();
+    this.settingsService.getLanguage()
+      .then(() =>{
+        if(this.translateService.currentLang === "ar"){
+          this.rtl = "rtl";
+          this.arabic = true;
+        } else {
+          this.arabic = false;
+        }
+    });
   }
 
-  ionViewWillEnter() {
-    this.setLanguage();
-  }
+  // ionViewWillEnter() {
+  //   this.setLanguage();
+  // }
 
   ionViewDidLoad() {
     this.storage.get('intro-done').then(done => {
@@ -47,14 +55,14 @@ export class TabsPage {
     });
   }
 
-  setLanguage() {
-    this.language = this.translateService.currentLang;
-    if(this.language == 'ar')
-    {
-      this.rtl = 'rtl';
-      this.arabic = true;
-    }
-    return this.rtl;
-  }
+  // setLanguage() {
+  //   this.language = this.translateService.currentLang;
+  //   if(this.language == 'ar')
+  //   {
+  //     this.rtl = 'rtl';
+  //     this.arabic = true;
+  //   }
+  //   return this.rtl;
+  // }
 
 }

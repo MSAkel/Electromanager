@@ -7,8 +7,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'catalogue.html',
 })
 export class CataloguePage {
+  appliance: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.appliance = 'airCons';
   }
 
   ionViewDidLoad() {

@@ -55,9 +55,9 @@
 
   <ion-list padding>
     <ion-col *ngFor="let rate of listRates; let i = index; let first = first; let last = last">
-      <span *ngIf="first">1 -  {{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
-      <span *ngIf="!first && !last">{{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
-      <span *ngIf="last && !first">{{rate.rateRange}}({{rate.rateCost}})</span>
+        <span *ngIf="first">1 -  {{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
+        <span *ngIf="!first && !last">{{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
+        <span *ngIf="last && !first">{{rate.rateRange}}({{rate.rateCost}})</span>
   </ion-col>
   </ion-list>
     <!-- <button ion-button clear item-end (click)="onClear()">Clear All</button> -->
