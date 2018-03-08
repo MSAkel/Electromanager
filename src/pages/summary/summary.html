@@ -18,7 +18,7 @@
         <ion-col>
           <p>Consumption Total</p>
         </ion-col>
-        <ion-col>
+        <ion-col text-right>
             <p class="num">{{ displayPower | number : '1.2-2' }} KW</p>
         </ion-col>
       </ion-row>
@@ -28,7 +28,7 @@
         <ion-col>
           <p>Consumption Cost</p>
         </ion-col>
-        <ion-col>
+        <ion-col text-right>
             <p class="num">{{ consumptionTotal | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>
@@ -38,7 +38,7 @@
         <ion-col>
           <p>Capacity of breaker</p>
         </ion-col>
-        <ion-col>
+        <ion-col text-right>
           <p class="num">{{ capacity }}</p>
         </ion-col>
       </ion-row>
@@ -48,7 +48,7 @@
         <ion-col>
           <p>Tax</p>
         </ion-col>
-        <ion-col>
+        <ion-col text-right>
           <p class="num">{{ vat | number : '1.2-2'}}</p>
         </ion-col>
       </ion-row>
@@ -58,7 +58,7 @@
         <ion-col>
           <p>Total</p>
         </ion-col>
-        <ion-col>
+        <ion-col text-right>
           <p class="num">{{ totalBill | number : '1.2-2' }}</p>
         </ion-col>
       </ion-row>

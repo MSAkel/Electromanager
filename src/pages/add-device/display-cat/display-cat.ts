@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 
 import { DeviceListService } from "../../../services/devices-list";
-import { SettingsService } from "../../../services/settings";
 
 import { CreatePage } from "../create/create";
 import { DeviceCategory } from "../../../models/device-category";
-import { Category } from "../../../models/category";
 
 @IonicPage()
 @Component({
@@ -23,8 +21,7 @@ export class DisplayCatPage implements OnInit{
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
-    private modalCtrl: ModalController,
-    private settingsService: SettingsService) {}
+    private modalCtrl: ModalController) {}
 
   ngOnInit() {
     this.dlService.fetchDevicesCategory()

@@ -199,10 +199,6 @@ export class DevicesListPage implements OnInit{
     });
   }
 
-  onAddDevice() {
-    this.navCtrl.push(AddDevicePage);
-   }
-
    onViewCatalogue() {
      this.navCtrl.push(CataloguePage);
    }

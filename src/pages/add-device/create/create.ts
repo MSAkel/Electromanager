@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { IonicPage, NavParams, ViewController, ToastController } from "ionic-angular";
 
-import { SettingsService } from "../../../services/settings";
-
 import { DeviceListService } from "../../../services/devices-list";
 import { Device } from "../../../models/device";
 import { DeviceCategory } from "../../../models/device-category";
@@ -35,8 +33,7 @@ export class CreatePage implements OnInit {
     private viewCtrl: ViewController,
     private navParams: NavParams,
     private dlService: DeviceListService,
-    public toastCtrl: ToastController,
-    private settingsService: SettingsService,) {}
+    public toastCtrl: ToastController) {}
 
   ngOnInit() {
     this.dlService.fetchDevicesCategory()
@@ -65,7 +62,6 @@ export class CreatePage implements OnInit {
   }
 
   onAutoFill(deviceCategory: DeviceCategory, index: number) {
-    const value = this.deviceForm.value;
     this.terms = null;
 
     let name = deviceCategory.name;

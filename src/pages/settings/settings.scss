@@ -2,4 +2,11 @@ page-settings {
   .range {
     margin-bottom: 5%;
   }
+
+  #tariff-border {
+    border-bottom: 2px solid #32bd64;
+  }
+  .num{
+    color: color($colors, secondary);
+  }
 }

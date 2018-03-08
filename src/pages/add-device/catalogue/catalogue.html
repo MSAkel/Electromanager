@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="navbar">
-    <ion-title>Catalogue</ion-title>
+    <ion-title>CATALOGUE</ion-title>
   </ion-navbar>
    <ion-segment [(ngModel)]="appliance" class="segment-wrap">
          <ion-segment-button value="airCons">
@@ -34,23 +34,17 @@
    <ion-list *ngSwitchCase="'airCons'">
      <ion-item color="background">
        <h2>Central Air Conditioner (2.5 tons)</h2>
-
          <p><ion-icon name="flash" class="flash"></ion-icon> 3500 Watts</p>
-
      </ion-item>
 
      <ion-item color="background">
        <h2>Window Unit (Large)</h2>
-
         <p><ion-icon name="flash" class="flash"></ion-icon> 1440 Watts</p>
-
      </ion-item>
 
      <ion-item color="background">
        <h2>Window Unit (Medium)</h2>
-
         <p><ion-icon name="flash" class="flash"></ion-icon> 900 Watts</p>
-
      </ion-item>
    </ion-list>
 
@@ -65,23 +59,19 @@
         <ion-item color="background">
           <h2>20-21 Cubic-Foot Refrigerator</h2>
             <p><b>Top-Freezer:</b> 471 kWh/year (average)</p>
-          <ion-col>
+             <br>
             <p><b>Bottom-Freezer:</b> 539 kWh/year (average)</p>
-          </ion-col>
-          <ion-col>
+             <br>
             <p><b>side-by-side:</b> 637 kWh/year (average)</p>
-          </ion-col>
         </ion-item>
 
       <ion-item color="background">
         <h2>22-24 Cubic-Foot Refrigerator</h2>
          <p><ion-icon name="flash" class="flash"></ion-icon><b>Top-Freezer:</b> 500 kWh/year (average)</p>
-       <ion-col>
+          <br>
          <p><ion-icon name="flash" class="flash"></ion-icon><b>Bottom-Freezer:</b> 590 kWh/year (average)</p>
-       </ion-col>
-       <ion-col>
+          <br>
          <p><ion-icon name="flash" class="flash"></ion-icon><b>Side-by-Side:</b> 653 kWh/year (average)</p>
-       </ion-col>
      </ion-item>
 
      <ion-item color="background">
@@ -93,9 +83,8 @@
      <ion-item color="background">
        <h2>Food Processor</h2>
          <p><ion-icon name="flash" class="flash"></ion-icon> 500 Watts (Mid-Range)</p>
-         <ion-col>
-           <p><ion-icon name="flash" class="flash"></ion-icon> 1000 Watts (Top-of-the-Line)</p>
-         </ion-col>
+          <br>
+         <p><ion-icon name="flash" class="flash"></ion-icon> 1000 Watts (Top-of-the-Line)</p>
      </ion-item>
 
      <ion-item color="background">
@@ -251,8 +240,9 @@
      </ion-item>
      <ion-item color="background">
        <h2>Room Heaters (Electric)</h2>
-       <p><ion-icon name="flash" class="flash"></ion-icon> 500/750/1500 Watts</p>
-       <ion-note>Consumption depends on your options, low, medium or high temprature</ion-note>
+       <p><b>Low Temperature:</b> 500 Watts</p><br>
+       <p><b>Medium Temperature:</b> 750 Watts</p><br>
+       <p><b>High Temperature:</b> 1500 Watts</p>
      </ion-item>
      <ion-item color="background">
        <h2>Router</h2>

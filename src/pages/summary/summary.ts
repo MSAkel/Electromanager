@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -31,7 +31,6 @@ export class SummaryPage implements OnInit{
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
-     private modalCtrl: ModalController,
      private dlService: DeviceListService,
      private settingsService: SettingsService) {}
 

@@ -15,8 +15,8 @@ export class SettingsService {
 
   constructor(private storage: Storage) {}
 
-  addRate(rateRange: number, rateCost: number) {
-    const rate = new Rate(rateRange, rateCost);
+  addRate(rateRange: number, rateRangeIncrement:number, rateCost: number) {
+    const rate = new Rate(rateRange, rateRangeIncrement, rateCost);
     this.rates.push(rate);
     this.storage.set('rates', this.rates)
       .then()
@@ -44,16 +44,16 @@ export class SettingsService {
       );
   }
 
-  updateRate(index: number, rateRange: number, rateCost: number) {
-    this.rates[index] = new Rate(rateRange, rateCost);
-    this.storage.set('rates', this.rates)
-      .then()
-      .catch(
-        err => {
-          err => console.log(err)
-        }
-      );
-  }
+  // updateRate(index: number, rateRange: number, rateCost: number) {
+  //   this.rates[index] = new Rate(rateRange, rateCost);
+  //   this.storage.set('rates', this.rates)
+  //     .then()
+  //     .catch(
+  //       err => {
+  //         err => console.log(err)
+  //       }
+  //     );
+  // }
 
   removeRates() {
     this.rates = [];

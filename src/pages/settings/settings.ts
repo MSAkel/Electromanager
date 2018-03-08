@@ -1,5 +1,4 @@
 import { Injectable} from '@angular/core';
-import { Storage } from '@ionic/storage';
 
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
@@ -20,18 +19,13 @@ export class SettingsPage implements OnInit{
   rateForm: FormGroup;
 
   listRates: Rate[];
-  current: number;
-  index = 0;
-  num: number = 1;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     private settingsService: SettingsService,
-    public toastCtrl: ToastController,
-    private storage: Storage) {
-  }
+    public toastCtrl: ToastController) {}
 
   ngOnInit() {
     this.settingsService.getSettings();
@@ -48,9 +42,19 @@ export class SettingsPage implements OnInit{
 
   onSubmitRate() {
     const value = this.rateForm.value;
-    this.settingsService.addRate(value.range, value.cost);
+    var rateRangeIncrement: number;
+    console.log(this.listRates.length);
+    if(this.listRates.length == 0) {
+      rateRangeIncrement = 1;
+    } else {
+      let lastIndex = this.listRates.length - 1;
+       rateRangeIncrement = this.listRates[lastIndex].rateRange * 1 + 1;
+    }
+
+    this.settingsService.addRate(value.range, rateRangeIncrement, value.cost);
     this.listRates = this.settingsService.getRates();
     this.rateForm.reset();
+    console.log(this.listRates);
   }
   onSubmit() {
     const value = this.settingsForm.value;
@@ -95,8 +99,8 @@ export class SettingsPage implements OnInit{
 
     this.settingsForm = new FormGroup({
 
-      'tax': new FormControl(tax, Validators.required),
-      'flatRate': new FormControl(flatRate, Validators.required)
+      'tax': new FormControl(tax),
+      'flatRate': new FormControl(flatRate)
     });
   }
 
