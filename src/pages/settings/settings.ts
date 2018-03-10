@@ -1,14 +1,10 @@
-import { Injectable} from '@angular/core';
-
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
+import { Component, OnInit, Injectable } from '@angular/core';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ToastController } from 'ionic-angular';
 
 import { SettingsService } from "../../services/settings";
 import { Rate } from "../../models/rate";
 
-@IonicPage()
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',

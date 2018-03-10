@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { IonicPage, NavParams, ViewController, ToastController } from "ionic-angular";
+import { NavParams, ViewController, ToastController } from "ionic-angular";
 
-import { DeviceListService } from "../../../services/devices-list";
-import { Device } from "../../../models/device";
-import { DeviceCategory } from "../../../models/device-category";
-import { Category } from "../../../models/category";
+import { DeviceListService } from "../../services/devices-list";
+import { Device } from "../../models/device";
+import { DeviceCategory } from "../../models/device-category";
+import { Category } from "../../models/category";
 
-@IonicPage()
 @Component({
   selector: 'page-create',
   templateUrl: 'create.html',
@@ -25,8 +24,6 @@ export class CreatePage implements OnInit {
 
   days = [];
   check = false;
-  annualCheck = false;
-
   terms = null;
 
   constructor (
@@ -67,7 +64,6 @@ export class CreatePage implements OnInit {
     let name = deviceCategory.name;
     let quantity = deviceCategory.quantity;
     let power = deviceCategory.power;
-    let annualPower = false;
     let hours = deviceCategory.hours;
     let daysUsed = deviceCategory.daysUsed;
     let category = deviceCategory.category;
@@ -76,7 +72,6 @@ export class CreatePage implements OnInit {
     this.deviceForm = new FormGroup({
       'name': new FormControl(name, Validators.required),
       'quantity': new FormControl(quantity, Validators.required),
-      'annualPower': new FormControl(annualPower),
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
       'daysUsed': new FormControl(daysUsed),
@@ -98,15 +93,6 @@ export class CreatePage implements OnInit {
     } else {
       this.check = false;
     }
-  }
-
-  annual() {
-    if(this.annualCheck == false){
-      this.annualCheck = true;
-    } else {
-      this.annualCheck = false;
-    }
-    console.log(this.annualCheck);
   }
 
   onSubmit() {
@@ -131,14 +117,6 @@ export class CreatePage implements OnInit {
       });
       toast.present();
     } else if (this.mode == 'New') {
-      if(value.annualPower == true) {
-        value.power /= 12;
-        value.power /= 30.4;
-        value.power /= 24;
-        value.power = (value.power * 1000).toFixed(2);
-        console.log(value.power);
-
-      }
       this.dlService.addDevice(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.category.name.toUpperCase(), value.compressor);
       for(let index = 0; index < this.listCategoryDevices.length; index++) {
         if(value.name.toUpperCase() == this.listCategoryDevices[index].name &&
@@ -150,21 +128,26 @@ export class CreatePage implements OnInit {
            value.compressor == this.listCategoryDevices[index].compressor) {
              console.log("Item already exists");
 
-           } else if (index == this.listCategoryDevices.length - 1 &&(
+           } else if (index == this.listCategoryDevices.length - 1 && this.category.name.toUpperCase() != this.listCategoryDevices[index].category &&(
                 value.name.toUpperCase() != this.listCategoryDevices[index].name ||
                 value.quantity != this.listCategoryDevices[index].quantity ||
                 value.power != this.listCategoryDevices[index].power ||
                 value.hours != this.listCategoryDevices[index].hours ||
                 value.daysUsed != this.listCategoryDevices[index].daysUsed ||
-                this.category.name.toUpperCase() != this.listCategoryDevices[index].category ||
                 value.compressor != this.listCategoryDevices[index].compressor)) {
              this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.category.name.toUpperCase(), value.compressor);
             console.log("Item added");
             break;
-           }
+          }
            console.log("length", this.listCategoryDevices.length);
            console.log("Index", index);
       }
+
+      if (this.listCategoryDevices.length == 0) {
+         this.dlService.addDeviceCategory(value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.category.name.toUpperCase(), value.compressor);
+        console.log("Item added");
+       }
+
       const toast = this.toastCtrl.create({
         message: 'Item Added Successfully',
         duration: 1000,
@@ -181,7 +164,6 @@ export class CreatePage implements OnInit {
     let name = null;
     let quantity = null;
     let power = null;
-    let annualPower = false;
     let hours = null;
     let daysUsed = 31;
     let compressor = 1;
@@ -207,10 +189,9 @@ export class CreatePage implements OnInit {
     this.deviceForm = new FormGroup({
       'name': new FormControl(name, Validators.required),
       'quantity': new FormControl(quantity, Validators.required),
-      'annualPower': new FormControl(annualPower),
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
-      'daysUsed': new FormControl(daysUsed),
+      'daysUsed': new FormControl(daysUsed, Validators.required),
       'compressor': new FormControl(compressor)
     });
   }

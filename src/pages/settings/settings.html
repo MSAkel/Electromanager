@@ -1,8 +1,5 @@
 <ion-header>
   <ion-navbar color="navbar">
-    <ion-buttons end>
-      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
-    </ion-buttons>
     <ion-title>SETTINGS</ion-title>
   </ion-navbar>
 </ion-header>
@@ -19,7 +16,7 @@
           <ion-col>
             <ion-item color="background">
               <!-- <ion-label color="primary" floating>Range</ion-label> -->
-               <ion-input type="number" placeholder="KWh" formControlName="range"></ion-input>
+               <ion-input type="number" placeholder="kWh" formControlName="range"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
@@ -30,8 +27,6 @@
           </ion-col>
           <ion-col>
             <button ion-button block item-end type="submit" color="secondary" [disabled]="!rateForm.valid" (click)='presentToast()'>Add</button>
-            <!-- <button ion-button icon-only clear item-end type="submit" color="secondary" [disabled]="!rateForm.valid" (click)='presentToast()'><ion-icon name="add-circle"></ion-icon></button>
-            <button ion-button icon-only clear item-end type="button" color="danger" (click)="onClear()"><ion-icon name="remove-circle"></ion-icon></button> -->
           </ion-col>
         </ion-row>
       </ion-list>
@@ -39,14 +34,9 @@
   </form>
 
   <ion-list no-padding no-margin>
-    <!-- <ion-col *ngFor="let rate of listRates; let i = index; let first = first; let last = last">
-      <span *ngIf="first">1 -  {{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
-      <span *ngIf="!first && !last">{{rate.rateRange}}({{rate.rateCost}})<hr class="range" />{{rate.rateRange * 1 + 1 }} -</span>
-      <span *ngIf="last && !first">{{rate.rateRange}}({{rate.rateCost}})</span>
-  </ion-col> -->
   <ion-row id="tariff-border">
     <ion-col padding-left>
-      <p>Range (KWh)</p>
+      <p>Range (kWh)</p>
     </ion-col>
     <ion-col text-right padding-right>
      <p>Cost</p>
@@ -88,7 +78,7 @@
     <button color="danger" ion-button item-end (click)="onClear()">Clear List</button>
   </ion-item>
   </ion-list>
-    <!-- <button ion-button clear item-end (click)="onClear()">Clear All</button> -->
+
   <ion-item-divider color="secondary">
     TAX AND FLAT RATE
   </ion-item-divider>
@@ -96,14 +86,14 @@
       <ion-grid>
         <ion-row>
           <ion-item color="background">
-            <ion-label color="secondary" fixed>Tax Rate</ion-label>
+            <ion-label fixed>Tax Rate</ion-label>
             <ion-input type="number" formControlName="tax"></ion-input>
           </ion-item>
         </ion-row>
 
         <ion-row>
           <ion-item color="background">
-            <ion-label color="secondary" fixed>Flat Rate</ion-label>
+            <ion-label fixed>Flat Rate</ion-label>
             <ion-input type="number" formControlName="flatRate"></ion-input>
           </ion-item>
         </ion-row>

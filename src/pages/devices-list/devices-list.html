@@ -8,20 +8,17 @@
     </ion-buttons>
     <ion-title>APPLIANCES LIST</ion-title>
   </ion-navbar>
-  <form [formGroup]="categoryForm" (ngSubmit)="onAddCategory()">
-
-    <ion-list no-margin>
-      <ion-item no-lines color="background">
-          <ion-input type="text" color placeholder="Create Category" formControlName="name"></ion-input>
-      </ion-item>
-  </ion-list>
-  </form>
 </ion-header>
-
 <ion-content>
+  <ion-grid *ngIf="listCategories == 0" class="vertical-align-content">
+    <ion-item text-wrap color="background" text-center>
+      <ion-note>At least one category is needed to add devices. Click the <b>'CREATE CATEGORY'</b> button below.</ion-note>
+    </ion-item>
+  </ion-grid>
+
   <ion-list class="list" *ngFor="let category of listCategories; let i = index">
     <ion-item-sliding color="secondary">
-      <ion-item color="secondary" no-lines >
+      <ion-item color="secondary" no-lines id="category-padding">
         <h2 (click)="onSelectCategory(category, i)" [hidden]="name == category.name">{{ category.name }}</h2>
         <div *ngIf="name == category.name">
         <form [formGroup]="categoryEditForm" (ngSubmit)="onEditCategory()" [hidden]="!edit">
@@ -39,7 +36,7 @@
 
    <div *ngFor="let device of listDevices; let i = index" class="item">
     <ion-item-sliding *ngIf="device.category == category.name">
-      <ion-item (click)="onEdit(device, i)" text-wrap class="no-padding" color="background">
+      <ion-item (click)="onEdit(device, i)" text-wrap no-padding color="background">
         <ion-grid>
           <ion-row>
             <ion-col col-4 text-justified>
@@ -57,10 +54,18 @@
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
+      <ion-item-options (ionSwipe)="onDelete(i)">
         <button ion-button color="danger" expandable (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>Delete</button>
       </ion-item-options>
     </ion-item-sliding>
   </div>
   </ion-list>
+  <!-- <form [formGroup]="categoryForm" (ngSubmit)="onAddCategory()">
+    <ion-item color="background" id='inp'>
+      <ion-input type="text" color placeholder="Create Category" formControlName="name"></ion-input>
+    </ion-item>
+  </form> -->
+  <ion-item text-right no-lines color="background">
+    <button text-right default ion-button color="secondary" (click)="displayWindow()">Create Category</button>
+  </ion-item>
 </ion-content>

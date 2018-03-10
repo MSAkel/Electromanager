@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { SettingsService } from "../../services/settings";
 
-@IonicPage()
 @Component({
   selector: 'page-help',
   templateUrl: 'help.html',

@@ -7,6 +7,7 @@ import { DevicesListPage } from "../devices-list//devices-list";
 import { ReportsPage } from "../reports/reports";
 
 import { TutorialPage } from "../tutorial/tutorial";
+import { SettingsService } from "../../services/settings";
 
 @Component({
   selector: 'page-tabs',
@@ -19,6 +20,7 @@ export class TabsPage {
 
   constructor(
     private navCtrl: NavController,
+    private settingsService: SettingsService,
     public storage: Storage) {}
 
   ionViewDidLoad() {
@@ -26,6 +28,7 @@ export class TabsPage {
       if (!done) {
         this.storage.set('intro-done', true);
         this.navCtrl.setRoot(TutorialPage);
+        this.settingsService.addRate(1000, 1, 0.18);
       }
     });
   }

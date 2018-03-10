@@ -7,7 +7,7 @@ import { NavController, MenuController } from 'ionic-angular';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { HelpPage } from '../pages/help/help';
-import { DisplayCatPage } from '../pages/add-device/display-cat/display-cat';
+import { DisplayCatPage } from '../pages/display-cat/display-cat';
 import { SettingsService } from "../services/settings";
 
 @Component({
@@ -32,7 +32,7 @@ export class MyApp {
   }
 
   onLoad(page: any) {
-    this.nav.setRoot(page);
+    this.nav.push(page);
     this.menuCtrl.close();
   }
 }

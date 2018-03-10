@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 
-import { DeviceListService } from "../../../services/devices-list";
+import { DeviceListService } from "../../services/devices-list";
 
 import { CreatePage } from "../create/create";
-import { DeviceCategory } from "../../../models/device-category";
+import { DeviceCategory } from "../../models/device-category";
 
-@IonicPage()
 @Component({
   selector: 'page-display-cat',
   templateUrl: 'display-cat.html',

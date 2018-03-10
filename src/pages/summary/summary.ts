@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -8,7 +8,6 @@ import { Device } from "../../models/device";
 import { Rate } from "../../models/rate";
 import { parse, getMinutes, getHours } from 'date-fns';
 
-@IonicPage()
 @Component({
   selector: 'page-summary',
   templateUrl: 'summary.html',

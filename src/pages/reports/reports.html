@@ -11,7 +11,7 @@
       <ion-slides pager="true">
         <ion-slide>
             <ion-card>
-              <h2 text-center>Monthly KWh Consumption</h2>
+              <h2 text-center>Monthly kWh Consumption</h2>
               <canvas #barChart height="175"></canvas>
             </ion-card>
           <br>
@@ -45,8 +45,11 @@
   <ion-card>
     <ion-searchbar [(ngModel)]="terms" placeholder="Search Appliance"></ion-searchbar>
     <ion-list [hidden]="!terms">
+      <ion-item *ngIf="listDevices == 0" color="background">
+        <p>Your Appliances List Is Empty</p>
+      </ion-item>
       <div *ngFor="let device of listDevices | search : terms; let i = index">
-        <ion-item (click)="selectedAppliance(device)">
+        <ion-item text-wrap (click)="selectedAppliance(device)">
           <ion-grid>
             <ion-row>
               <ion-col col-4 text-justified>
@@ -81,13 +84,13 @@
         <ion-row>
           <ion-col class="input-push">
             <ion-item>
-              <ion-label color="secondary">Cost/KWh</ion-label>
+              <ion-label color="secondary">Cost/kWh</ion-label>
               <ion-input type="number" clearOnEdit="true" placeholder="1" (ionChange)="selectedAppliance()" [(ngModel)]="tariffRange"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="input-push">
             <ion-item>
-              <ion-label color="secondary">KWh</ion-label>
+              <ion-label color="secondary">kWh</ion-label>
               <ion-input type="number" clearOnEdit="true" placeholder="1000" (ionChange)="selectedAppliance()" [(ngModel)]="wattsRange"></ion-input>
             </ion-item>
           </ion-col>

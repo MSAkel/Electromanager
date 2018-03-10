@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import {NavController, NavParams, ModalController, ToastController, AlertController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Storage } from '@ionic/storage';
 
@@ -10,10 +10,10 @@ import { Device } from "../../models/device";
 import { Month } from "../../models/month";
 import { Rate } from "../../models/rate";
 import { Category } from "../../models/category";
-import { CataloguePage } from "../add-device/catalogue/catalogue";
+import { CataloguePage } from "../catalogue/catalogue";
 
 import { DeviceCategory } from "../../models/device-category";
-import { CreatePage } from "../add-device/create/create";
+import { CreatePage } from "../create/create";
 
 @Component({
   selector: 'page-devices-list',
@@ -41,6 +41,7 @@ export class DevicesListPage implements OnInit{
      public toastCtrl: ToastController,
      public navParams: NavParams,
      public storage: Storage,
+     public alertCtrl: AlertController,
      private settingsService: SettingsService) {}
 
   ngOnInit() {
@@ -107,18 +108,55 @@ export class DevicesListPage implements OnInit{
     toast.present();
   }
 
-  onAddCategory() {
-    const value = this.categoryForm.value;
-    this.dlService.addCategory(value.name.toUpperCase());
-    this.categoryForm.reset();
-    const toast = this.toastCtrl.create({
-      message: 'Category Added Successfully',
-      duration: 1000,
-      position: 'bottom'
-  });
-  toast.present();
-    this.listCategories = this.dlService.getCategories();
-  }
+  displayWindow() {
+     let alert = this.alertCtrl.create({
+       title: 'Create Category',
+       inputs: [
+         {
+           name: 'title',
+           placeholder: 'Category Name'
+         },
+       ],
+       buttons: [
+         {
+           text: 'Cancel',
+           handler: () => {
+             console.log('Cancel clicked');
+           }
+         },
+         {
+           text: 'Save',
+           handler: (data) => {
+             this.name = data.title;
+             console.log(this.name);
+             this.onAddCategory();
+           }
+         }
+       ]
+     });
+
+     alert.present();
+   }
+
+   onAddCategory() {
+     if(this.name.length == 0) {
+       const toast = this.toastCtrl.create({
+         message: 'Name Cannot Be Empty',
+         duration: 1500,
+         position: 'bottom'
+     });
+     toast.present();
+   }else if(this.name.length > 0) {
+      this.dlService.addCategory(this.name.toUpperCase());
+      const toast = this.toastCtrl.create({
+        message: 'Category Added Successfully',
+        duration: 1000,
+        position: 'bottom'
+    });
+    toast.present();
+      this.listCategories = this.dlService.getCategories();
+    }
+   }
 
   onDeleteCategory(index: number) {
     for (let deviceIndex = 0; deviceIndex < this.listDevices.length; deviceIndex++) {
