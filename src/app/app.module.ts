@@ -4,50 +4,35 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
-import {HttpClientModule, HttpClient} from '@angular/common/http';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
-import { AddDevicePage } from "../pages/add-device/add-device";
-import { CreatePage } from "../pages/add-device/create/create";
-import { SelectPage } from "../pages/add-device/select/select";
+import { CreatePage } from "../pages/create/create";
 import { DevicesListPage } from "../pages/devices-list/devices-list";
 import { SummaryPage } from "../pages/summary/summary";
 import { ReportsPage } from "../pages/reports/reports";
 import { SettingsPage } from "../pages/settings/settings";
-import { AddCategoryPage } from "../pages/add-device/add-category/add-category";
 import { TabsPage } from "../pages/tabs/tabs";
 import { DeviceListService } from "../services/devices-list";
 import { SettingsService } from "../services/settings";
-import { DisplayCatPage } from "../pages/add-device/display-cat/display-cat";
-import { CataloguePage } from "../pages/add-device/catalogue/catalogue";
+import { DisplayCatPage } from "../pages/display-cat/display-cat";
+import { CataloguePage } from "../pages/catalogue/catalogue";
 import { TutorialPage } from "../pages/tutorial/tutorial";
 import { HelpPage } from '../pages/help/help';
-import { SortPipe } from '../pipes/sort/sort';
 import { SearchPipe } from '../pipes/search/search';
-
-export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 @NgModule({
   declarations: [
     MyApp,
-    AddDevicePage,
     DisplayCatPage,
     CreatePage,
-    SelectPage,
     DevicesListPage,
     SummaryPage,
     ReportsPage,
     SettingsPage,
-    AddCategoryPage,
     CataloguePage,
     TutorialPage,
     HelpPage,
-    SortPipe,
     SearchPipe,
     TabsPage
   ],
@@ -56,26 +41,16 @@ export function createTranslateLoader(http: HttpClient) {
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule,
-       TranslateModule.forRoot({
-           loader: {
-               provide: TranslateLoader,
-               useFactory: (createTranslateLoader),
-               deps: [HttpClient]
-           }
-       })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AddDevicePage,
     DisplayCatPage,
     CreatePage,
-    SelectPage,
     DevicesListPage,
     SummaryPage,
     ReportsPage,
     SettingsPage,
-    AddCategoryPage,
     CataloguePage,
     TutorialPage,
     HelpPage,

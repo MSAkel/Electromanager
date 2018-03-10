@@ -1,4 +1,4 @@
-<ion-header dir="{{rtl}}">
+<ion-header>
   <ion-navbar color="navbar">
     <ion-buttons end>
       <button color="light" ion-button icon-only clear (click)="onViewCatalogue()"><ion-icon name="bookmarks"></ion-icon></button>
@@ -6,62 +6,19 @@
     <ion-buttons end>
       <button ion-button icon-only clear menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>{{ 'DEVICELIST.TITLE' | translate}}</ion-title>
+    <ion-title>APPLIANCES LIST</ion-title>
   </ion-navbar>
-  <!-- <ion-grid no-padding>
-    <ion-row>
-      <ion-col>
-        <button ion-button full no-margin>Create Category</button>
-      </ion-col>
-      <ion-col>
-        <button ion-button full no-margin>Add Appliance</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
-  <form [formGroup]="categoryForm" (ngSubmit)="onAddCategory()">
-      <!-- <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-item no-lines color="background">
-              <ion-label floating>{{ 'ADDCAT.NAME' | translate }}</ion-label>
-              <ion-input type="text" formControlName="name"></ion-input>
-              <button ion-button color="secondary" type="submit" block [disabled]="!categoryForm.valid">{{ 'ADDCAT.BUTTON' | translate }}</button>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid> -->
-    <ion-list no-margin>
-      <ion-item no-lines color="background">
-          <ion-input type="text" color placeholder="Create Category" formControlName="name"></ion-input>
-          <!-- <button ion-button icon-only clear item-end type="submit" [disabled]="!categoryForm.valid" (click)='presentToast()'><ion-icon name="add"></ion-icon></button> -->
-      </ion-item>
-  </ion-list>
-  </form>
 </ion-header>
+<ion-content>
+  <ion-grid *ngIf="listCategories == 0" class="vertical-align-content">
+    <ion-item text-wrap color="background" text-center>
+      <ion-note>At least one category is needed to add devices. Click the <b>'CREATE CATEGORY'</b> button below.</ion-note>
+    </ion-item>
+  </ion-grid>
 
-<ion-content dir="{{rtl}}">
-  <!-- <ion-grid class="list-top">
-    <ion-row>
-      <ion-col>
-        <p (click)="sortBy('name')">{{ 'DEVICELIST.NAME' | translate}}</p>
-      </ion-col>
-      <ion-col>
-        <p (click)="sortBy('quantity')">{{ 'DEVICELIST.COUNT' | translate}}</p>
-      </ion-col>
-      <ion-col>
-        <p (click)="sortBy('power')">{{ 'DEVICELIST.WATTS' | translate }}</p>
-      </ion-col>
-      <ion-col>
-        <p (click)="sortBy('hours')">{{ 'DEVICELIST.HOURS' | translate }}</p>
-      </ion-col>
-      <ion-col>
-        <p (click)="sortBy('daysUsed')">{{ 'DEVICELIST.DAYSUSED' | translate }}</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
   <ion-list class="list" *ngFor="let category of listCategories; let i = index">
     <ion-item-sliding color="secondary">
-      <ion-item color="secondary" no-lines >
+      <ion-item color="secondary" no-lines id="category-padding">
         <h2 (click)="onSelectCategory(category, i)" [hidden]="name == category.name">{{ category.name }}</h2>
         <div *ngIf="name == category.name">
         <form [formGroup]="categoryEditForm" (ngSubmit)="onEditCategory()" [hidden]="!edit">
@@ -73,52 +30,42 @@
         <button color="light" ion-button icon-only clear item-end (click)="onAddAppliance(category)"><ion-icon name="add"></ion-icon></button>
       </ion-item>
       <ion-item-options side="{{slide}}">
-        <!-- <button ion-button color="primary" (click)="onEditCategory(category, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button> -->
-        <button ion-button color="danger" (click)="onDeleteCategory(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+        <button ion-button color="danger" (click)="onDeleteCategory(i)"><ion-icon name="trash"></ion-icon>Delete</button>
       </ion-item-options>
     </ion-item-sliding>
 
    <div *ngFor="let device of listDevices; let i = index" class="item">
     <ion-item-sliding *ngIf="device.category == category.name">
-      <ion-item (click)="onEdit(device, i)" text-wrap class="no-padding" color="background">
+      <ion-item (click)="onEdit(device, i)" text-wrap no-padding color="background">
         <ion-grid>
           <ion-row>
             <ion-col col-4 text-justified>
               <p>{{ device.name}} ({{ device.quantity }})</p>
             </ion-col>
-            <!-- <ion-col text-center>
-                <p>{{ device.quantity }}</p>
-            </ion-col> -->
             <ion-col text-left>
               <p ><ion-icon name="flash"></ion-icon> {{ device.power }}</p>
             </ion-col>
             <ion-col text-left>
-              <p><ion-icon name="time"></ion-icon> {{ device.hours }}</p>
+              <p><ion-icon name="time" ios="ios-time-outline"></ion-icon> {{ device.hours }}</p>
             </ion-col>
             <ion-col>
-              <p><ion-icon name="calendar"></ion-icon> {{ device.daysUsed }}</p>
+              <p><ion-icon name="calendar" ios="ios-calendar-outline"></ion-icon> {{ device.daysUsed }}</p>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
-      <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
-        <!-- <button ion-button color="primary" (click)="onEdit(device, i)"><ion-icon name="create"></ion-icon>{{ 'DEVICELIST.EDIT' | translate }}</button> -->
-        <button ion-button color="danger" expandable (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>{{ 'DEVICELIST.DELETE' | translate }}</button>
+      <ion-item-options (ionSwipe)="onDelete(i)">
+        <button ion-button color="danger" expandable (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>Delete</button>
       </ion-item-options>
     </ion-item-sliding>
   </div>
   </ion-list>
-  <!-- <ion-fab  bottom [attr.left]="arabic ? '' : null" [attr.right]="!arabic ? '' : null">
-    <button ion-fab mini color="secondary" (click)="onAddDevice()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab> -->
-  <!-- <ion-fab  bottom [attr.left]="arabic ? '' : null" [attr.right]="!arabic ? '' : null">
-    <button ion-fab mini color="primary" (click)="onAddCategory()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab> -->
+  <!-- <form [formGroup]="categoryForm" (ngSubmit)="onAddCategory()">
+    <ion-item color="background" id='inp'>
+      <ion-input type="text" color placeholder="Create Category" formControlName="name"></ion-input>
+    </ion-item>
+  </form> -->
+  <ion-item text-right no-lines color="background">
+    <button text-right default ion-button color="secondary" (click)="displayWindow()">Create Category</button>
+  </ion-item>
 </ion-content>
-<ion-footer>
-  <!-- <ion-fab top [attr.right]="arabic ? '' : null" [attr.left]="!arabic ? '' : null">
-    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
-    <ion-fab-list side="right"> -->
-    <!-- </ion-fab-list>
-  </ion-fab> -->
-</ion-footer>

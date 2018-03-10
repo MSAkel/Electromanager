@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { TranslateService } from '@ngx-translate/core';
-
 import { Rate } from "../models/rate";
 
 @Injectable()
 export class SettingsService {
-  private language = 'en';
   private rates: Rate[] = [];
 
-  //private cost = 0.18;
   private tax = 5;
   private flatRate = 10;
 
-  ///public getCost: number;
   public getTax: number;
   public getFlatRate: number;
 
-  constructor(private storage: Storage, private translateService: TranslateService,) {}
+  constructor(private storage: Storage) {}
 
-  addRate(rateRange: number, rateCost: number) {
-    const rate = new Rate(rateRange, rateCost);
+  addRate(rateRange: number, rateRangeIncrement:number, rateCost: number) {
+    const rate = new Rate(rateRange, rateRangeIncrement, rateCost);
     this.rates.push(rate);
     this.storage.set('rates', this.rates)
       .then()
@@ -49,16 +44,16 @@ export class SettingsService {
       );
   }
 
-  updateRate(index: number, rateRange: number, rateCost: number) {
-    this.rates[index] = new Rate(rateRange, rateCost);
-    this.storage.set('rates', this.rates)
-      .then()
-      .catch(
-        err => {
-          err => console.log(err)
-        }
-      );
-  }
+  // updateRate(index: number, rateRange: number, rateCost: number) {
+  //   this.rates[index] = new Rate(rateRange, rateCost);
+  //   this.storage.set('rates', this.rates)
+  //     .then()
+  //     .catch(
+  //       err => {
+  //         err => console.log(err)
+  //       }
+  //     );
+  // }
 
   removeRates() {
     this.rates = [];
@@ -80,12 +75,6 @@ export class SettingsService {
   }
 
   getSettings() {
-    //console.log(this.cost + 'top');
-    // this.storage.get('cost')
-    //   .then((cost) => {
-    //     this.cost = cost;
-    //   }
-    // );
     this.storage.get('tax')
     .then((tax) => {
       this.tax = tax;
@@ -102,19 +91,5 @@ export class SettingsService {
     this.getTax = this.tax;
     this.getFlatRate = this.flatRate;
     //console.log(this.cost + 'bot');
-  }
-
-  setLanguage(event: string) {
-    this.language = event;
-    this.translateService.use(this.language);
-    this.storage.set('language', this.language);
-    //console.log(this.language);
-  }
-
-  getLanguage() {
-    return this.storage.get('language').then((lang) => {
-      this.translateService.use(lang);
-      return this.translateService.currentLang;
-    });
   }
 }

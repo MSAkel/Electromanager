@@ -1,9 +1,9 @@
-<ion-header dir="{{rtl}}">
+<ion-header>
   <ion-navbar color="navbar">
     <ion-buttons end>
       <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     </ion-buttons>
-    <ion-title>{{ 'REPORTS.TITLE' | translate}}</ion-title>
+    <ion-title>REPORTS</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,14 +11,14 @@
       <ion-slides pager="true">
         <ion-slide>
             <ion-card>
-              <h2 text-center>{{ 'REPORTS.MONTHLYKWh' | translate}}</h2>
+              <h2 text-center>Monthly kWh Consumption</h2>
               <canvas #barChart height="175"></canvas>
             </ion-card>
           <br>
         </ion-slide>
         <ion-slide>
           <ion-card>
-            <h2 text-center>{{ 'REPORTS.MONTHLYEXPENSES' | translate}}</h2>
+            <h2 text-center>Monthly Expenses</h2>
             <canvas #monthlyCostChart height="175"></canvas>
           </ion-card>
           <br>
@@ -28,36 +28,28 @@
   <ion-slides pager="true">
     <ion-slide>
       <ion-card>
-        <h2 text-center>{{ 'REPORTS.APPLIANCEPOWER' | translate}}</h2>
+        <h2 text-center>Power Consumption Per Appliance</h2>
         <canvas #barChartItems height="200"></canvas>
       </ion-card>
       <br>
     </ion-slide>
     <ion-slide>
         <ion-card>
-          <h2 text-center>{{ 'REPORTS.APPLIANCECOST' | translate}}</h2>
+          <h2 text-center>Cost Per Appliance</h2>
           <canvas #barChartItemsCost height="200"></canvas>
         </ion-card>
       <br>
     </ion-slide>
   </ion-slides>
 
-  <!-- <ion-card>
-    <h2 text-center>Power Consumption Per Appliance</h2>
-    <canvas #pieChartCategories></canvas>
-  </ion-card> -->
-
-
-  <!-- <ion-card [hidden]="!terms">
-    <h2 text-center>Appliance Details</h2>
-    <canvas #applianceDetails></canvas>
-  </ion-card> -->
-
   <ion-card>
     <ion-searchbar [(ngModel)]="terms" placeholder="Search Appliance"></ion-searchbar>
     <ion-list [hidden]="!terms">
+      <ion-item *ngIf="listDevices == 0" color="background">
+        <p>Your Appliances List Is Empty</p>
+      </ion-item>
       <div *ngFor="let device of listDevices | search : terms; let i = index">
-        <ion-item (click)="selectedAppliance(device)">
+        <ion-item text-wrap (click)="selectedAppliance(device)">
           <ion-grid>
             <ion-row>
               <ion-col col-4 text-justified>
@@ -90,15 +82,15 @@
       </ion-item-divider>
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col class="input-push">
             <ion-item>
-              <ion-label color="secondary">Cost/KWh</ion-label>
+              <ion-label color="secondary">Cost/kWh</ion-label>
               <ion-input type="number" clearOnEdit="true" placeholder="1" (ionChange)="selectedAppliance()" [(ngModel)]="tariffRange"></ion-input>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col class="input-push">
             <ion-item>
-              <ion-label color="secondary">KWh</ion-label>
+              <ion-label color="secondary">kWh</ion-label>
               <ion-input type="number" clearOnEdit="true" placeholder="1000" (ionChange)="selectedAppliance()" [(ngModel)]="wattsRange"></ion-input>
             </ion-item>
           </ion-col>
@@ -110,32 +102,21 @@
           <ion-col>
             <ion-item no-padding>
              <ion-range (ionChange)="selectedAppliance()" min="1" max="24" pin="true" [(ngModel)]="hoursRange">
-               <ion-icon small range-left name="clock"></ion-icon>
-               <ion-label range-right>{{hoursRange}}</ion-label>
+               <ion-icon small range-left name="clock" ios="ios-time-outline"></ion-icon>
+               <ion-label padding-left range-right>{{hoursRange}}</ion-label>
              </ion-range>
             </ion-item>
           </ion-col>
           <ion-col>
             <ion-item no-padding>
              <ion-range (ionChange)="selectedAppliance()" min="1" max="31" pin="true" [(ngModel)]="daysRange">
-               <ion-icon small range-left name="calendar"></ion-icon>
-               <ion-label range-right>{{daysRange}}</ion-label>
+               <ion-icon small range-left name="calendar" ios="ios-calendar-outline"></ion-icon>
+               <ion-label padding-left range-right>{{daysRange}}</ion-label>
              </ion-range>
             </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
-
-      <!-- <ion-list-header color="secondary">
-      Watts
-        <ion-badge item-end></ion-badge>
-      </ion-list-header> -->
-      <!-- <ion-item>
-       <ion-range (ionChange)="selectedAppliance()" max="3000" pin="true" [(ngModel)]="wattsRange">
-         <ion-icon small range-left name="flash"></ion-icon>
-         <ion-label range-right>{{wattsRange}}</ion-label>
-       </ion-range>
-      </ion-item> -->
     </ion-list>
   </ion-card>
 </ion-content>
