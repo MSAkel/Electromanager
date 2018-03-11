@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController, NavParams, ModalController, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ToastController, AlertController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -40,7 +40,7 @@ export class DevicesListPage implements OnInit{
      private modalCtrl: ModalController,
      public toastCtrl: ToastController,
      public navParams: NavParams,
-     public storage: Storage,
+     //public storage: Storage,
      public alertCtrl: AlertController,
      private settingsService: SettingsService) {}
 
@@ -66,7 +66,6 @@ export class DevicesListPage implements OnInit{
         (months: Month[]) => this.listMonths = months
     );
 
-    this.initializeForm();
   }
 
   ionViewWillEnter() {
@@ -75,7 +74,7 @@ export class DevicesListPage implements OnInit{
     console.log(this.listDevices);
     console.log(this.listCategories);
     this.edit = false;
-    this.name = null;
+    //this.name = null;
   }
 
   onAddAppliance(category: Category) {
@@ -128,25 +127,21 @@ export class DevicesListPage implements OnInit{
            text: 'Save',
            handler: (data) => {
              this.name = data.title;
-             console.log(this.name);
-             this.onAddCategory();
+             if(this.name.length == 0) {
+
+               return false;
+             } else {
+               console.log(this.name);
+               this.onAddCategory();
+             }
            }
          }
        ]
      });
-
      alert.present();
    }
 
    onAddCategory() {
-     if(this.name.length == 0) {
-       const toast = this.toastCtrl.create({
-         message: 'Name Cannot Be Empty',
-         duration: 1500,
-         position: 'bottom'
-     });
-     toast.present();
-   }else if(this.name.length > 0) {
       this.dlService.addCategory(this.name.toUpperCase());
       const toast = this.toastCtrl.create({
         message: 'Category Added Successfully',
@@ -155,7 +150,6 @@ export class DevicesListPage implements OnInit{
     });
     toast.present();
       this.listCategories = this.dlService.getCategories();
-    }
    }
 
   onDeleteCategory(index: number) {
@@ -227,14 +221,6 @@ export class DevicesListPage implements OnInit{
     this.edit = false;
     this.listCategories = this.dlService.getCategories();
     this.listDevices = this.dlService.getDevices();
-  }
-
-  private initializeForm() {
-    let name = null;
-
-    this.categoryForm = new FormGroup({
-      'name': new FormControl(name),
-    });
   }
 
    onViewCatalogue() {
