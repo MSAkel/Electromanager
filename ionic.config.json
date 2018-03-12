@@ -1,6 +1,6 @@
 {
   "name": "Electromanager",
-  "app_id": "",
+  "app_id": "12c623e4",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

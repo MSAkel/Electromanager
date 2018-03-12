@@ -124,7 +124,7 @@ export class DevicesListPage implements OnInit{
            }
          },
          {
-           text: 'Save',
+           text: 'Add',
            handler: (data) => {
              this.name = data.title;
              if(this.name.length == 0) {

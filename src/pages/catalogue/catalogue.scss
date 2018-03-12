@@ -14,4 +14,19 @@ page-catalogue {
   h2 {
     color: color($colors, secondary);
   }
+
+  ion-card-header {
+
+  }
+
+  ion-card {
+    background-color: #F4FFBE !important;
+  }
+  .line{
+    border-bottom: 1px solid #eee !important;
+    background-color: #F4FFBE !important;
+  }
+  .last {
+    background-color: #F4FFBE !important;
+  }
 }
