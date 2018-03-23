@@ -1,57 +1,107 @@
 <ion-header>
   <ion-navbar color="navbar">
-    <!-- <ion-buttons end>
-      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
-    </ion-buttons> -->
     <ion-title>HELP</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item-divider color="secondary">Tax Rate</ion-item-divider>
-    <ion-item text-wrap no-lines color="background">
-      ...
+    <ion-item-divider color="secondary">Tariff, Flat Fee and Tax Rate</ion-item-divider>
+    <ion-item text-wrap no-lines color="background" text-justified>
+      <h2><b>Tariff</b></h2>
+      <p>The cost at which you are charged per kilowatt used. Check with your electrcity provider to find out the cost, which can be usually
+      found on their official website</p>
+      <p>The cost may vary if the total spent kWh exceeds a specified threshold.....</p>
+      <br>
+      <h2><b>Flat Fee</b></h2>
+      <p>A constant monthly amount charged to the user.</p>
+      <p>You can check your fee from your bill or the electricals company website</p>
+      <br>
+      <h2><b>Tax Rate</b></h2>
+      <p>If you live in a country where your electricity bill is tax inclusive, then make sure
+      to include the tax % in your settings.</p>
     </ion-item>
 
-    <ion-item-divider color="secondary">
-      Flat Rate
+    <ion-item-divider color="secondary">Wattage Consumption</ion-item-divider>
+    <ion-item text-wrap no-lines color="background" text-justified>
+      <h2><b>Calculations</b></h2>
+      <p>The required details can be found on a power tag attached to the appliance, usually on the bottom or back.</p>
+      <br>
+      <p>In the case of appliances which only mention the voltage (V) and current (ampere) then the
+      wattage is equal to the voltage * current</p>
+      <p>For example the wattage of an appliance with a voltage of 220 and 4 ampere is 220 x 4 = 880 Watts</p>
+      <!-- <p>However the given wattage isn't always accurate for certain appliances, please check the 'Compressor Cycles'
+      section below for further details in regards to this matter</p> -->
+      <br>
+      <p>In the case of an air conditioner, each ton is equal to 3517 watts, divide that with its
+      <i>energy effiecient ratio (EER)</i> to get its wattage consumption</p>
+      <p>For example a 1 ton AC with energy star rating of 5 (3.5 EER) is 3517/3.5 = 1004.8.</p>
+      <!-- <p>Take note that the calculations above do not take into account compressor cycles.</p> --> <br>
+      <!-- <p>However some appliances do not always run on full load. This is covered in the <i>Compressor Cycles</i> section below</p> -->
+      <br>
+
+      <h2><b>Compressor Cycles</b></h2>
+      <p>Some appliances aren't always operating at their listed maximum power consumption. A refrigerator for example would
+        consume 55 watts while operating and typically runs for an average of 9 hours per day.</p>
+      <br>
+      <!-- <p>The compressor cycles option while adding an appliance can be enabled to take those calculations into account.
+      Compressor cycle durations can be effected by multiple factors, which can cause the displayed result to be slightly inaccurate.</p> -->
+      <p>There are several factors which can affect the total active hours and the wattage consumption,
+        which can cause the displayed result to be slightly inaccurate.</p> <br>
+      <h2><b>Air Conditoner Options</b></h2>
+      <p>While adding an appliance, there are two options for air conditioners in the compressor cycles drop down list.</p>
+      <p><b>Normal Cycles:</b> Select if the air conditoner usually runs for around 60-70% of the time</p>
+      <br>
+      <p><b>Long Cycles:</b> Select if the air conditoner run for longer durations than what is mentioned above.</p>
+      <br>
+      <p>In the case in which the air conditioner is always running, do not enable compressor cycles.</p>
+      <br>
+      <h2><b>Old Appliances</b></h2>
+      <p>Modern appliances are much more efficient at saving electricity in comparison to older ones.</p>
+      <p>For example a modern refrigerator consumes around 500 kWh on an annual basis, whereas a Refrigerator
+        manufactured before 2001 can spend well over 800 kWh</p>
+    </ion-item>
+
+    <!-- <ion-item-divider color="secondary">
+
     </ion-item-divider>
-    <ion-item text-wrap no-lines color="background">
-      A constant monthly amount based on the capacity of breakers.
-      Each month, the company charges this amount due to meter reading,
-      meter maintenance and bill preparation.
-      You can check your fee from the official website of your electrcity company or from your bill
-    </ion-item>
+    <ion-item text-wrap no-lines color="background" text-justified>
+      <p>Some appliances such as Refrigerators, aren't always operating at their maximum wattage consumption,
+      and typically runs for an average of 9 hours per day even though it is switched on the entire time.</p><br>
+      <p>A refrigerator typically runs for an average of 9 hours per day even though it is switched on the entire time.</p>
+      <p>The compressor cycles option while adding an appliance can be enabled to take those calculations into account.
+      Compressor cycle durations can be effected by multiple factors, which can cause the displayed result to be slightly inaccurate.</p>
+      <br>
+      <p><b>Air Conditoner Options</b></p>
+      <p>While adding an appliance, there are two options for air conditioners in the compressor cycles drop down list.</p>
+      <p><b>Normal Cycles:</b> Select if the air conditoner usually runs for around 60-70% of the time</p>
+      <br>
+      <p><b>Long Cycles:</b> Select if the air conditoner run for longer durations than what is mentioned above.</p>
+      <br>
+      <p>In the case in which the air conditioner is always running, do not enable compressor cycles.</p>
+    </ion-item> -->
 
-    <ion-item-divider color="secondary">
-      Cost Per Kilowatt hour (kWh)
+    <!-- <ion-item-divider color="secondary">
+      Tariff Rate
     </ion-item-divider>
-    <ion-item text-wrap no-lines color="background">
-      The amount at which you are charged per kWh consumed in your country.
-    </ion-item>
+    <ion-item text-wrap no-lines color="background" text-justified>
 
-    <ion-item-divider color="secondary">
+    </ion-item> -->
+
+    <!-- <ion-item-divider color="secondary">
       Total kWh Consumed
     </ion-item-divider>
     <ion-item text-wrap no-lines color="background">
      ...
-    </ion-item>
+    </ion-item> -->
 
-    <ion-item-divider color="secondary">
-      Compressor Cycles
+    <!-- <ion-item-divider color="secondary">
+      Old Appliances
     </ion-item-divider>
-    <ion-item text-wrap no-lines color="background">
-      Some appliances, such as a Refrigerator aren't always operating at their maximum wattage Consumption,
-      thus, they end up consuming a lower ammount of wattage than what is displayed on their sticker.
-      The compressor cycles option while adding an appliance can be enabled to take those calculations into account.
-      Compressor cycle durations can be effected by multiple factors, which can cause the displayed result to be slightly inaccurate.
-    </ion-item>
-
-    <ion-item-divider color="secondary">
-      OLD APPLIANCES
-    </ion-item-divider>
-    <ion-item text-wrap no-lines color="background">
-    </ion-item>
+    <ion-item text-wrap no-lines color="background" text-justified>
+      <p>Modern appliances are much more efficient at saving electricity in comparison to older ones.</p>
+      <p>For example a modern refrigerator consumes around 500 kWh on an annual basis, whereas a Refrigerator
+        manufactured before 2001 can spend well over 800 kWh</p>
+    </ion-item> -->
   </ion-list>
 </ion-content>

@@ -15,10 +15,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="terms" placeholder="Search Saved Appliances List"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="terms" placeholder="Search Saved Appliance List"></ion-searchbar>
   <ion-list [hidden]="!terms">
     <ion-item *ngIf="listCategoryDevices == 0" color="background">
-      <p>Your Saved Appliances List Is Empty</p>
+      <p>Your Saved Appliance List Is Empty</p>
     </ion-item>
     <div *ngFor="let device of listCategoryDevices | search : terms; let i = index">
       <ion-item text-wrap (click)="onAutoFill(device)" color="background">
@@ -71,7 +71,7 @@
         <ion-row>
           <ion-col>
             <ion-item color="background" no-padding>
-              <ion-label floating>Hours Per Day</ion-label>
+              <ion-label floating>Hours Used Per Day</ion-label>
               <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
@@ -102,7 +102,8 @@
                 <ion-option value="0.55">Dishwasher</ion-option>
                 <ion-option value="0.87">Electric Dryer</ion-option>
                 <ion-option value="0.18">Freezer (upright)</ion-option>
-                <ion-option value="0.23">Refrigerator</ion-option>
+                <ion-option value="0.23">Refrigerator (modern)</ion-option>
+                <ion-option value="0.40">Refrigerator (2001-2010)</ion-option>
                 <ion-option value="0.20">Water Cooler</ion-option>
                 <ion-option value="0.28">Washing Machine (Cold Water)</ion-option>
               </ion-select>

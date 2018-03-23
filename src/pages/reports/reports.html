@@ -43,7 +43,7 @@
   </ion-slides>
 
   <ion-card>
-    <ion-searchbar [(ngModel)]="terms" placeholder="Search Appliance"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="terms" placeholder="Search Saved Appliance List"></ion-searchbar>
     <ion-list [hidden]="!terms">
       <ion-item *ngIf="listDevices == 0" color="background">
         <p>Your Appliances List Is Empty</p>
@@ -71,7 +71,7 @@
       </div>
     </ion-list>
 
-    <h2 text-center>Kilo-Reader</h2>
+    <h2 text-center>Appliance Calibrator</h2>
     <canvas #applianceDetails></canvas>
 
     <ion-list>
@@ -90,7 +90,7 @@
           </ion-col>
           <ion-col class="input-push">
             <ion-item>
-              <ion-label color="secondary">kWh</ion-label>
+              <ion-label color="secondary">Watts</ion-label>
               <ion-input type="number" clearOnEdit="true" placeholder="1000" (ionChange)="selectedAppliance()" [(ngModel)]="wattsRange"></ion-input>
             </ion-item>
           </ion-col>

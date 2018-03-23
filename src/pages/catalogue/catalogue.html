@@ -33,18 +33,18 @@
    <!-- AIR CONDITIONERS -->
    <ion-list *ngSwitchCase="'airCons'">
       <ion-card>
-        <ion-card-header><b>Central Air Conditioner (2.5 tons)</b></ion-card-header>
+        <ion-card-header><b>Central Air Conditioner 2.5 (30,000 BTU)</b></ion-card-header>
         <ion-card-content>
           3500 Watts
         </ion-card-content>
       </ion-card>
 
-      <ion-card>
+      <!-- <ion-card>
         <ion-card-header><b>Split Air Conditioner</b></ion-card-header>
         <p ion-item class="line">1 ton (12,000 BTU): 1142 Watts (average)</p>
         <p ion-item class="line">1.5 ton (18,000 BTU): 1650 Watts (average)</p>
         <p ion-item class="last">2 ton (24,000 BTU): 2000 Watts (average)</p>
-      </ion-card>
+      </ion-card> -->
 
       <ion-card>
         <ion-card-header><b>Split Air Conditoner 1 ton (12,000 BTU)</b></ion-card-header>
@@ -129,7 +129,7 @@
     <!-- KITCHEN -->
    <ion-list *ngSwitchCase="'kitchen'">
      <ion-item no-lines text-center text-wrap color="background">
-       <p color="danger"><b>Note</b></p><ion-note>The consumptions dislpayed here include compressor cycles where applicable</ion-note>
+       <p color="danger"><b>Note</b></p><ion-note>The Refrigerator wattage consumptions dislpayed here include compressor cycles</ion-note>
      </ion-item>
       <ion-card>
         <ion-card-header><b>18-19 Cubic-Foot Refrigerators</b></ion-card-header>
@@ -153,12 +153,25 @@
 
       <ion-card>
         <ion-card-header><b>25-28 Cubic-Foot Refrigerator</b></ion-card-header>
-         <p ion-item class="last">Side-by-Side: 76.6 Watts (average)</p>
+          <ion-card-content>
+            Side-by-Side: 76.6 Watts (average)
+          </ion-card-content>
       </ion-card>
 
       <ion-card>
         <ion-card-header><b>Dishwasher</b></ion-card-header>
-         <p ion-item class="last">740 Watts per use (average)</p>
+          <ion-card-content>
+            <p>740 Watts per use (average)</p>
+            <ion-note text-justified>The set timer, amount of load and set temperature are all factors which can affect the amount of conusmed wattage per use.
+            The stated average asumes a 1 hour long cycle, full load and cold water.</ion-note>
+          </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header><b>Electric Oven</b></ion-card-header>
+          <ion-card-content>
+            2350 Watts (average)
+          </ion-card-content>
       </ion-card>
 
       <ion-card>
@@ -169,17 +182,23 @@
 
       <ion-card>
         <ion-card-header><b>Kettle</b></ion-card-header>
-          <p ion-item class="last">1600 Watts (average)</p>
+          <ion-card-content>
+            1600 Watts (average)
+          </ion-card-content>
       </ion-card>
 
       <ion-card>
         <ion-card-header><b>Microwave</b></ion-card-header>
-         <p ion-item class="last">1050 Watts (average)</p>
+          <ion-card-content>
+            1050 Watts (average)
+          </ion-card-content>
       </ion-card>
 
       <ion-card>
         <ion-card-header><b>Toaster</b></ion-card-header>
-         <p ion-item class="last">1200 Watts (average)</p>
+          <ion-card-content>
+            1200 Watts (average)
+          </ion-card-content>
       </ion-card>
 
         <!-- <ion-item color="background">
@@ -243,17 +262,21 @@
    <ion-list *ngSwitchCase="'lighting'">
      <ion-card>
        <ion-card-header><b>Compact Fluorescent Lamps (CFL)</b></ion-card-header>
-        <p ion-item class="last">15/23/40/65 Watts</p>
-     </ion-card>
-
+         <ion-card-content>
+           15 Watts
+         </ion-card-content>
+      </ion-card>
      <ion-card>
        <ion-card-header><b>Incandescent Bulb</b></ion-card-header>
-        <p ion-item class="last">40/60 Watts</p>
+         <ion-card-content>
+           60 Watts
+         </ion-card-content>
      </ion-card>
-
      <ion-card>
        <ion-card-header><b>LED</b></ion-card-header>
-        <p ion-item class="last">4/8/20 Watts</p>
+         <ion-card-content>
+           12 Watts
+         </ion-card-content>
      </ion-card>
 
      <!-- <ion-item color="background">
@@ -274,11 +297,15 @@
     <ion-list *ngSwitchCase="'others'">
       <ion-card>
         <ion-card-header><b>Ceiling Fan</b></ion-card-header>
-         <p ion-item class="last">75 Watts (average)</p>
+          <ion-card-content>
+            75 Watts (average)
+          </ion-card-content>
       </ion-card>
       <ion-card>
         <ion-card-header><b>Clothes Iron</b></ion-card-header>
-         <p ion-item class="last">1457 Watts (average)</p>
+          <ion-card-content>
+            1457 Watts (average)
+          </ion-card-content>
       </ion-card>
       <ion-card>
         <ion-card-header><b>Room Heaters (Electric)</b></ion-card-header>
@@ -288,11 +315,15 @@
       </ion-card>
       <ion-card>
         <ion-card-header><b>Router</b></ion-card-header>
-         <p ion-item class="last">6 Watts</p>
+          <ion-card-content>
+            6 Watts
+          </ion-card-content>
       </ion-card>
       <ion-card>
         <ion-card-header><b>Vacuum Cleaner</b></ion-card-header>
-         <p ion-item class="last">1175 Watts (average)</p>
+          <ion-card-content>
+            1000 Watts (average)
+          </ion-card-content>
       </ion-card>
 
       <!-- <ion-item color="background">
@@ -324,12 +355,12 @@
     <ion-card>
       <ion-card-header><b>Desktop (Basic Usage/Browsing)</b></ion-card-header>
         <ion-card-content>
-          <p>90 Watts (average)</p>
-          <p>Including Monitor: 120 Watts</p>
+          <p>100 Watts (average)</p>
+          <p>Including Monitor: 130 Watts</p>
         </ion-card-content>
     </ion-card>
     <ion-card>
-      <ion-card-header><b>Desktop (Rendering, triple A games)</b></ion-card-header>
+      <ion-card-header><b>Desktop (Rendering, Gaming)</b></ion-card-header>
         <ion-card-content>
           <p>390 Watts (average)</p>
           <p>Including Monitor: 420 Watts</p>
@@ -389,7 +420,7 @@
      </ion-card>
      <ion-card>
        <ion-card-header><b>OLED TV</b></ion-card-header>
-        <p ion-item class="line">32″: 71 Watts</p>
+        <p ion-item class="line">32″: 57 Watts</p>
         <p ion-item class="line">43″: 77 Watts</p>
         <p ion-item class="line">50″: 89 Watts</p>
         <p ion-item class="line">55″: 98 Watts</p>
@@ -463,15 +494,17 @@
   <!-- WASHING -->
    <ion-list *ngSwitchCase="'washing'">
      <ion-item no-lines text-center text-wrap color="background">
-       <p><b>Note</b></p><ion-note>The consumptions dislpayed here include compressor cycles where applicable</ion-note>
+       <p><b>Note</b></p><ion-note>The wattage consumptions dislpayed here include compressor cycles</ion-note>
      </ion-item>
 
      <ion-card>
        <ion-card-header><b>Clothes Dryer (Electric)</b></ion-card-header>
-        <p ion-item class="last">3000 Watts (average)</p>
+         <ion-card-content>
+           3000 Watts (average)
+         </ion-card-content>
      </ion-card>
      <ion-card>
-       <ion-card-header><b>Clothes Dryer (Electric)</b></ion-card-header>
+       <ion-card-header><b>Washing Machine (Cold Water)</b></ion-card-header>
        <ion-card-content>
          <p>500 Watts per use (average)</p>
          <ion-note text-justified>The set timer, amount of load and set temperature are all factors which can affect the amount of conusmed wattage per use.

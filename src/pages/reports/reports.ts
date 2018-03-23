@@ -98,11 +98,14 @@ export class ReportsPage implements OnInit{
     }
 
     ionViewWillEnter() {
+      this.settingsService.getSettings();
+      this.listRates = this.settingsService.getRates();
       this.listMonths = this.dlService.getMonths();
       this.listDevices = this.dlService.getDevices();
 
       this.calculate();
       this.updateCharts();
+      console.log("Results Page");
     }
 
   calculate(){

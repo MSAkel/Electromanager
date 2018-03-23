@@ -27,6 +27,7 @@ export class SummaryPage implements OnInit{
   totalBill: number;
   check = 0;
   displayPower: number;
+  taxPercentage: number;
 
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
@@ -48,6 +49,7 @@ export class SummaryPage implements OnInit{
     this.settingsService.getSettings();
     this.listDevices = this.dlService.getDevices();
     this.listRates = this.settingsService.getRates();
+    this.taxPercentage = this.settingsService.getTax;
 
     this.calculate();
     this.consumptionTotalFunction();
@@ -102,7 +104,7 @@ export class SummaryPage implements OnInit{
      }
 
   capacityFunction() {
-      // console.log("flat rate: ", this.settingsService.getFlatRate)
+      // console.log("flat fee: ", this.settingsService.getFlatRate)
        this.capacity = this.settingsService.getFlatRate * 1;
        return this.capacity;
      }
