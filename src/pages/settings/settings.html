@@ -14,19 +14,19 @@
       <ion-list no-margin>
         <ion-row>
           <ion-col>
-            <ion-item color="background">
+            <ion-item color="background" no-padding>
               <!-- <ion-label color="primary" floating>Range</ion-label> -->
                <ion-input type="number" placeholder="kWh" formControlName="range"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item color="background">
+            <ion-item color="background" no-padding>
               <!-- <ion-label color="primary" floating>{{ 'SETTINGS.COST' | translate}}</ion-label> -->
               <ion-input type="number" placeholder="Cost" formControlName="cost"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
-            <button ion-button block item-end type="submit" color="secondary" [disabled]="!rateForm.valid" (click)='presentToast()'>Add</button>
+            <button ion-button block item-end type="submit" color="secondary" [disabled]="!rateForm.valid">Add</button>
           </ion-col>
         </ion-row>
       </ion-list>
@@ -39,11 +39,11 @@
       <p>Range (kWh)</p>
     </ion-col>
     <ion-col text-right padding-right>
-     <p>Cost</p>
+     <p>Cost/kWh</p>
     </ion-col>
   </ion-row>
   <ion-item color="background" *ngIf="listRates == 0">
-    <p > 1 -</p>
+    <p > 0 -</p>
   </ion-item>
 
   <ion-item  *ngFor="let rate of listRates; let i = index; let first = first; let last = last" color="background">
@@ -80,20 +80,20 @@
   </ion-list>
 
   <ion-item-divider color="secondary">
-    TAX AND FLAT RATE
+    TAX RATE AND FLAT FEE
   </ion-item-divider>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
       <ion-grid>
         <ion-row>
           <ion-item color="background">
-            <ion-label fixed>Tax Rate</ion-label>
+            <ion-label fixed>Tax Rate (%)</ion-label>
             <ion-input type="number" formControlName="tax"></ion-input>
           </ion-item>
         </ion-row>
 
         <ion-row>
           <ion-item color="background">
-            <ion-label fixed>Flat Rate</ion-label>
+            <ion-label fixed>Flat Fee</ion-label>
             <ion-input type="number" formControlName="flatRate"></ion-input>
           </ion-item>
         </ion-row>

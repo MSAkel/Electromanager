@@ -15,10 +15,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="terms" placeholder="Search Saved Appliances List"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="terms" placeholder="Search Saved Appliance List"></ion-searchbar>
   <ion-list [hidden]="!terms">
     <ion-item *ngIf="listCategoryDevices == 0" color="background">
-      <p>Your Saved Appliances List Is Empty</p>
+      <p>Your Saved Appliance List Is Empty</p>
     </ion-item>
     <div *ngFor="let device of listCategoryDevices | search : terms; let i = index">
       <ion-item text-wrap (click)="onAutoFill(device)" color="background">
@@ -46,7 +46,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-item color="background">
+            <ion-item color="background" no-padding>
               <ion-label floating>Appliance Name</ion-label>
               <ion-input type="text" formControlName="name"></ion-input>
             </ion-item>
@@ -55,13 +55,13 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item color="background">
+            <ion-item color="background" no-padding>
               <ion-label floating>Quantity</ion-label>
               <ion-input type="number" formControlName="quantity" clearOnEdit></ion-input>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item color="background">
+            <ion-item color="background" no-padding>
               <ion-label floating>Wattage</ion-label>
               <ion-input type="number" formControlName="power"></ion-input>
             </ion-item>
@@ -70,13 +70,13 @@
 
         <ion-row>
           <ion-col>
-            <ion-item color="background">
-              <ion-label floating>Hours Per Day</ion-label>
+            <ion-item color="background" no-padding>
+              <ion-label floating>Hours Used Per Day</ion-label>
               <ion-datetime formControlName="hours" pickerFormat="HH:mm"></ion-datetime>
             </ion-item>
           </ion-col>
           <ion-col>
-            <ion-item color="background">
+            <ion-item color="background" no-padding>
               <ion-label floating>Days Used Per Month</ion-label>
               <ion-select formControlName="daysUsed" interface="popover">
                 <ion-option *ngFor="let listDays of days" value="{{listDays.days}}">{{listDays.days}}</ion-option>
@@ -86,23 +86,24 @@
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item color="background" no-lines>
-              <ion-label>Enable Compressor Cycles</ion-label>
-              <ion-checkbox (click)="checked()"></ion-checkbox>
+            <ion-item color="background" no-lines no-padding>
+              <ion-label>Maximum Power Consumption</ion-label>
+              <ion-checkbox checked="true" (click)="checked()"></ion-checkbox>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row [hidden]="!check">
           <ion-col>
-            <ion-item color="background">
+            <ion-item color="background" no-padding>
               <ion-label floating>Appliance Type</ion-label>
               <ion-select formControlName="compressor">
-                <ion-option value="0.65">Air Conditioner (Average Cycle)</ion-option>
-                <ion-option value="0.84">Air Conditioner (Long Cycle)</ion-option>
+                <ion-option value="0.65">Air Conditioner (Normal Cycle)</ion-option>
+                <ion-option value="0.85">Air Conditioner (Long Cycle)</ion-option>
                 <ion-option value="0.55">Dishwasher</ion-option>
                 <ion-option value="0.87">Electric Dryer</ion-option>
                 <ion-option value="0.18">Freezer (upright)</ion-option>
-                <ion-option value="0.23">Refrigerator</ion-option>
+                <ion-option value="0.23">Refrigerator (modern)</ion-option>
+                <ion-option value="0.40">Refrigerator (2001-2010)</ion-option>
                 <ion-option value="0.20">Water Cooler</ion-option>
                 <ion-option value="0.28">Washing Machine (Cold Water)</ion-option>
               </ion-select>

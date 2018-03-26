@@ -41,16 +41,32 @@ export class SettingsPage implements OnInit{
     var rateRangeIncrement: number;
     console.log(this.listRates.length);
     if(this.listRates.length == 0) {
-      rateRangeIncrement = 1;
+      rateRangeIncrement = 0;
     } else {
-      let lastIndex = this.listRates.length - 1;
+      var lastIndex = this.listRates.length - 1;
        rateRangeIncrement = this.listRates[lastIndex].rateRange * 1 + 1;
     }
 
-    this.settingsService.addRate(value.range, rateRangeIncrement, value.cost);
+    if(value.range <= rateRangeIncrement)
+    {
+      let toast = this.toastCtrl.create({
+        message:"Input cannot be lower than highest kWh range",
+        duration: 2000
+      });
+      toast.present();
+    } else {
+
+    this.settingsService.addRate(parseInt(value.range), rateRangeIncrement, value.cost);
     this.listRates = this.settingsService.getRates();
     this.rateForm.reset();
     console.log(this.listRates);
+
+    let toast = this.toastCtrl.create({
+      message:"Settings Saved",
+      duration: 1000
+    });
+    toast.present();
+  }
   }
   onSubmit() {
     const value = this.settingsForm.value;
