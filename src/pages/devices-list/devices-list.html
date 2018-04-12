@@ -1,14 +1,66 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Devices List</ion-title>
+  <ion-navbar color="navbar">
+    <ion-buttons end>
+      <button color="light" ion-button icon-only clear (click)="onViewCatalogue()"><ion-icon name="bookmarks"></ion-icon></button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only clear menuToggle><ion-icon name="menu"></ion-icon></button>
+    </ion-buttons>
+    <ion-title>APPLIANCE LIST</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let device of listDevices; let i = index" (click)="onLoadDevice(device, i)">
-      <h3>Name:{{ device.name }}  Energy:{{ device.energy }}</h3>
-      <h2>hours/day: {{ device.hours }}  Total hours:{{ device.totalHours }}</h2>
+<ion-content (tap)="onScreenTap()">
+  <ion-grid *ngIf="listCategories == 0" class="vertical-align-content">
+    <ion-item text-wrap color="background" text-center>
+      <ion-note>At least one category is needed to add devices. Click the <b>'CREATE CATEGORY'</b> button below.</ion-note>
     </ion-item>
+  </ion-grid>
+
+  <ion-list class="list" *ngFor="let category of listCategories; let i = index">
+    <ion-item-sliding color="secondary">
+      <ion-item color="secondary" no-lines id="category-padding">
+        <h2 (click)="onSelectCategory(category, i)" [hidden]="name == category.name">{{ category.name }}</h2>
+        <div *ngIf="name == category.name">
+        <form [formGroup]="categoryEditForm" (ngSubmit)="onEditCategory()" [hidden]="!edit">
+            <ion-item no-lines no-padding no-margin color="secondary">
+                <ion-input autofocus id="edit" type="text" no-lines formControlName="name"></ion-input>
+            </ion-item>
+        </form>
+        </div>
+        <button color="light" ion-button icon-only clear item-end (click)="onAddAppliance(category)"><ion-icon name="add"></ion-icon></button>
+      </ion-item>
+      <ion-item-options side="{{slide}}">
+        <button ion-button color="danger" (click)="onDeleteCategory(i)"><ion-icon name="trash"></ion-icon>Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+   <div *ngFor="let device of listDevices; let i = index" class="item">
+    <ion-item-sliding *ngIf="device.category == category.name">
+      <ion-item (click)="onEdit(device, i)" text-wrap no-padding color="background">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4 text-justified>
+              <p>{{ device.name}} ({{ device.quantity }})</p>
+            </ion-col>
+            <ion-col text-left>
+              <p ><ion-icon name="flash"></ion-icon> {{ device.power }}</p>
+            </ion-col>
+            <ion-col text-left>
+              <p><ion-icon name="time" ios="ios-time-outline"></ion-icon> {{ device.hours }}</p>
+            </ion-col>
+            <ion-col>
+              <p><ion-icon name="calendar" ios="ios-calendar-outline"></ion-icon> {{ device.daysUsed }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options (ionSwipe)="onDelete(i)">
+        <button ion-button color="danger" expandable (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </div>
   </ion-list>
+  <ion-item text-right no-lines color="background">
+    <button text-right default ion-button color="secondary" (click)="displayWindow()">Create Category</button>
+  </ion-item>
 </ion-content>

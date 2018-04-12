@@ -1,0 +1,101 @@
+<ion-content class="slide-zoom" padding>
+  <ion-slides pager="true" paginationType="progress">
+
+    <ion-slide class="vertical-align-content">
+      <h1>Welcome to Electromanager!</h1>
+      <p>The following slides will serve as a quick guide for using the app.</p>
+      <p>Swipe to next slide.</p>
+    </ion-slide>
+
+    <!-- Category -->
+    <ion-slide>
+    <ion-item text-wrap color="background" no-lines>
+      <h2><b>Create Category</b></h2>
+      <p>Click on the Create Category button to create a new category.</p>
+    </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/category.gif"></ion-img>
+    </ion-slide>
+
+    <!-- Add appliance -->
+    <ion-slide>
+      <ion-item text-wrap color="background" no-lines>
+        <h2><b>Add Appliance</b></h2>
+        <p>Click on the <ion-icon name="add"></ion-icon> icon to add a new appliance to the category.</p>
+      </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/addAppliance.gif"></ion-img>
+    </ion-slide>
+
+    <!-- Edit and delete -->
+    <ion-slide>
+      <ion-item text-wrap color="background" no-lines>
+        <h2><b>Edit And Delete</b></h2>
+        <p>Click on a category name to edit its name.</p>
+        <p>Click on an appliance to edit its details.</p>
+        <p>Swipe to delete a category or appliance.</p>
+      </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/editDelete.gif"></ion-img>
+    </ion-slide>
+
+    <!-- Catalogue and Menu -->
+    <ion-slide>
+      <ion-item text-wrap color="background" no-lines>
+        <h2><b>Catalogue And Menu</b></h2>
+        <p>Click on <ion-icon name="bookmarks"></ion-icon> to open the catalogue page.</p>
+        <p>Click on <ion-icon name="menu"></ion-icon> to open the menu tab</p>
+      </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/catalogueMenu.gif"></ion-img>
+    </ion-slide>
+
+    <!-- Saved Appliances-->
+    <ion-slide>
+      <ion-item text-wrap color="background" no-lines>
+        <h2><b>Saved Appliances</b></h2>
+        <p>All added appliances are stored under the saved appliances page.</p>
+        <p>Appliances in the list can be edited on click and deleted on swipe.</p>
+        <p>Saved appliances can be used to automatically fill up appliance details.</p>
+      </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/savedList.gif"></ion-img>
+    </ion-slide>
+
+    <!-- Variable -->
+    <ion-slide>
+      <ion-item text-wrap color="background" no-lines>
+        <h2><b>Variable Power Consumption</b></h2>
+        <p>Enable the Variable Power Consumption option when adding an appliance which does not consume
+        a constant amount of power, then select the type of appliance you are adding
+        from the drop down menu which appears.</p>
+      </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/variable.gif"></ion-img>
+    </ion-slide>
+
+    <!-- Calibrator -->
+    <ion-slide>
+      <ion-item text-wrap color="background" no-lines>
+        <h2><b>Appliance Calibrator</b></h2>
+        <p>The appliance calibrator in the reports page can be used to get instant cost and kWh
+        consumption readings.</p>
+      </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/calibrator.gif"></ion-img>
+    </ion-slide>
+
+    <!-- Settings -->
+    <ion-slide>
+      <ion-item text-wrap color="background" no-lines>
+        <h2><b>Tariff, Tax And Flat Rate</b></h2>
+        <p>Input the kWh range and cost to add a new Tariff Rate range. Click on Clear List to delete
+         all entries.</p>
+         <p>Input your tax rate and electric bill flat fee to add them into the summary page bill calculation.</p>
+      </ion-item>
+      <ion-img width="280" height="500" src="./assets/imgs/settings.gif"></ion-img>
+    </ion-slide>
+
+    <ion-slide class="vertical-align-content">
+      <p>Make sure to check the help page for any further details.</p>
+      <h1>That's all!</h1>
+      <button ion-button small color="secondary" (click)="navHome()">
+        Get Started!
+      </button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

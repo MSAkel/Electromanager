@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>SETTINGS</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-item-divider color="secondary">
+    CONSUMPTION TARIFF
+  </ion-item-divider>
+  <form [formGroup]="rateForm" (ngSubmit)="onSubmitRate()">
+    <ion-grid>
+      <ion-list no-margin>
+        <ion-row>
+          <ion-col>
+            <ion-item color="background" no-padding>
+              <!-- <ion-label color="primary" floating>Range</ion-label> -->
+               <ion-input type="number" placeholder="kWh" formControlName="range"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item color="background" no-padding>
+              <!-- <ion-label color="primary" floating>{{ 'SETTINGS.COST' | translate}}</ion-label> -->
+              <ion-input type="number" placeholder="Cost" formControlName="cost"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <button ion-button block item-end type="submit" color="secondary" [disabled]="!rateForm.valid">Add</button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-grid>
+  </form>
+
+  <ion-list no-padding no-margin>
+  <ion-row id="tariff-border">
+    <ion-col padding-left>
+      <p>Range (kWh)</p>
+    </ion-col>
+    <ion-col text-right padding-right>
+     <p>Cost/kWh</p>
+    </ion-col>
+  </ion-row>
+  <ion-item color="background" *ngIf="listRates == 0">
+    <p > 0 -</p>
+  </ion-item>
+
+  <ion-item  *ngFor="let rate of listRates; let i = index; let first = first; let last = last" color="background">
+    <ion-row *ngIf="first">
+      <ion-col>
+        <p>{{rate.rateRangeIncrement}} - {{rate.rateRange}}</p>
+      </ion-col>
+      <ion-col text-right>
+        <p class="num">{{rate.rateCost}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!first && !last">
+      <ion-col>
+        <p>{{rate.rateRangeIncrement}} - {{rate.rateRange}}</p>
+      </ion-col>
+      <ion-col text-right>
+        <p class="num">{{rate.rateCost}}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="last && !first">
+      <ion-col>
+        <p>{{rate.rateRangeIncrement}} - {{rate.rateRange}}</p>
+      </ion-col>
+      <ion-col text-right>
+        <p class="num">{{rate.rateCost}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-item>
+  <ion-item color="background" no-margin no-lines>
+    <button color="danger" ion-button item-end (click)="onClear()">Clear List</button>
+  </ion-item>
+  </ion-list>
+
+  <ion-item-divider color="secondary">
+    TAX RATE AND FLAT FEE
+  </ion-item-divider>
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+      <ion-grid>
+        <ion-row>
+          <ion-item color="background">
+            <ion-label fixed>Tax Rate (%)</ion-label>
+            <ion-input type="number" formControlName="tax"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row>
+          <ion-item color="background">
+            <ion-label fixed>Flat Fee</ion-label>
+            <ion-input type="number" formControlName="flatRate"></ion-input>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+    <ion-item color="background" no-lines>
+      <button default ion-button type="submit" item-end color="secondary" (click)='presentToast()'>Save Settings</button>
+    </ion-item>
+  </form>
+</ion-content>

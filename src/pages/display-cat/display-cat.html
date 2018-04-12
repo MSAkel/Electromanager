@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <!-- <ion-buttons end>
+      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    </ion-buttons> -->
+      <ion-title>Saved Appliances</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <div *ngFor="let device of listDevicesCategory; let i = index">
+      <ion-item-sliding>
+        <ion-item (click)="onEdit(device, i)" color="background" text-wrap no-padding>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4 text-justified>
+                <p>{{ device.name}} ({{ device.quantity }})</p>
+              </ion-col>
+              <ion-col text-left>
+                <p ><ion-icon name="flash"></ion-icon> {{ device.power }}</p>
+              </ion-col>
+              <ion-col text-left>
+                <p><ion-icon name="time" ios="ios-time-outline"></ion-icon> {{ device.hours }}</p>
+              </ion-col>
+              <ion-col>
+                <p><ion-icon name="calendar" ios="ios-calendar-outline"></ion-icon> {{ device.daysUsed }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item-options side="{{slide}}" (ionSwipe)="onDelete(i)">
+          <button ion-button color="danger" (click)="onDelete(i)"><ion-icon name="trash"></ion-icon>Delete</button>
+        </ion-item-options>
+      </ion-item-sliding>
+      </div>
+    </ion-list>
+</ion-content>
