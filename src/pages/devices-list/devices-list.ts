@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ModalController, ToastController, AlertController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-//import { Storage } from '@ionic/storage';
 
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
@@ -40,7 +39,6 @@ export class DevicesListPage implements OnInit{
      private modalCtrl: ModalController,
      public toastCtrl: ToastController,
      public navParams: NavParams,
-     //public storage: Storage,
      public alertCtrl: AlertController,
      private settingsService: SettingsService) {}
 
@@ -100,7 +98,7 @@ export class DevicesListPage implements OnInit{
     this.listDevices = this.dlService.getDevices();
 
     const toast = this.toastCtrl.create({
-      message: 'Item Delete',
+      message: 'Appliance Delete',
       duration: 1500,
       position: 'bottom'
     });
@@ -144,8 +142,8 @@ export class DevicesListPage implements OnInit{
    onAddCategory() {
       this.dlService.addCategory(this.name.toUpperCase());
       const toast = this.toastCtrl.create({
-        message: 'Category Added Successfully',
-        duration: 1000,
+        message: 'Category Added',
+        duration: 1500,
         position: 'bottom'
     });
     toast.present();
@@ -170,10 +168,25 @@ export class DevicesListPage implements OnInit{
 
     const toast = this.toastCtrl.create({
       message: 'Category Deleted',
-      duration: 1000,
+      duration: 1500,
       position: 'bottom'
     });
     toast.present();
+  }
+
+  onScreenTap(){
+    if(this.edit){
+      this.name = null;
+      this.onEditCategory();
+    }
+  }
+
+  ionViewWillLeave()
+  {
+    if(this.edit){
+      this.name = null;
+      this.edit = false;
+    }
   }
 
   onSelectCategory(category: Category, index: number) {
@@ -212,12 +225,6 @@ export class DevicesListPage implements OnInit{
       }
       this.dlService.updateCategory(this.index, value.name.toUpperCase());
 
-      const toast = this.toastCtrl.create({
-        message: 'Edit Successful',
-        duration: 1500,
-        position: 'bottom'
-      });
-      toast.present();
     this.edit = false;
     this.listCategories = this.dlService.getCategories();
     this.listDevices = this.dlService.getDevices();

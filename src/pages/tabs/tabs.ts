@@ -26,9 +26,8 @@ export class TabsPage {
   ionViewDidLoad() {
     this.storage.get('intro-done').then(done => {
       if (!done) {
-        this.storage.set('intro-done', true);
         this.navCtrl.setRoot(TutorialPage);
-        this.settingsService.addRate(1000, 1, 0.18);
+        this.settingsService.addRate(1000, 0, 0.18);
       }
     });
   }

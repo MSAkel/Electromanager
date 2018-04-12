@@ -67,7 +67,14 @@ export class CreatePage implements OnInit {
     let hours = deviceCategory.hours;
     let daysUsed = deviceCategory.daysUsed;
     let category = deviceCategory.category;
+    let checkBox = false;
     let compressor = deviceCategory.compressor;
+
+    if(deviceCategory.compressor != 1)
+    {
+      this.check = true;
+      checkBox = true;
+    }
 
     this.deviceForm = new FormGroup({
       'name': new FormControl(name, Validators.required),
@@ -76,6 +83,7 @@ export class CreatePage implements OnInit {
       'hours': new FormControl(hours, Validators.required),
       'daysUsed': new FormControl(daysUsed),
       'category': new FormControl(category, Validators.required),
+      'checkBox': new FormControl(checkBox),
       'compressor': new FormControl(compressor)
     });
   }
@@ -99,6 +107,9 @@ export class CreatePage implements OnInit {
     const value = this.deviceForm.value;
 
     if (this.mode == 'Edit') {
+      if(value.checkBox == false){
+        value.compressor = 1;
+      }
       console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       this.dlService.updateDevice(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listDevices[this.index].category, value.compressor);
       const toast = this.toastCtrl.create({
@@ -108,6 +119,9 @@ export class CreatePage implements OnInit {
       });
       toast.present();
     } else if (this.mode == 'Category Edit') {
+      if(value.checkBox == false){
+        value.compressor = 1;
+      }
       console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       this.dlService.updateDeviceCategory(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       const toast = this.toastCtrl.create({
@@ -149,7 +163,7 @@ export class CreatePage implements OnInit {
        }
 
       const toast = this.toastCtrl.create({
-        message: 'Item Added Successfully',
+        message: 'Appliance Added',
         duration: 1000,
         position: 'bottom'
       });
@@ -167,6 +181,7 @@ export class CreatePage implements OnInit {
     let hours = null;
     let daysUsed = 31;
     let compressor = 1;
+    let checkBox = false;
 
     if(this.mode == 'Edit'){
       name = this.device.name;
@@ -175,6 +190,11 @@ export class CreatePage implements OnInit {
       hours = this.device.hours;
       daysUsed = this.device.daysUsed;
       compressor = this.device.compressor;
+      if(this.device.compressor != 1)
+      {
+        this.check = true;
+        checkBox = true;
+      }
     }
 
     if(this.mode == 'Category Edit'){
@@ -184,6 +204,11 @@ export class CreatePage implements OnInit {
       hours = this.categoryDevice.hours;
       daysUsed = this.categoryDevice.daysUsed;
       compressor = this.categoryDevice.compressor;
+      if(this.categoryDevice.compressor != 1)
+      {
+        this.check = true;
+        checkBox = true;
+      }
     }
 
     this.deviceForm = new FormGroup({
@@ -192,6 +217,7 @@ export class CreatePage implements OnInit {
       'power': new FormControl(power, Validators.required),
       'hours': new FormControl(hours, Validators.required),
       'daysUsed': new FormControl(daysUsed, Validators.required),
+      'checkBox': new FormControl(checkBox),
       'compressor': new FormControl(compressor)
     });
   }

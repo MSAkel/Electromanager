@@ -51,7 +51,7 @@ export class SettingsPage implements OnInit{
     {
       let toast = this.toastCtrl.create({
         message:"Input cannot be lower than highest kWh range",
-        duration: 2000
+        duration: 2500
       });
       toast.present();
     } else {
@@ -62,8 +62,8 @@ export class SettingsPage implements OnInit{
     console.log(this.listRates);
 
     let toast = this.toastCtrl.create({
-      message:"Settings Saved",
-      duration: 1000
+      message:"Tariff Added",
+      duration: 1500
     });
     toast.present();
   }
@@ -119,7 +119,7 @@ export class SettingsPage implements OnInit{
   presentToast() {
     let toast = this.toastCtrl.create({
       message:"Settings Saved",
-      duration: 1000
+      duration: 1500
     });
     toast.present();
   }
