@@ -209,7 +209,9 @@ export class DevicesListPage implements OnInit{
 
   onEditCategory() {
     const value = this.categoryEditForm.value;
-
+    if(value.name.length === 0) {
+      return;
+    }
       for(var index = 0; index < this.listDevices.length; index++) {
         if (this.listDevices[index].category == this.category.name) {
           this.dlService.updateDevice(index,
