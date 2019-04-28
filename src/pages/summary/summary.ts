@@ -4,6 +4,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
 
+import { CataloguePage } from "../catalogue/catalogue";
+
 import { Device } from "../../models/device";
 import { Rate } from "../../models/rate";
 import { parse, getMinutes, getHours } from 'date-fns';
@@ -117,5 +119,9 @@ export class SummaryPage implements OnInit{
   totalBillFunction(){
         this.totalBill = this.consumptionTotal + this.vat + this.capacity;
         return this.totalBill;
+     }
+
+     onViewCatalogue() {
+       this.navCtrl.push(CataloguePage);
      }
 }

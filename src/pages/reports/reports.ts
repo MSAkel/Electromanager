@@ -5,6 +5,8 @@ import { DeviceListService } from "../../services/devices-list";
 import { SettingsService } from "../../services/settings";
 import {format, parse, getMinutes, getHours} from 'date-fns'
 
+import { CataloguePage } from "../catalogue/catalogue";
+
 import { Device } from "../../models/device";
 import { Rate } from "../../models/rate";
 import { Month } from "../../models/month";
@@ -568,5 +570,9 @@ onClearSelected() {
       });
       this.costPerHour = [];
       this.kwPerHour = [];
+   }
+
+   onViewCatalogue() {
+     this.navCtrl.push(CataloguePage);
    }
 }
