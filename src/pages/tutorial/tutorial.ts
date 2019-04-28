@@ -1,7 +1,8 @@
-import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
+import { DevicesListPage } from "../devices-list/devices-list";
 
 @Component({
   selector: 'page-tutorial',
@@ -9,11 +10,15 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class TutorialPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+    // public storage: Storage
+   ) {}
 
   navHome() {
-    this.storage.set('intro-done', true);
-    this.navCtrl.setRoot(TabsPage);
+    //this.storage.set('intro-done', true);
+    //this.navCtrl.setRoot(TabsPage);
+    this.navCtrl.push(DevicesListPage);
   }
 }

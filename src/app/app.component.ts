@@ -7,6 +7,7 @@ import { NavController, MenuController } from 'ionic-angular';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { HelpPage } from '../pages/help/help';
+import { TutorialPage } from '../pages/tutorial/tutorial'
 import { DisplayCatPage } from '../pages/display-cat/display-cat';
 import { SettingsService } from "../services/settings";
 
@@ -14,11 +15,12 @@ import { SettingsService } from "../services/settings";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  //rootPage:any = TabsPage;
+  rootPage:any = TabsPage;
   tabsPage = TabsPage;
   settingsPage = SettingsPage;
   helpPage = HelpPage;
   displayCatPage = DisplayCatPage;
+  tutorialPage = TutorialPage;
   @ViewChild('nav') nav: NavController;
 
   constructor(private settingsService: SettingsService, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController) {
