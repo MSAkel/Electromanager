@@ -18,7 +18,6 @@ export class TutorialPage {
 
   navHome() {
     //this.storage.set('intro-done', true);
-    //this.navCtrl.setRoot(TabsPage);
-    this.navCtrl.push(DevicesListPage);
+    this.navCtrl.pop();
   }
 }
