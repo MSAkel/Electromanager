@@ -110,7 +110,7 @@ export class CreatePage implements OnInit {
       if(value.checkBox == false){
         value.compressor = 1;
       }
-      console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
+      //console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       this.dlService.updateDevice(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listDevices[this.index].category, value.compressor);
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
@@ -122,7 +122,7 @@ export class CreatePage implements OnInit {
       if(value.checkBox == false){
         value.compressor = 1;
       }
-      console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
+      //console.log(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       this.dlService.updateDeviceCategory(this.index, value.name.toUpperCase(), value.quantity, value.power, value.hours, value.daysUsed, this.listCategoryDevices[this.index].category, value.compressor);
       const toast = this.toastCtrl.create({
         message: 'Edit Successful',
