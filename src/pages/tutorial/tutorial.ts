@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 //import { TabsPage } from '../tabs/tabs';
-import { DevicesListPage } from "../devices-list/devices-list";
+//import { DevicesListPage } from "../devices-list/devices-list";
 
 @Component({
   selector: 'page-tutorial',

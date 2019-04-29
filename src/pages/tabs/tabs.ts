@@ -1,4 +1,4 @@
-//import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 //import { NavController } from 'ionic-angular';
 
@@ -20,16 +20,17 @@ export class TabsPage {
 
   constructor(
     //private navCtrl: NavController,
-    private settingsService: SettingsService
-    //public storage: Storage
+    private settingsService: SettingsService,
+    public storage: Storage
   ) {}
 
   ionViewDidLoad() {
-  //  this.storage.get('intro-done').then(done => {
-    //  if (!done) {
+    this.storage.get('intro-done').then(done => {
+      if (!done) {
+        this.storage.set('intro-done', true);
       //this.navCtrl.setRoot(TutorialPage);
         this.settingsService.addRate(1000, 0, 0.18);
-    //  }
-    //});
+      }
+    });
   }
 }

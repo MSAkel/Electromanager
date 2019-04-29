@@ -10,6 +10,11 @@
   </ion-navbar>
 </ion-header>
 <ion-content (tap)="onScreenTap()">
+  <ion-grid *ngIf="listCategories == 0" class="first-time">
+    <ion-item text-wrap no-lines color="background" text-center>
+      <ion-note>First time user? <br>Make sure to check the tutorial and adjust the settings in the menu tab.</ion-note>
+    </ion-item>
+  </ion-grid>
   <ion-grid *ngIf="listCategories == 0" class="vertical-align-content">
     <ion-item text-wrap color="background" text-center>
       <ion-note>At least one category is needed to add devices. Click the <b>'CREATE CATEGORY'</b> button below.</ion-note>

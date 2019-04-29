@@ -124,7 +124,7 @@ export class ReportsPage implements OnInit{
       this.monthlyCost = [];
       //console.log("first: ",this.monthlyPower);
     }
-    if(this.listDevices.length !== 0){
+    if(this.listRates.length !== 0){
     for(let index in this.listDevices) {
       let getTime = parse('0000-00-00T' + this.listDevices[index].hours + '00');
       let mins = getMinutes(new Date(getTime));
